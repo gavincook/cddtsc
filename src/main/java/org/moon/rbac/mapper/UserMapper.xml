@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.moon.rbac.repository.UserRepository">
+	<select id="login" resultType="Long" parameterType="org.moon.rbac.domain.User">
+		select id 
+		from tab_user
+		where (userName=#{user.userName} OR phoneNumber=#{user.userName}) and
+		      password=#{user.password}
+	</select>
+
+	<update id="assign" parameterType="Map">
+		update tab_user set roleId = #{rid} where id = #{uid}
+	</update>
+
+	<select id="getUsersByCreator" resultType="Long" parameterType="Map">
+		select id from tab_user where createBy = #{uid} and
+		<if test="deleteFlag==null">
+			deleteFlag is null
+		</if>
+		<if test="deleteFlag!=null">
+            deleteFlag = #{deleteFlag}
+		</if>
+		<if test="orderBy">
+			order by ${orderBy}
+		</if>
+		limit ${curcount},${ps}
+	</select>
+
+	<select id="getUsersByCreatorCount" resultType="Integer"
+		parameterType="Map">
+		select count(*)from tab_user where createBy = #{uid} and
+		<if test="deleteFlag==null">
+            deleteFlag is null
+		</if>
+		<if test="deleteFlag!=null">
+            deleteFlag = #{deleteFlag}
+		</if>
+	</select>
+
+	<insert id="addUser" parameterType="org.moon.rbac.domain.User"
+		useGeneratedKeys="true" keyProperty="user.id" keyColumn="id">
+		insert tab_user(userName,password,realName,createBy,deleteFlag,createTime)
+		values(
+			#{user.userName},#{user.password},#{user.realName},#{user.createBy},false,now()
+		)
+
+	</insert>
+
+	<update id="updateUser" parameterType="org.moon.rbac.domain.User">
+		update tab_user set
+		userName=#{user.userName},password=#{user.password},
+		realName=#{user.realName},deleteFlag = #{user.deleteFlag} where
+		id=#{user.id}
+	</update>
+
+	<delete id="deleteUser">
+		delete from tab_user where id in (-1,
+		<foreach collection="ids" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
+	</delete>
+
+	<update id="logicDeleteUser">
+		update tab_user set deleteFlag = true where id in (-1,
+		<foreach collection="ids" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
+	</update>
+
+	<select id="isUserNameExists" resultType="Boolean">
+		select count(*)>0 from tab_user where userName=#{userName}
+	</select>
+
+    <select id="listWithRole" resultType="CamelbakKeyResultMap">
+        SELECT u.id,u.userName,u.realName,u.active,u.createTime,u.avatar,r.roleName
+        FROM tab_user u
+        LEFT JOIN tab_role r
+        ON u.roleId = r.id
+        where
+        <if test="deleteFlag == null">
+            u.deleteFlag = false
+        </if>
+        <if test="deleteFlag != null">
+            u.deleteFlag = #{deleteFlag}
+        </if>
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="listWithRole_count" resultType="Integer">
+        select count(u.id) from tab_user u
+        where
+        <if test="deleteFlag == null">
+            u.deleteFlag = false
+        </if>
+        <if test="deleteFlag != null">
+            u.deleteFlag = #{deleteFlag}
+        </if>
+    </select>
+
+	<resultMap type="org.moon.rbac.domain.User" id="user">
+
+	</resultMap>
+</mapper>

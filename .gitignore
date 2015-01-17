@@ -1,0 +1,18 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/target
+/WebContent/WEB-INF/classes
+/.settings/*
+/bin
+/target
+/.classpath
+/.project
+/.settings
+/.idea
+/*.iml
+/cddtsc.*
+/out

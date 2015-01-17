@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.moon.rbac.repository.RoleRepository">
+
+	<update id="assign" parameterType="Map">
+		UPDATE tab_user 
+		SET roleId = #{rid}
+		WHERE id = #{uid}
+	</update>
+
+	<select id="getSubRoles" resultType="CamelbakKeyResultMap">
+		SELECT *
+		FROM tab_role 
+		WHERE parentId
+		<if test="rid==null">is null</if>
+		<if test="rid!=null">= #{rid}</if>
+		AND deleteFlag = false
+	</select>
+
+	<select id="hasPermission" resultType="Boolean">
+		SELECT COUNT(*) 
+		FROM tab_role_permission trp
+		JOIN tab_permission tp 
+		ON trp.permissionId = tp.id AND tp.code=#{code} AND trp.roleId=#{rid}
+	</select>
+	
+	<select id="hasMenu" resultType="Boolean">
+		SELECT COUNT(*) 
+		FROM tab_role_Menu trm
+		JOIN tab_menu tm 
+		ON trm.menuId = tm.id	AND	tm.code=#{code} AND trm.roleId=#{rid}
+	</select>
+
+    <select id="getRolesWithStatusForPermission" resultType="CamelbakKeyResultMap">
+        SELECT tr.*,
+         CASE WHEN trp.roleId IS NULL THEN FALSE ELSE TRUE END AS checked
+        FROM tab_role tr
+        LEFT JOIN tab_role_permission trp
+        ON tr.id = trp.roleId
+        AND trp.permissionId = #{pid}
+        WHERE
+            <if test="rid==null">tr.parentId is null</if>
+            <if test="rid!=null">tr.parentId=#{rid} </if>
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+      
+      <!-- 参考文档  http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle -->
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+  	<mvc:annotation-driven >
+	  	<mvc:argument-resolvers>
+	        <bean class="org.moon.core.spring.FormMethodArgumentResolver"/>
+	         <bean class="org.moon.core.spring.WebUserArgumentResolver"/>
+	    </mvc:argument-resolvers>
+	</mvc:annotation-driven>  
+	<!-- 
+	    mvc:annotation-driven 
+	      3.2 之前              相当于注册了DefaultAnnotationHandlerMapping 和 AnnotationMethodHandlerAdapter两个bean 
+	      3.2及之后               相当于注册了RequestMappingHandlerMapping 和 RequestMappingHandlerAdapter两个bean
+	-->
+	
+	<!-- 开启rest 注解 -->
+	<bean class="org.moon.rest.handler.RestAnnotationHandler"/>	
+	
+	<bean class="org.moon.core.init.TableCreator"/>
+	<bean class="org.moon.core.init.Initializer"/>
+	<bean class="org.moon.core.init.DomainAnnotationScanner"/>
+	
+	 <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        <property name="prefix" value="/WEB-INF/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+	<mvc:resources mapping="*.html" location="/" />
+	<mvc:default-servlet-handler />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:defaultEncoding="utf-8" />
+		
+	<bean id="introduceCreator" class="com.reeham.component.ddd.autoproxy.IntroduceAutoProxyCreator">
+	  <property name="optimize" value="true"></property>
+	  <property name="frozen" value="true"></property>
+	</bean>
+ 	<bean id="autoProxyCreator" class="org.moon.core.spring.AutoProxyCreator">
+	   <property name="optimize" value="true"></property>
+	   <property name="frozen" value="true"></property>
+	</bean> 
+<context:component-scan base-package="com.reeham" />
+<context:component-scan base-package="org.moon" use-default-filters="true" >
+<context:include-filter type="custom" expression="org.moon.core.spring.DomainTypeFilter"/>
+</context:component-scan>
+</beans>

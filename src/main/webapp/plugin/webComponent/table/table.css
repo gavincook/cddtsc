@@ -1,0 +1,182 @@
+.datagrid{
+	position:relative;
+	height: 100%;
+    clear: both;
+}
+.datagrid>.table-title{
+  background: #F1F1F1;
+  height: 43px;
+  font-weight: bold;
+  line-height: 43px;
+  font-size: 20px;
+  padding-left: 10px;
+}
+.datagrid .table-container>table{
+	margin-bottom: 0px;
+}
+
+.datagrid th.number{
+	width:45px;
+}
+
+.datagrid>table>thead th [class^="icon-"]{
+	float: right;
+	font-size: 20px;
+	color: #8D8989;
+}
+
+.datagrid>table>thead th .transparent{
+	opacity:0;
+}
+
+ 
+.datagrid>table>thead th.sort-column{
+	cursor:pointer;
+}
+
+.datagrid>table>tbody td.number{
+	text-align:center;
+}
+
+.datagrid>.grid-pagination{
+	padding: 5px;
+}
+.datagrid>.grid-pagination .data-info{
+	display:inline;
+	float:right;
+	line-height: 30px;
+}
+
+.datagrid>.grid-pagination .input-small{
+	width: 30px;
+	margin-bottom:0;
+	border-width:1px;
+	border-color:rgb(204, 204, 204);
+}
+
+.datagrid>.grid-pagination .input-small:focus{
+		border-color: rgba(82,168,236,0.8);
+}
+
+.datagrid i.icon-prev{
+	-moz-transform:scaleX(-1);
+	-webkit-transform:scaleX(-1);
+	-o-transform:scaleX(-1);
+	transform:scaleX(-1);
+	/*IE*/
+	filter:FlipH;
+	display: inline-block;
+}
+
+.datagrid .table-bordered{
+	 border-bottom-left-radius: 0px;
+	 border-bottom-right-radius:0px;
+}
+.datagrid .table-bordered tbody:last-child tr:last-child>td:first-child{
+	 border-bottom-left-radius: 0px;
+}
+.grid-pagination{
+  background: #ECECEC;
+	border: 1px solid #ddd;
+	border-top:none;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius:4px;
+}
+
+.grid-pagination .split{
+	border-left: 1px solid #D8D4D4;
+	display: inline;
+	padding: 5px 0;
+	margin: 0 5px;
+}
+
+.pagination-btn{
+	cursor:pointer;
+	padding: 0 5px;
+}
+.pagination-btn:hover{
+	color:#4183c4;
+}
+.datagrid .modal-backdrop{
+  position: absolute;
+  top: 36px;
+  left: 0px;
+  bottom: 38px;
+  right: 0;
+  background: #F8F9FA;
+  text-align:center;
+}
+.datagrid .modal-backdrop span{
+	position: absolute;
+	top: 50%;
+	margin-top: -22px;
+	border: 2px solid #5C9BFA;
+	padding: 10px;
+	left: 50%;
+	margin-left: -55px;
+	border-radius: 4px;
+}
+
+.datagrid .modal-backdrop span i{
+	margin-right:10px;
+}
+
+.datagrid .table-hover tr:hover>td{
+	background: #e9f3fd;
+}
+
+.datagrid .table-hover tr.selected>td{
+	background: #dfeefc;
+}
+
+.datagrid .table tr>th.select-box{
+	width:15px;
+}
+
+.datagrid .button-group{
+  float:right;
+}
+
+.datagrid .button-group button{
+  line-height: 29px;
+}
+
+.datagrid .drag-area{
+	position: absolute;
+	border: 1px dashed #91B4F1;
+	background:rgba(185, 213, 241, 0.7);
+}
+
+.datagrid .drag-area.hide{
+	display:none;
+}
+
+.datagrid .space{
+	width:18px;
+	height:2px;
+	float:left;
+}
+
+.datagrid .tree-icon{
+	color: #3B7DE4;
+	font-size: 12px;
+	margin:0 3px;
+    cursor: pointer;
+}
+/**
+ *   固定布局
+ */
+.datagrid.fixed-layout .grid-pagination{
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    box-sizing: border-box;
+}
+
+.datagrid.fixed-layout .table-container{
+  position: absolute;
+  width: 100%;
+  bottom: 41px;
+  top: 43px;
+  overflow-y: auto;
+}
