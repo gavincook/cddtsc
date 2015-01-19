@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomatorun.repository.DTUserRepository">
+    <select id="list" resultType="HashMap">
+        SELECT * from tab_user
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="list_count" resultType="Integer">
+        SELECT count(id) from tab_user;
+    </select>
+
+    <update id="update">
+        update tab_user set /*** todo ***/
+    </update>
+
+    <delete id="delete">
+        delete from tab_user where id in (${ids});
+    </delete>
+
+    <select id="get" resultType="HashMap">
+        select * from tab_user where id = #{id};
+    </select>
+
+    <insert id="add">
+        insert  into tab_user(userName,realName,password) values(#{userName},#{realName},#{password});
+    </insert>
+
+</mapper>

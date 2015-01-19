@@ -52,6 +52,7 @@
 	   <property name="frozen" value="true"></property>
 	</bean> 
 <context:component-scan base-package="com.reeham" />
+	<context:component-scan base-package="com.tomatorun" />
 <context:component-scan base-package="org.moon" use-default-filters="true" >
 <context:include-filter type="custom" expression="org.moon.core.spring.DomainTypeFilter"/>
 </context:component-scan>

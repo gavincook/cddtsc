@@ -52,10 +52,41 @@
   		<name>code</name>
   		<required>true</required>
   	</attribute>
+    <attribute>
+        <description>表单名字</description>
+        <name>name</name>
+        <required>false</required>
+     </attribute>
   	<attribute>
   		<description>下拉框样式</description>
   		<name>css</name>
   		<required>false</required>
   	</attribute>
+    <attribute>
+      <description>默认选择的值</description>
+      <name>defaultVal</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <description>默认选择的显示值</description>
+      <name>defaultText</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+    <attribute>
+        <description>额外下拉数据项</description>
+        <name>extraData</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <description>额外下拉数据项追加方式</description>
+      <name>append</name>
+      <required>false</required>
+    </attribute>
   </tag>
 </taglib>

@@ -48,8 +48,8 @@ public class UserAction extends BaseAction{
 		 return new ModelAndView("pages/login","from",from);
 	}
 	 
-	 @Get("")
-	 @MenuMapping(url="/user",name="用户列表",code="platform_1",parentCode="platform")
+	 @Get("/~")
+	 @MenuMapping(url="/user/~",name="用户列表",code="platform_1",parentCode="platform")
 	 @PermissionMapping(code="000008",name="用户列表")
 	 public ModelAndView userList(HttpServletRequest request){
 		 return new ModelAndView("pages/rbac/userList");
