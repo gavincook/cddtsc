@@ -40,4 +40,14 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
     public void add(Map<String, Object> params) {
         dTUserRepository.add(params);
     }
+
+    @Override
+    public void register(Map<String, Object> params) {
+        dTUserRepository.register(params);
+    }
+
+    @Override
+    public boolean isUserRegistered(String userName) {
+        return dTUserRepository.isUserRegistered(userName);
+    }
 }

@@ -26,4 +26,12 @@
         insert  into tab_user(userName,realName,password) values(#{userName},#{realName},#{password});
     </insert>
 
+    <insert id="register">
+        insert into tab_user(userName,password,realName,active,sex,IDNumber,avatar,type)
+        values(#{userName},#{password},#{realName},#{active},#{sex},#{IDNumber},#{avatar},#{type});
+    </insert>
+
+    <select id="isUserRegistered" resultType="Boolean">
+        select count(*)>0 from tab_user where userName = #{userName}
+    </select>
 </mapper>

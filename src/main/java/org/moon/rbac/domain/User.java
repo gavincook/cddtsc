@@ -80,6 +80,7 @@ public class User extends BaseDomain{
 
     private String avatar;
 
+	private int type;
     /**
 	 * 密码是否加密
 	 */
@@ -304,5 +305,14 @@ public class User extends BaseDomain{
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
     /******************** /setter/getter  ********************/
 }
