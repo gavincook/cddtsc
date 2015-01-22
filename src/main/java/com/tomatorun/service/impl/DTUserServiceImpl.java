@@ -1,9 +1,12 @@
 package com.tomatorun.service.impl;
 
+import com.reeham.component.ddd.model.ModelContainer;
+import com.reeham.component.ddd.model.ModelUtils;
 import com.tomatorun.repository.DTUserRepository;
 import com.tomatorun.service.DTUserService;
 import org.moon.base.service.AbstractService;
 import org.moon.pagination.Pager;
+import org.moon.rbac.domain.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +18,9 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
 
     @Resource
     private DTUserRepository dTUserRepository;
+
+    @Resource
+    private ModelContainer modelContainer;
 
     @Override
     public Map<String, Object> get(Map<String,Object> params) {
@@ -49,5 +55,11 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
     @Override
     public boolean isUserRegistered(String userName) {
         return dTUserRepository.isUserRegistered(userName);
+    }
+
+    @Override
+    public void activeUser(Long id) {
+        modelContainer.removeModel(ModelUtils.asModelKey(User.class,id));
+        dTUserRepository.activeUser(id);
     }
 }

@@ -157,4 +157,16 @@ public class DTUserAction {
     public WebResponse checkUserName(@RequestParam("userName")String userName){
         return WebResponse.build().setSuccess(dTUserService.isUserRegistered(userName));
     }
+
+    /**
+     * 激活用户
+     * @param userId
+     * @return
+     */
+    @Post("/active")
+    @ResponseBody
+    public WebResponse activeUser(@RequestParam("userId")Long userId){
+        dTUserService.activeUser(userId);
+        return WebResponse.build();
+    }
 }

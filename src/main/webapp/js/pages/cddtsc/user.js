@@ -6,12 +6,20 @@
         table = $("#userTable").table({
             url:contextPath+(isMemberPage?"/user/member/list":"/user/list"),
             columns:[{name:"userName",display:"手机号"},
-                     {name:"realName",display:"真实姓名"}
+                     {name:"realName",display:"真实姓名"},
+                     {display:"操作",render:function(rowData){
+                         var opts = "<div class='opts'>";
+                         if(rowData.active === false){
+                             opts += "<a href='#' class='active-user'><i class='fa  fa-check-square-o'></i>激活 </a>";
+                         }
+                         opts += "</div>";
+                         return opts;
+                     }}
             ],
             formatData:function(data){return data.result;},
             title:isMemberPage?"会员列表" : "用户管理",
-            rowId:"id",
-            buttons:[
+            rowId:"id"//,
+/*            buttons:[
                 {
                     text:"增加会员管理",
                     click:btnHandler,
@@ -27,9 +35,22 @@
                     click:btnHandler,
                     name:'deleteBtn'
                 }
-            ]
+            ]*/
         });
 
+        //激活用户
+        $(document).on("click",".active-user",function(e){
+            var $tr = $(e.target).closest("tr");
+            var rowData = table.getRowData($tr);
+            $.getJsonData(contextPath+"/user/active",{userId:rowData.id},{type:"Post"}).done(function(d){
+                if(d.success){
+                    moon.success("用户激活成功");
+                    $tr.find(".active-user").remove();
+                }else{
+                    moon.error("用户激活失败");
+                }
+            });
+        });
     });
 
     function btnHandler(btnTest){

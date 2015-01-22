@@ -52,4 +52,11 @@ public interface DTUserService extends BaseService {
      * @return
      */
     public boolean isUserRegistered(String userName);
+
+    /**
+     * 激活用户
+     * @param id
+     */
+    public void activeUser(Long id);
+
 }

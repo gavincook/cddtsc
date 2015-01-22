@@ -54,4 +54,12 @@ public interface DTUserRepository {
      * @return
      */
     public boolean isUserRegistered(@Param("userName") String userName);
+
+    /**
+     * 激活用户
+     * @param id
+     */
+    public void activeUser(@Param("id") Long id);
+
+
 }

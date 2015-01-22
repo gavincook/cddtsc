@@ -48,4 +48,9 @@
     <select id="isUserRegistered" resultType="Boolean">
         select count(*)>0 from tab_user where userName = #{userName}
     </select>
+
+    <update id="activeUser">
+        update tab_user set active = true where id = #{id}
+    </update>
+
 </mapper>
