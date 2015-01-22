@@ -41,15 +41,54 @@ public class DTUserAction {
 
 
     @Get("")
-    @MenuMapping(name = "会员管理", url = "/user",code = "dt_user",parentCode = "dt")
-    public ModelAndView showPage(){
+    @MenuMapping(name = "用户管理", url = "/user",code = "dt_user",parentCode = "dt")
+    public ModelAndView showUserPage(){
         return new ModelAndView("pages/cddtsc/user");
     }
 
+    @Get("/member")
+    @MenuMapping(name = "会员管理", url = "/user/member",code = "dt_member",parentCode = "dt")
+    public ModelAndView showMemberPage(){
+        return new ModelAndView("pages/cddtsc/user","memberPage",true);
+    }
+    /**
+     * 获取会员列表
+     * @param request
+     * @param user
+     * @return
+     */
+    @Get("/member/list")
+    @ResponseBody
+    public WebResponse listMembers(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        int userType = user.getType();
+        if(userType == managerUserType){//只能管理员查看
+            params.put("type",memberUserType);
+        }else{
+            return WebResponse.build().setPermission(false);
+        }
+
+        return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
+    }
+
+    /**
+     * 获取审核列表，管理员获取小组长列表，小组长获取该小组的组员
+     * @param request
+     * @param user
+     * @return
+     */
     @Get("/list")
     @ResponseBody
     public WebResponse list(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        int userType = user.getType();
+        if(userType == memberUserType || userType == associatorUserType){
+            params.put("type",null);
+        }else if(userType == groupLeaderUserType){//小组长查看社员
+            params.put("type",associatorUserType);
+        }else if(userType == managerUserType){//管理员查看小组长
+            params.put("type",groupLeaderUserType);
+        }
         return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
     }
 

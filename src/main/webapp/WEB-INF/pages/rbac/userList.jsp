@@ -39,6 +39,12 @@
    	    <input type="text"  class="form-control"  name="user.realName" validate="validate[required]"/>
      </div>
   </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">用户类型:</label>
+        <div class="col-sm-10">
+            <m:dicSelect code="userTypeAdmin" css="form-control" name="user.type"></m:dicSelect>
+        </div>
+    </div>
 </form>
 
      <!-- 角色分配 -->

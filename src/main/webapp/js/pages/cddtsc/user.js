@@ -4,12 +4,12 @@
     var table;
     $(function(){
         table = $("#userTable").table({
-            url:contextPath+"/user/list",
-            columns:[{name:"phoneNumber",display:"手机号"},
+            url:contextPath+(isMemberPage?"/user/member/list":"/user/list"),
+            columns:[{name:"userName",display:"手机号"},
                      {name:"realName",display:"真实姓名"}
             ],
             formatData:function(data){return data.result;},
-            title:"会员管理列表",
+            title:isMemberPage?"会员列表" : "用户管理",
             rowId:"id",
             buttons:[
                 {

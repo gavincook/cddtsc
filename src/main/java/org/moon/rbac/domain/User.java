@@ -76,8 +76,6 @@ public class User extends BaseDomain{
 	 */
 	private String contact;
 
-    private String phoneNumber;
-
     private String avatar;
 
 	private int type;
@@ -123,9 +121,9 @@ public class User extends BaseDomain{
 			m.put("roleName", getRole().getRoleName());
 		}
 		m.put("realName", realName);
-        m.put("phoneNumber",phoneNumber);
         m.put("avatar",avatar);
         m.put("sex",sex);
+		m.put("type",type);
 		return m;
 	}
 	
@@ -289,14 +287,6 @@ public class User extends BaseDomain{
 	public void setCreateBy(Long createBy) {
 		this.createBy = createBy;
 	}
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getAvatar() {
         return avatar;

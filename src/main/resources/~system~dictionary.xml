@@ -10,4 +10,12 @@
         <item code="1" name="社员"></item>
         <item code="2" name="小组长"></item>
     </dictionary>
+
+    <!--后台使用用户类型字典-->
+    <dictionary code="userTypeAdmin" name="用户类型">
+        <item code="0" name="普通会员"></item>
+        <item code="1" name="社员"></item>
+        <item code="2" name="小组长"></item>
+        <item code="3" name="管理员"></item>
+    </dictionary>
 </dictionaries>

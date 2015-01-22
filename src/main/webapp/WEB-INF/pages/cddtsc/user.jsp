@@ -5,8 +5,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript">
+        var isMemberPage = "${memberPage}" == "true";/*是否是会员页面*/
+    </script>
     <m:require src="jquery,common,ev,ac,handlebars,webuploader,bootstrap,table,dialog,noty,font,{cddtsc/user}"></m:require>
     <title>会员管理</title>
+
 </head>
 <body style="margin:0;">
 
