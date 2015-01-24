@@ -42,6 +42,9 @@ public class DTUserAction {
     @Config("userType.manager")
     private int managerUserType;
 
+    @Config("userType.supplier")
+    private int supplierUserType;
+
     @Config("attachment.user")
     private int attachmentType;
 
@@ -134,13 +137,13 @@ public class DTUserAction {
      * @param request
      * @param userName 手机号
      * @param realName 真实姓名
-     * @param sex 性别
+     * @param sex 性别 可选值为字典代码sex对应
      * @param IDNumber 身份证号
      * @param avatar [可选]头像
      * @param contact [可选]第二联系方式
      * @param attachments [可选]附件,可用于身份照上传,可多个,数组方式传递,需要对路径进行UTF-8编码
      * @param password 密码
-     * @param type
+     * @param type 为userType的几种可选
      * @return
      */
     @Post("/register")
@@ -159,8 +162,8 @@ public class DTUserAction {
         params.put("password", MD5.getCryptographicPassword(password));//加密
 
         if(Objects.isNull(type) ||
-            (type != memberUserType && type != associatorUserType&&
-             type == groupLeaderUserType && type == managerUserType)){
+            (type != memberUserType && type != supplierUserType&&
+             type != groupLeaderUserType )){//只允许会员、小组长、供应商注册
             return WebResponse.build().setSuccess(false).setResult("用户类型非法");
         }else if(type == memberUserType){//会员默认激活
             params.put("active",true);
