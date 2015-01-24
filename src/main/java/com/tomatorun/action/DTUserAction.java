@@ -1,6 +1,7 @@
 package com.tomatorun.action;
 
 import com.tomatorun.repository.DTUserRepository;
+import com.tomatorun.service.AttachmentService;
 import com.tomatorun.service.DTUserService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 @Controller
@@ -39,6 +42,11 @@ public class DTUserAction {
     @Config("userType.manager")
     private int managerUserType;
 
+    @Config("attachment.user")
+    private int attachmentType;
+
+    @Resource
+    private AttachmentService attachmentService;
 
     @Get("")
     @MenuMapping(name = "用户管理", url = "/user",code = "dt_user",parentCode = "dt")
@@ -128,8 +136,9 @@ public class DTUserAction {
      * @param realName 真实姓名
      * @param sex 性别
      * @param IDNumber 身份证号
-     * @param avatar 头像
-     * @param contact 第二联系方式
+     * @param avatar [可选]头像
+     * @param contact [可选]第二联系方式
+     * @param attachments [可选]附件,可用于身份照上传,可多个,数组方式传递,需要对路径进行UTF-8编码
      * @param password 密码
      * @param type
      * @return
@@ -143,8 +152,9 @@ public class DTUserAction {
                                 @RequestParam("IDNumber")String IDNumber,
                                 @RequestParam(value = "avatar",required = false)String avatar,
                                 @RequestParam(value = "contact",required = false)String contact,
+                                @RequestParam(value = "attachments",required = false)String[] attachments,
                                 @RequestParam("password")String password,
-                                @RequestParam("type")Integer type){
+                                @RequestParam("type")Integer type) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         params.put("password", MD5.getCryptographicPassword(password));//加密
 
@@ -159,6 +169,15 @@ public class DTUserAction {
         }
 
         dTUserService.register(params);
+
+        //添加身份照
+        Long id = (Long) params.get("id");
+        if(Objects.nonNull(attachments) && attachments.length>0){
+            for(String attachment:attachments){
+                attachment = URLDecoder.decode(attachment, "UTF-8");//前台进行了路径编码(因为文件名可能含有逗号,会影响数组传值)
+                attachmentService.add(Maps.mapIt("referenceId",id,"url",attachment,"type", attachmentType));
+            }
+        }
         return WebResponse.build();
     }
 

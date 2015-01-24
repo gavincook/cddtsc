@@ -41,6 +41,9 @@
     </insert>
 
     <insert id="register">
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
         insert into tab_user(userName,password,realName,active,sex,IDNumber,avatar,type,contact)
         values(#{userName},#{password},#{realName},#{active},#{sex},#{IDNumber},#{avatar},#{type},#{contact});
     </insert>
