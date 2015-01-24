@@ -41,8 +41,8 @@
     </insert>
 
     <insert id="register">
-        insert into tab_user(userName,password,realName,active,sex,IDNumber,avatar,type)
-        values(#{userName},#{password},#{realName},#{active},#{sex},#{IDNumber},#{avatar},#{type});
+        insert into tab_user(userName,password,realName,active,sex,IDNumber,avatar,type,contact)
+        values(#{userName},#{password},#{realName},#{active},#{sex},#{IDNumber},#{avatar},#{type},#{contact});
     </insert>
 
     <select id="isUserRegistered" resultType="Boolean">

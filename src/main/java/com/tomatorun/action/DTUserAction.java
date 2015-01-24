@@ -95,7 +95,7 @@ public class DTUserAction {
     @Get("/get")
     @ResponseBody
     public WebResponse get(@RequestParam("id")Long id){
-        return WebResponse.build().setResult(dTUserService.get(Maps.mapIt("id",id)));
+        return WebResponse.build().setResult(dTUserService.get(Maps.mapIt("id", id)));
     }
 
     @Post("/update")
@@ -109,7 +109,7 @@ public class DTUserAction {
     @Post("/delete")
     @ResponseBody
     public WebResponse delete(@RequestParam("ids")Long ids[]){
-        dTUserService.delete(Maps.mapIt("ids",Strings.join(ids,",")));
+        dTUserService.delete(Maps.mapIt("ids", Strings.join(ids, ",")));
         return WebResponse.build();
     }
 
@@ -122,13 +122,28 @@ public class DTUserAction {
     }
 
     /**
-     * 注册：userName,realName,sex,type,password,IDNumber,avatar,active
+     * 注册
      * @param request
+     * @param userName 手机号
+     * @param realName 真实姓名
+     * @param sex 性别
+     * @param IDNumber 身份证号
+     * @param avatar 头像
+     * @param contact 第二联系方式
+     * @param password 密码
+     * @param type
      * @return
      */
     @Post("/register")
     @ResponseBody
-    public WebResponse register(HttpServletRequest request,@RequestParam("password")String password,
+    public WebResponse register(HttpServletRequest request,
+                                @RequestParam("userName")String userName,
+                                @RequestParam("realName")String realName,
+                                @RequestParam("sex")Integer sex,
+                                @RequestParam("IDNumber")String IDNumber,
+                                @RequestParam(value = "avatar",required = false)String avatar,
+                                @RequestParam(value = "contact",required = false)String contact,
+                                @RequestParam("password")String password,
                                 @RequestParam("type")Integer type){
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         params.put("password", MD5.getCryptographicPassword(password));//加密
