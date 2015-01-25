@@ -408,7 +408,9 @@ var moon = moon || {};
         "userType.member":0,
         "userType.associator":1,
 		"userType.groupLeader":2,
-        "userType.manager":3
+        "userType.supplier":3,
+        "userType.manager":4,
+        "userType.superManager":5
     }
 	/** ************* 私有方法 ********************** */
 

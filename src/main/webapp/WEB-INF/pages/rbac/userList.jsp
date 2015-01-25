@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<m:require src="jquery,common,ev,zt,js/ztree.extend.js,bootstrap,table,dialog,noty,font,{rbac/userList}"></m:require>
+<m:require src="jquery,common,ev,zt,handlebars,js/ztree.extend.js,bootstrap,table,dialog,noty,font,{rbac/userList}"></m:require>
 <title>用户管理</title>
 </head>
 <body style="margin:0;">
@@ -48,7 +48,15 @@
 </form>
 
      <!-- 角色分配 -->
-     <div id="roleTree" class="ztree" style="display:none;">  </div>
-    
+    <div id="roleTree" class="ztree" style="display:none;">  </div>
+
+    <%--用户角色设置--%>
+    <script type="text/x-handlebars-template" id="settingFormTemplate">
+        <form class="setting-form form-horizontal">
+            {{#listUserType this}}
+
+            {{/listUserType}}
+        </form>
+    </script>
 </body>
 </html>

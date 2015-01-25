@@ -38,6 +38,23 @@ public class SessionContext {
 	   fullPath.append(request.getContextPath());
 	   return fullPath.toString();
    }
+
+    public static String getContextPath(){
+        HttpServletRequest request = getRequest();
+        StringBuilder contextPath = new StringBuilder();
+        if(request.getProtocol().contains("HTTPS")){
+            contextPath.append("https://");
+        }else{
+            contextPath.append("http://");
+        }
+
+        contextPath.append(request.getServerName());
+
+        if(request.getServerPort()!=80){
+            contextPath.append(":").append(request.getServerPort());
+        }
+        return contextPath.toString();
+    }
    
    /**
     * 返回web应用的真实路径,此方法只能创建了Session后才能使用

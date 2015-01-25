@@ -14,7 +14,6 @@ Handlebars.registerHelper('nonEmpty', function(variable, options) {
  * 判断是否相等
  */
 Handlebars.registerHelper('eq', function(var1,var2,options) {
-    console.log(var1 +"..."+var2);
     if(var1 == var2) {
         return options.fn(this);
     } else {
@@ -42,4 +41,35 @@ Handlebars.registerHelper('eqConstant', function(var1,var2, options) {
     } else {
         return options.inverse(this);
     }
+});
+
+/**
+ * 列出userType与角色对应列表
+ */
+Handlebars.registerHelper('listUserType', function(data,options) {
+    var fn = options.fn, inverse = options.inverse;
+    var ret = "";
+    var roles = data.roles;
+    for(var key in moon.constants){
+        if(key.indexOf("userType") != -1){
+            ret += "<div class='form-group'>"+
+            "<label class='control-label col-md-2'>" +
+            key.substr(9)+
+            "</label>"+
+            "<div class='col-md-8'>"+
+            "<select name='userType" +moon.constants[key]+"'"+
+            " class='form-control'>"+
+            "<option value='0'>请选择角色</option>";
+            for(var roleIndex in roles){
+                var role = roles[roleIndex];
+                ret += "<option value='"+role.id+"' ";
+                if(role.id == data["role.userType"+moon.constants[key]]){
+                    ret += " selected ";
+                }
+                ret += ">" + role.roleName +"</option>"
+            }
+            ret += "</select> </div> </div>";
+        }
+    }
+    return ret;
 });

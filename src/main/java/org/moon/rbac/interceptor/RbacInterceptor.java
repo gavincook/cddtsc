@@ -48,7 +48,7 @@ public class RbacInterceptor implements MethodInterceptor {
 		Method method = methodInvocation.getMethod();
 		if((method.isAnnotationPresent(LoginRequired.class)||method.getDeclaringClass().isAnnotationPresent(LoginRequired.class))
 				&&currentUserId==null){//需要登录的操作，如果没有登录返回登录页面
-		    SessionContext.getResponse().sendRedirect(SessionContext.getFullPath()+"/user/login?from="+from);
+		    SessionContext.getResponse().sendRedirect(SessionContext.getContextPath()+"/user/login?from="+from);
 		    return null;
 		}
 		
@@ -76,7 +76,7 @@ public class RbacInterceptor implements MethodInterceptor {
             if(method.isAnnotationPresent(NoMenuIntercept.class) || method.getDeclaringClass().isAnnotationPresent(NoMenuIntercept.class)){
                 accessMenu = true;
             }else if (currentRole == null) {
-                SessionContext.getResponse().sendRedirect("user/login?from="+from);
+                SessionContext.getResponse().sendRedirect(SessionContext.getContextPath()+"/user/login?from="+from);
             } else {
                 if (currentRole.hasMenu((method.getAnnotation(MenuMapping.class).code()))) {
                     log.debug("当前角色可以访问 " + method.getAnnotation(MenuMapping.class).code() + "菜单");

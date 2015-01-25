@@ -3,6 +3,7 @@ package org.moon.rbac.repository;
 import org.apache.ibatis.annotations.Param;
 import org.moon.base.repository.BaseRepository;
 import org.moon.rbac.domain.Role;
+import org.moon.utils.Objects;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface RoleRepository extends BaseRepository<Role>{
 	public boolean hasPermission(@Param("rid") Long rid, @Param("code") String code);
 	
 	public boolean hasMenu(@Param("rid") Long rid, @Param("code") String code);
+
+	public List<Map<String,Object>> getAllRoles();
 }
