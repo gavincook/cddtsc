@@ -271,7 +271,7 @@
 
 //设置
     function doSetting() {
-        $.getJsonData(contextPath + "/user/role/list").done(function (data) {
+        $.getJsonData(contextPath + "/user/~/role/list").done(function (data) {
             data = data.result;
             data.patient = data["role.patient"];
             data.doctor = data["role.doctor"];
@@ -286,7 +286,7 @@
                         css: "btn btn-warning",
                         click: function () {
                             var dialog = this;
-                            $(".setting-form").ajaxSubmitForm(contextPath + "/user/role/update").done(function (data) {
+                            $(".setting-form").ajaxSubmitForm(contextPath + "/user/~/role/update").done(function (data) {
                                 if (data.success) {
                                     moon.success("设置更新成功");
                                     dialog.close();

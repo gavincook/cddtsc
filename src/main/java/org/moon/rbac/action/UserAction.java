@@ -238,7 +238,7 @@ public class UserAction extends BaseAction {
      *
      * @return
      */
-    @Get("/role/list")
+    @Get("/~/role/list")
     @ResponseBody
     public WebResponse getRoles() {
         Map<String, Object> result = systemSettingService.getSettingMap("role.");
@@ -251,7 +251,7 @@ public class UserAction extends BaseAction {
      *
      * @return
      */
-    @Post("/role/update")
+    @Post("/~/role/update")
     @ResponseBody
     public WebResponse updateUserRoleSetting(HttpServletRequest request) {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
