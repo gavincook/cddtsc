@@ -317,6 +317,8 @@
 			var callback = "";
 			var result = true;
 			var dfds1 = new Array();
+			//是否有自定义的验证提示信息（即errMsg属性）,如有则多个验证项，只要有一个未通过，则不会验证后续类型
+			var hasCustomMsg = typeof $(field).attr("errMsg") !== 'undefined';
 			$.each(types, function(index, value) {
 				if (method.checkRegex(value, /^callback\(\w+\)$/)) {
 					callback = value.match(/^callback\((.*)\)$/);
@@ -326,17 +328,20 @@
 				var doValidate=method.validateField($(field), value, options1);
 				if(doValidate&&jQuery.isFunction(doValidate.promise)){
 				doValidate.done(function(data){
-						msg+=data;
-						dfd.resolve(data);
-
+					//只有没有自定义信息时，或者还没有提示信息时需要追加提示信息，避免出现重复验证信息：fix bug #22
+					if(msg == "" || !hasCustomMsg){
+						msg += data;
+					}
+					dfd.resolve(data);
 					});
 				}else{
-					msg+=doValidate;
+					//只有没有自定义信息时，或者还没有提示信息时需要追加提示信息，避免出现重复验证信息：fix bug #22
+					if(msg == "" || !hasCustomMsg){
+						msg += doValidate;
+					}
 					dfd.resolve(doValidate);
 				}
-				
 				dfds1.push(dfd.promise());
-				
 			});
 			var gdfd = $.Deferred();
 			method.when(dfds1).done(function(){
@@ -670,7 +675,6 @@ var resultMap = {};
 			if (e.options1.type == 'radio' || e.options1.type == 'checkbox') {
 				$(e.field).bind('click', function() {
 					method.validate($(e.field), e.types, e.options1);
-
 				});
 			} else {
 				$(e.field).bind('blur', function() {
