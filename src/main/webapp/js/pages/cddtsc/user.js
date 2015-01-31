@@ -4,7 +4,8 @@
     var table;
     $(function(){
         table = $("#userTable").table({
-            url:contextPath+"/user/"+pageType+"/list",
+            url:contextPath+"/user/list",
+            params:{type:userType},
             columns:[{name:"userName",display:"手机号"},
                      {name:"realName",display:"真实姓名"},
                      {display:"操作",render:function(rowData){
@@ -27,10 +28,11 @@
                 {
                     text:"添加管理员",
                     click:btnHandler,
-                    name:'addBtn'
+                    name:'addBtn',
+                    css:userType==moon.constants["userType.manager"]?"":"hide"
                 },
                 {
-                    text:"删除会员管理",
+                    text:"删除用户",
                     click:btnHandler,
                     name:'deleteBtn'
                 }

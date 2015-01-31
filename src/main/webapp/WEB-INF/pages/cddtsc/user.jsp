@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript">
-        var pageType = "${pageType}",/*页面类型*/
+        var userType = "${userType}",/*用户类型*/
             title = "${title}";
     </script>
     <m:require src="jquery,common,ev,ac,handlebars,webuploader,bootstrap,table,dialog,noty,font,{cddtsc/user}"></m:require>

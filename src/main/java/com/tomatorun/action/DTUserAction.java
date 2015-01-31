@@ -55,7 +55,7 @@ public class DTUserAction {
     private AttachmentService attachmentService;
 
     @Get("")
-    @MenuMapping(name = "小组长管理", url = "/user",code = "dt_user",parentCode = "dt")
+    @MenuMapping(name = "用户管理", url = "/user",code = "dt_user",parentCode = "dt")
     public ModelAndView showUserPage(){
         return new ModelAndView("pages/cddtsc/user","pageType","").addObject("title","用户列表");
     }
@@ -63,32 +63,25 @@ public class DTUserAction {
     @Get("/member")
     @MenuMapping(name = "会员管理", url = "/user/member",code = "dt_member",parentCode = "dt")
     public ModelAndView showMemberPage(){
-        return new ModelAndView("pages/cddtsc/user","pageType","member").addObject("title","会员列表");
+        return new ModelAndView("pages/cddtsc/user","userType",memberUserType).addObject("title","会员列表");
     }
 
     @Get("/manager")
     @MenuMapping(name = "管理员管理", url = "/user/manager",code = "dt_manager",parentCode = "dt")
     public ModelAndView showManagerPage(){
-        return new ModelAndView("pages/cddtsc/user","pageType","manager").addObject("title","管理员列表");
+        return new ModelAndView("pages/cddtsc/user","userType",managerUserType).addObject("title","管理员列表");
     }
-    /**
-     * 获取会员列表
-     * @param request
-     * @param user
-     * @return
-     */
-    @Get("/member/list")
-    @ResponseBody
-    public WebResponse listMembers(HttpServletRequest request,@WebUser User user){
-        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
-        int userType = user.getType();
-        if(userType == managerUserType){//只能管理员查看
-            params.put("type",memberUserType);
-        }else{
-            return WebResponse.build().setPermission(false);
-        }
 
-        return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
+    @Get("/groupLeader")
+    @MenuMapping(name = "小组长管理", url = "/user/groupLeader",code = "dt_groupLeader",parentCode = "dt")
+    public ModelAndView showGroupLeaderPage(){
+        return new ModelAndView("pages/cddtsc/user","userType",groupLeaderUserType).addObject("title","小组长列表");
+    }
+
+    @Get("/associator")
+    @MenuMapping(name = "社员管理", url = "/user/associator",code = "dt_associator",parentCode = "dt")
+    public ModelAndView showAssociatorPage(){
+        return new ModelAndView("pages/cddtsc/user","userType",associatorUserType).addObject("title", "社员列表");
     }
 
     /**
@@ -99,35 +92,26 @@ public class DTUserAction {
      */
     @Get("/list")
     @ResponseBody
-    public WebResponse list(HttpServletRequest request,@WebUser User user){
+    public WebResponse list(HttpServletRequest request,@WebUser User user,@RequestParam("type")Integer queryUserType){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         int userType = user.getType();
-        if(userType == memberUserType || userType == associatorUserType){
-            params.put("type",null);
-        }else if(userType == groupLeaderUserType){//小组长查看社员
-            params.put("type",associatorUserType);
-        }else if(userType == managerUserType || userType == superManager){//管理员查看小组长
-            params.put("type",groupLeaderUserType);
-        }
-        return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
-    }
-
-    /**
-     * 超级管理员获取管理员列表
-     * @param request
-     * @param user
-     * @return
-     */
-    @Get("/manager/list")
-    @ResponseBody
-    public WebResponse listManager(HttpServletRequest request,@WebUser User user){
-        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
-        int userType = user.getType();
-        if(userType == superManager){
-            params.put("type",managerUserType);
+        params.put("type",null);
+        if(queryUserType == managerUserType){//查看管理员
+            if(userType == superManager){
+                params.put("type",queryUserType);
+            }
+        }else if(queryUserType == memberUserType || queryUserType == groupLeaderUserType){//超级管理员和管理员可查看会员和小组长
+            if(userType == managerUserType || userType == superManager){
+                params.put("type",queryUserType);
+            }
+        }else if(queryUserType == associatorUserType){//小组长查看社员
+            if(userType == groupLeaderUserType){
+                params.put("type",queryUserType);
+            }
         }else{
             params.put("type",null);
         }
+
         return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
     }
 

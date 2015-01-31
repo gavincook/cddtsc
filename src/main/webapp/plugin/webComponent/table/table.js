@@ -700,6 +700,9 @@
 			$.each(tableInstance.opts.buttons,function(index,button){
 				var $btn = methods.ce("button");
 				$btn.addClass("btn btn-small btn-link").html(button.text);
+				if(button.css){
+					$btn.addClass(button.css);
+				}
 				$btn.bind("click",function(){
 					button.click.call(tableInstance,button);
 				});
