@@ -24,7 +24,6 @@
 			var typePrefix = /(.*)\((.*)\)/.exec(type);
 			var msg = "";// 错误提示信息,如无错误则为空字符串
 			var msgType;// 校验提示信息名字
-			
 			type = typePrefix ? typePrefix[1] : type;// 得到验证类型
 			var params = typePrefix ? typePrefix[2].split(',') : "";// 验证类型所在的参数
 			opts.params = params;
@@ -32,190 +31,186 @@
 			/**
 			 * 必填
 			 */
-			case 'required':
-				msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
-				if (opts.type == 'text' || opts.type == 'password')
-					msg=method.getErrorMsg((val.length == 0), msgType, opts);
-				else if (opts.type == 'radio') {// radio必填处理
-					msg = method.getErrorMsg(!method.validateRadio(field, type,
+				case 'required':
+					msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
+					if (opts.type == 'text' || opts.type == 'password')
+						msg = method.getErrorMsg((val.length == 0), msgType, opts);
+					else if (opts.type == 'radio') {// radio必填处理
+						msg = method.getErrorMsg(!method.validateRadio(field, type,
 							opts), msgType, opts);
-				} else {// checkbox 则为至少选中一个
-					msgType = typeof (params[0]) != 'undefined' ? params[0]
+					} else {// checkbox 则为至少选中一个
+						msgType = typeof (params[0]) != 'undefined' ? params[0]
 							: 'mincheckbox';
-					opts.minselect = 1;
-					opts.params = [ 1 ];
-					msg = method.getErrorMsg(!method.validateCheckBox(field,
+						opts.minselect = 1;
+						opts.params = [1];
+						msg = method.getErrorMsg(!method.validateCheckBox(field,
 							type, opts), msgType, opts);
-				}
-				break;
+					}
+					break;
 			/**
 			 * 数字验证
 			 */
-			case 'number':
-				msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
-				if (!method.checkRegex(val, /^[-,+]?(([1-9]\d*)|0)(.\d+)?$/))
-					msg = method.getErrorMsg(true, msgType, opts);
-				else {
-					if (method.checkRegex(val, /^\+(.*)/))
-						$(field).attr("value", val.substring(1, val.length));
-					msg = "";
-				}
-				break;
+				case 'number':
+					msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
+					if (!method.checkRegex(val, /^[-,+]?(([1-9]\d*)|0)(.\d+)?$/))
+						msg = method.getErrorMsg(true, msgType, opts);
+					else {
+						if (method.checkRegex(val, /^\+(.*)/))
+							$(field).attr("value", val.substring(1, val.length));
+						msg = "";
+					}
+					break;
 			/**
 			 * 精度处理
 			 */
-			case 'precision':
-				var bit = (params[0] || params[0] != '') ? params[0] : 2;// 默认两位小数
+				case 'precision':
+					var bit = (params[0] || params[0] != '') ? params[0] : 2;// 默认两位小数
 
-				var regex = new RegExp("^[-,+]?(([1-9]\\d*)|0)\\.\\d{2,}$");
-			 
-				if (!method.checkRegex(val, regex)) {
-					msgType = typeof (params[2]) != 'undefined' ? params[0]
+					var regex = new RegExp("^[-,+]?(([1-9]\\d*)|0)\\.\\d{2,}$");
+
+					if (!method.checkRegex(val, regex)) {
+						msgType = typeof (params[2]) != 'undefined' ? params[0]
 							: type;
-					msg = method.getErrorMsg(true, msgType, opts);
-				} else {
-					if (method.checkRegex(val, /^\+(.*)/))
-						$(field).attr("value", val.substring(1, val.length));
-					if (val.length != 0) {
-						if (params[1] == 'false')
-							$(field).attr("value", parseFloat(val).hold(bit));// 不四舍五入
-						else
-							$(field).attr("value", parseFloat(val).round(bit));// 四舍五入
+						msg = method.getErrorMsg(true, msgType, opts);
+					} else {
+						if (method.checkRegex(val, /^\+(.*)/))
+							$(field).attr("value", val.substring(1, val.length));
+						if (val.length != 0) {
+							if (params[1] == 'false')
+								$(field).attr("value", parseFloat(val).hold(bit));// 不四舍五入
+							else
+								$(field).attr("value", parseFloat(val).round(bit));// 四舍五入
+						}
+						msg = "";
 					}
-					msg = "";
-				}
 
-				break;
+					break;
 			/**
 			 * 邮箱格式
 			 */
-			case 'email':
-				msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
-				msg = method.getErrorMsg(!method
+				case 'email':
+					msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
+					msg = method.getErrorMsg(!method
 						.checkRegex(val, /^\w+@\w+(\.[a-zA-Z]+){1,2}$/), msgType, opts);
 
-				break;
-			case 'eq':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg($(params[0]).val() != val, msgType,
+					break;
+				case 'eq':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg($(params[0]).val() != val, msgType,
 						opts);
 
-				break;
-			case 'gt':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(!method.compare(val, $(params[0])
+					break;
+				case 'gt':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(!method.compare(val, $(params[0])
 						.val(), 'gt'), msgType, opts);
-				break;
-			case 'ge':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(!method.compare(val, $(params[0])
+					break;
+				case 'ge':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(!method.compare(val, $(params[0])
 						.val(), 'ge'), msgType, opts);
-				break;
-			case 'lt':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(!method.compare(val, $(params[0])
+					break;
+				case 'lt':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(!method.compare(val, $(params[0])
 						.val(), 'lt'), msgType, opts);
-				break;
-			case 'le':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(!method.compare(val, $(params[0])
+					break;
+				case 'le':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(!method.compare(val, $(params[0])
 						.val(), 'le'), msgType, opts);
-				break;
+					break;
 			/**
 			 * 输入长度 minsize(v1,msg)
 			 */
-			case 'minsize':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(val.length < params[0], msgType, opts);
-				break;
+				case 'minsize':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(val.length < params[0], msgType, opts);
+					break;
 			/**
 			 * 输入长度 maxsize(v1,msg)
 			 */
-			case 'maxsize':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(val.length > params[0], msgType, opts);
-				break;
+				case 'maxsize':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(val.length > params[0], msgType, opts);
+					break;
 			/**
 			 * 输入长度 size(v1,v2,msg)
 			 */
-			case 'size':
-				msgType = typeof (params[2]) != 'undefined' ? params[2] : type;
-				msg = method.getErrorMsg((val.length < opts.params[0])
-						|| (val.length > opts.params[1]), msgType, opts);
-				break;
+				case 'size':
+					msgType = typeof (params[2]) != 'undefined' ? params[2] : type;
+					msg = method.getErrorMsg((val.length < opts.params[0])
+					|| (val.length > opts.params[1]), msgType, opts);
+					break;
 			/**
 			 * 时间有效性验证
 			 */
-			case 'date':
-				msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
-				msg = method
+				case 'date':
+					msgType = typeof (params[0]) != 'undefined' ? params[0] : type;
+					msg = method
 						.getErrorMsg(
-								!method
-										.checkRegex(
-												val,
-												/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/),
-								msgType, opts);
-				break;
+						!method
+							.checkRegex(
+							val,
+							/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/),
+						msgType, opts);
+					break;
 			/**
 			 * 用户自定义正则验证
 			 */
-			case 'custom':
-				msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
-				msg = method.getErrorMsg(!method.checkRegex(val, new RegExp(
-						params[0].substring(1, params[0].length - 1))),
+				case 'custom':
+					msgType = typeof (params[1]) != 'undefined' ? params[1] : type;
+					msg = method.getErrorMsg(!method.checkRegex(val, new RegExp(
+							params[0].substring(1, params[0].length - 1))),
 						msgType, opts);
-				break;
+					break;
 			/**
 			 * 调用用户自定义方法验证 返回错误信息
 			 */
-			case 'call':
-				var gdfd = $.Deferred();
-				var dfds = new Array();
-				var callMsg="";
-				$.each(params, function(index, param) {
-					var dfd = $.Deferred();
-					if(window[param](field, type, opts) && jQuery.isFunction(window[param](field, type, opts).promise)){
-						
-						window[param](field, type, opts).done(function(data){
-							callMsg+=data;
-							
-							dfd.resolve(data);
-						});
-						
-					}else{
-						callMsg += window[param](field, type, opts);
-					    dfd.resolve(msg);
-					}
-					dfds.push(dfd);
-				});
-				method.when(dfds).done(function(){
-					gdfd.resolve(callMsg);	
-				});
-				msg=gdfd.promise();
-				break;
+				case 'call':
+					var gdfd = $.Deferred();
+					var dfds = new Array();
+					var callMsg = "";
+					$.each(params, function (index, param) {
+						var dfd = $.Deferred();
+						if(typeof window[param] == 'function'){
+							var result = window[param](field, type, opts);
+							if(jQuery.isFunction(result.promise)){
+								result.done(function (data) {
+									callMsg += data;
+									dfd.resolve(data);
+								});
+							}else{
+								callMsg += result;
+								dfd.resolve(msg);
+							}
+						}
+						dfds.push(dfd);
+					});
+					method.when(dfds).done(function () {
+						gdfd.resolve(callMsg);
+					});
+					msg = gdfd.promise();
+					break;
 			/**
 			 * 复选框 选择判断
 			 */
-			case 'minselect':
-				msgType = typeof (params[1]) != 'undefined' ? params[1]
+				case 'minselect':
+					msgType = typeof (params[1]) != 'undefined' ? params[1]
 						: 'mincheckbox';
-				opts.minselect = params[0];
-				msg = method.getErrorMsg(!method.validateCheckBox(field, type,
+					opts.minselect = params[0];
+					msg = method.getErrorMsg(!method.validateCheckBox(field, type,
 						opts), msgType, opts);
-				break;
-			case 'maxselect':
-				msgType = typeof (params[1]) != 'undefined' ? params[1]
+					break;
+				case 'maxselect':
+					msgType = typeof (params[1]) != 'undefined' ? params[1]
 						: 'maxcheckbox';
-				opts.maxselect = params[0];
-				msg = method.getErrorMsg(!method.validateCheckBox(field, type,
+					opts.maxselect = params[0];
+					msg = method.getErrorMsg(!method.validateCheckBox(field, type,
 						opts), msgType, opts);
-				break;
-			default:
-				msg = "";
-			}
-
-			if(msg&& $(field).attr("errMsg")){
-				msg =  $(field).attr("errMsg")+"</br>";
+					break;
+				default:
+					msg = "";
 			}
 			return msg;
 		},
@@ -324,7 +319,7 @@
 					callback = value.match(/^callback\((.*)\)$/);
 					callback = callback ? callback : "";
 				}				 
-				var dfd = $.Deferred()
+				var dfd = $.Deferred();
 				var doValidate=method.validateField($(field), value, options1);
 				if(doValidate&&jQuery.isFunction(doValidate.promise)){
 				doValidate.done(function(data){
@@ -679,7 +674,6 @@ var resultMap = {};
 			} else {
 				$(e.field).bind('blur', function() {
 					method.validate($(e.field), e.types, e.options1);
-
 				});
 			}
 		});
