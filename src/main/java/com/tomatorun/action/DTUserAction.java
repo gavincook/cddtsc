@@ -42,6 +42,9 @@ public class DTUserAction {
     @Config("userType.manager")
     private int managerUserType;
 
+    @Config("userType.superManager")
+    private int superManager;
+
     @Config("userType.supplier")
     private int supplierUserType;
 
@@ -52,15 +55,21 @@ public class DTUserAction {
     private AttachmentService attachmentService;
 
     @Get("")
-    @MenuMapping(name = "用户管理", url = "/user",code = "dt_user",parentCode = "dt")
+    @MenuMapping(name = "小组长管理", url = "/user",code = "dt_user",parentCode = "dt")
     public ModelAndView showUserPage(){
-        return new ModelAndView("pages/cddtsc/user");
+        return new ModelAndView("pages/cddtsc/user","pageType","").addObject("title","用户列表");
     }
 
     @Get("/member")
     @MenuMapping(name = "会员管理", url = "/user/member",code = "dt_member",parentCode = "dt")
     public ModelAndView showMemberPage(){
-        return new ModelAndView("pages/cddtsc/user","memberPage",true);
+        return new ModelAndView("pages/cddtsc/user","pageType","member").addObject("title","会员列表");
+    }
+
+    @Get("/manager")
+    @MenuMapping(name = "管理员管理", url = "/user/manager",code = "dt_manager",parentCode = "dt")
+    public ModelAndView showManagerPage(){
+        return new ModelAndView("pages/cddtsc/user","pageType","manager").addObject("title","管理员列表");
     }
     /**
      * 获取会员列表
@@ -97,8 +106,27 @@ public class DTUserAction {
             params.put("type",null);
         }else if(userType == groupLeaderUserType){//小组长查看社员
             params.put("type",associatorUserType);
-        }else if(userType == managerUserType){//管理员查看小组长
+        }else if(userType == managerUserType || userType == superManager){//管理员查看小组长
             params.put("type",groupLeaderUserType);
+        }
+        return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
+    }
+
+    /**
+     * 超级管理员获取管理员列表
+     * @param request
+     * @param user
+     * @return
+     */
+    @Get("/manager/list")
+    @ResponseBody
+    public WebResponse listManager(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        int userType = user.getType();
+        if(userType == superManager){
+            params.put("type",managerUserType);
+        }else{
+            params.put("type",null);
         }
         return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
     }
@@ -126,8 +154,9 @@ public class DTUserAction {
 
     @Post("/add")
     @ResponseBody
-    public WebResponse add(HttpServletRequest request){
+    public WebResponse add(HttpServletRequest request,@RequestParam("password")String password){
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
+        params.put("password",MD5.getCryptographicPassword(password));
         dTUserService.add(params);
         return WebResponse.build();
     }
@@ -204,6 +233,30 @@ public class DTUserAction {
     @ResponseBody
     public WebResponse activeUser(@RequestParam("userId")Long userId){
         dTUserService.activeUser(userId);
+        return WebResponse.build();
+    }
+
+    /**
+     * 禁用用户
+     * @param userId
+     * @return
+     */
+    @Post("/disable")
+    @ResponseBody
+    public WebResponse disableUser(@RequestParam("userId")Long userId){
+        dTUserService.disableUser(userId);
+        return WebResponse.build();
+    }
+
+    /**
+     * 重置密码为123456
+     * @param userId
+     * @return
+     */
+    @Post("/password/reset")
+    @ResponseBody
+    public WebResponse resetPassword(@RequestParam("userId")Long userId){
+        dTUserService.resetPassword(userId, MD5.getCryptographicPassword("123456"));
         return WebResponse.build();
     }
 }

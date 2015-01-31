@@ -59,4 +59,15 @@ public interface DTUserService extends BaseService {
      */
     public void activeUser(Long id);
 
+    /**
+     * 禁用用户
+     * @param id
+     */
+    public void disableUser(Long id);
+
+    /**
+     * 重置密码
+     * @param id
+     */
+    public void resetPassword(Long id,String password);
 }

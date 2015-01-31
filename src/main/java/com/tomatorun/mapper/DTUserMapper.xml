@@ -37,7 +37,7 @@
     </select>
 
     <insert id="add">
-        insert  into tab_user(userName,realName,password) values(#{userName},#{realName},#{password});
+        insert  into tab_user(userName,realName,password,active) values(#{userName},#{realName},#{password},true);
     </insert>
 
     <insert id="register">
@@ -52,8 +52,11 @@
         select count(*)>0 from tab_user where userName = #{userName}
     </select>
 
-    <update id="activeUser">
-        update tab_user set active = true where id = #{id}
+    <update id="changeUserStatus">
+        update tab_user set active = #{status} where id = #{id}
     </update>
 
+    <update id="resetPassword">
+        update tab_user set password = #{password} where id = #{id}
+    </update>
 </mapper>

@@ -56,10 +56,14 @@ public interface DTUserRepository {
     public boolean isUserRegistered(@Param("userName") String userName);
 
     /**
-     * 激活用户
+     * 修改用户状态
      * @param id
      */
-    public void activeUser(@Param("id") Long id);
+    public void changeUserStatus(@Param("id") Long id,@Param("status")boolean status);
 
-
+    /**
+     * 重置密码
+     * @param id
+     */
+    public void resetPassword(@Param("id")Long id,@Param("password")String password);
 }

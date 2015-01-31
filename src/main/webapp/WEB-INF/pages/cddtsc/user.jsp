@@ -6,7 +6,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript">
-        var isMemberPage = "${memberPage}" == "true";/*是否是会员页面*/
+        var pageType = "${pageType}",/*页面类型*/
+            title = "${title}";
     </script>
     <m:require src="jquery,common,ev,ac,handlebars,webuploader,bootstrap,table,dialog,noty,font,{cddtsc/user}"></m:require>
     <title>会员管理</title>
@@ -28,9 +29,9 @@
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">真实姓名:</label>
+            <label class="col-sm-2 control-label">密码:</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control"  name="realName" value="{{userName}}" validate="validate[required]"/>
+                <input type="text"  class="form-control"  name="password" value="{{password}}" validate="validate[required]"/>
             </div>
         </div>
     </form>

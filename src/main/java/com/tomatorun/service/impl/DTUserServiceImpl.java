@@ -60,6 +60,17 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
     @Override
     public void activeUser(Long id) {
         modelContainer.removeModel(ModelUtils.asModelKey(User.class,id));
-        dTUserRepository.activeUser(id);
+        dTUserRepository.changeUserStatus(id, true);
+    }
+
+    @Override
+    public void disableUser(Long id) {
+        modelContainer.removeModel(ModelUtils.asModelKey(User.class,id));
+        dTUserRepository.changeUserStatus(id, false);
+    }
+
+    @Override
+    public void resetPassword(Long id,String password) {
+        dTUserRepository.resetPassword(id,password);
     }
 }
