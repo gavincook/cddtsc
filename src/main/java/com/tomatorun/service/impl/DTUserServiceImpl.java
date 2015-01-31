@@ -53,9 +53,7 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
     }
 
     @Override
-    public boolean isUserRegistered(String userName) {
-        return dTUserRepository.isUserRegistered(userName);
-    }
+    public boolean isUserRegistered(String userName) { return dTUserRepository.isUserRegistered(userName); }
 
     @Override
     public void activeUser(Long id) {

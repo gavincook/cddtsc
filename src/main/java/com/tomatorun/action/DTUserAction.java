@@ -60,6 +60,11 @@ public class DTUserAction {
         return new ModelAndView("pages/cddtsc/user","pageType","").addObject("title","用户列表");
     }
 
+    @Get("/regist")
+    public ModelAndView registPage(){
+        return new ModelAndView("pages/cddtsc/register");
+    }
+
     @Get("/member")
     @MenuMapping(name = "会员管理", url = "/user/member",code = "dt_member",parentCode = "dt")
     public ModelAndView showMemberPage(){
@@ -205,7 +210,7 @@ public class DTUserAction {
     @Post("/userName/check")
     @ResponseBody
     public WebResponse checkUserName(@RequestParam("userName")String userName){
-        return WebResponse.build().setSuccess(dTUserService.isUserRegistered(userName));
+        return WebResponse.build().setResult(dTUserService.isUserRegistered(userName));
     }
 
     /**

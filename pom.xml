@@ -19,6 +19,13 @@
                     <include>**/*.xml</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/java/com</directory>
+                <targetPath>com</targetPath>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
 			<resource>
                 <directory>src/main/resources</directory>
 			</resource>
