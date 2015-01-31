@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+      <%@ include file="../common/header.jsp" %>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <m:require src="jquery,common,noty,font,ev,webuploader,dialog,bootstrap,table,{cddtsc/category}"></m:require>
+        <title>商品类别</title>
+    </head>
+
+    <body>
+        <div id="categoryTable" class="category-table"></div>
+        <div id="goodsTable" class="goods-table">
+            <div class="empty">
+                <span >选择类别后，这里就能显示该类别的商品了哦.</span>
+            </div>
+        </div>
+        <form id="categoryForm" class="hide form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类别名字:</label>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="类别名字" class="form-control" name="name" validate="validate[required]"/>
+                </div>
+            </div>
+        </form>
+
+        <form id="goodsForm" class="hide form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品名字:</label>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="商品名字" class="form-control" name="name" validate="validate[required]"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品图片:</label>
+                <input type="hidden" name="url" class="url"/>
+                <div class="col-sm-10">
+                    <div id="fileContainer" class="uploader-list">
+                    </div>
+                    <div id="btns">
+                        <div id="picker">点击选择文件</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品规格:</label>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="商品规格" class="form-control" name="specification" validate="validate[required]"/>
+                </div>
+            </div>
+        </form>
+
+    </body>
+</html>

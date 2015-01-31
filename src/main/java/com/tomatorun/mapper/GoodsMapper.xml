@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomatorun.repository.GoodsRepository">
+    <select id="list" resultType="HashMap">
+        SELECT * from dt_goods
+        WHERE 1 = 1
+        <if test="keyword==null">
+            <if test="categoryId==null">
+                AND categoryId is null
+            </if>
+            <if test="categoryId!=null">
+                AND categoryId = #{categoryId}
+            </if>
+        </if>
+        <if test="keyword!=null">
+            AND name like CONCAT('${keyword}','%' )
+        </if>
+
+    </select>
+
+    <select id="list_count" resultType="Integer">
+        SELECT count(id) from dt_goods
+        WHERE 1 = 1
+        <if test="categoryId==null">
+            AND categoryId is null
+        </if>
+        <if test="categoryId!=null">
+            AND categoryId = #{categoryId}
+        </if>
+    </select>
+
+    <update id="update">
+        update dt_goods set name = #{name},specification=#{specification} where id = #{id};
+    </update>
+
+    <delete id="delete">
+        delete from dt_goods where id in (${ids});
+    </delete>
+
+    <select id="get" resultType="HashMap">
+        select * from dt_goods where id = #{id};
+    </select>
+
+    <insert id="add">
+        insert  into dt_goods(name,categoryId,specification) values(#{name},#{categoryId},#{specification});
+    </insert>
+
+</mapper>

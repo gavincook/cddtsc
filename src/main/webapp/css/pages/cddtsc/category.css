@@ -1,0 +1,63 @@
+.category-table{
+    position: absolute;
+    bottom: 1px;
+    top:0;
+    width: 50%;
+    margin-right: 5px;
+    border-right: solid 1px #78a2cc;
+}
+.goods-table{
+    position: absolute;
+    bottom: 1px;
+    left:50%;
+    top:0;
+    margin-left: 5px;
+    right: 0;
+    border-left: solid 1px #78a2cc;
+}
+
+.empty{
+    background-image: url("../../images/baozou1.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    padding-top: 77px;
+    padding-left: 193px;
+    color: #62A3ED;
+    font-size: 21px;
+}
+
+.imgContainer{
+    display: inline-block;
+}
+
+.imgContainer i{
+    display: none;
+}
+
+.imgContainer:hover i{
+    position: absolute;
+    display: inline-block;
+    z-index: 99;
+    right: 15px;
+    top: 15px;
+    color: rgb(245, 58, 125);
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.imgContainer .content{
+    position: relative;
+}
+
+.img{
+    max-width: 100px;
+    max-height: 100px
+}
+
+td{
+    vertical-align:middle !important;
+}
+
+tbody tr{
+    cursor: pointer;
+}

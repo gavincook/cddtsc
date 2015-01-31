@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomatorun.repository.CategoryRepository">
+    <select id="list" resultType="HashMap">
+        SELECT c.*,CASE WHEN COUNT(mc.id)>0 THEN TRUE ELSE FALSE END AS _hasChildren
+        FROM dt_category c
+        LEFT JOIN dt_category mc
+        ON c.id = mc.`parentId`
+        <if test="parentId==null">
+            WHERE c.`parentId` is null
+        </if>
+        <if test="parentId!=null">
+            WHERE c.`parentId` = #{parentId}
+        </if>
+        GROUP BY c.id;
+    </select>
+
+    <select id="list_count" resultType="Integer">
+        SELECT count(id)
+        from dt_category c
+        <if test="parentId==null">
+           WHERE c.parentId is null
+        </if>
+        <if test="parentId!=null">
+            WHERE c.parentId = #{parentId}
+        </if>
+    </select>
+
+    <update id="update">
+        update dt_category set name = #{name} where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from dt_category where id in (${ids});
+    </delete>
+
+    <select id="get" resultType="HashMap">
+        select * from dt_category where id = #{id};
+    </select>
+
+    <insert id="add">
+        insert  into dt_category( name,parentId) values( #{name},#{parentId});
+    </insert>
+
+</mapper>
