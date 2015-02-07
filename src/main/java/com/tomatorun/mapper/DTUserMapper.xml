@@ -10,6 +10,9 @@
         <if test="type!=null">
             type = #{type}
         </if>
+        <if test="groupLeaderId != null">
+            AND groupLeaderId = #{groupLeaderId}
+        </if>
         limit ${offset},${pageSize}
     </select>
 
@@ -37,7 +40,8 @@
     </select>
 
     <insert id="add">
-        insert  into tab_user(userName,realName,password,active) values(#{userName},#{realName},#{password},true);
+        insert  into tab_user(userName,groupLeaderId,password,active,type,realName)
+        values(#{userName},#{groupLeaderId},#{password},true,#{type},#{realName});
     </insert>
 
     <insert id="register">

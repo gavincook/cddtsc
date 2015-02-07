@@ -101,6 +101,7 @@ public class DTUserAction {
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         int userType = user.getType();
         params.put("type",null);
+        params.put("groupLeaderId",null);
         if(queryUserType == managerUserType){//查看管理员
             if(userType == superManager){
                 params.put("type",queryUserType);
@@ -112,12 +113,13 @@ public class DTUserAction {
         }else if(queryUserType == associatorUserType){//小组长查看社员
             if(userType == groupLeaderUserType){
                 params.put("type",queryUserType);
+                params.put("groupLeaderId",user.getId());
             }
         }else{
             params.put("type",null);
         }
 
-        return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class,"list",params));
+        return WebResponse.build().setResult(dTUserService.listForPage(DTUserRepository.class, "list", params));
     }
 
     @Get("/get")
@@ -141,11 +143,28 @@ public class DTUserAction {
         return WebResponse.build();
     }
 
+    /**
+     * 添加用户,可用于超级管理员添加管理员;和小组长添加社员。根据当前操作用户类型来判断.
+     * @param request
+     * @param password
+     * @return
+     */
     @Post("/add")
     @ResponseBody
-    public WebResponse add(HttpServletRequest request,@RequestParam("password")String password){
+    public WebResponse add(HttpServletRequest request,@RequestParam("password")String password,@WebUser User user){
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         params.put("password",MD5.getCryptographicPassword(password));
+        int type = user.getType();
+        if(type == superManager){//超级管理员添加管理员
+            params.put("type",managerUserType);
+            params.put("groupLeaderId",null);
+        }else if(type == groupLeaderUserType){//小组长添加社员
+            params.put("type",associatorUserType);
+            params.put("groupLeaderId",user.getId());
+        }else{
+            return WebResponse.build().setSuccess(false);
+        }
+
         dTUserService.add(params);
         return WebResponse.build();
     }

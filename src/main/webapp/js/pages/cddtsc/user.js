@@ -26,10 +26,11 @@
             rowId:"id",
             buttons:[
                 {
-                    text:"添加管理员",
+                    text:userType==moon.constants["userType.manager"]? "添加管理员" : "添加社员",
                     click:btnHandler,
                     name:'addBtn',
-                    css:userType==moon.constants["userType.manager"]?"":"hide"
+                    css:(userType==moon.constants["userType.manager"] ||
+                        userType == moon.constants["userType.associator"])?"":"hide"
                 },
                 {
                     text:"删除用户",

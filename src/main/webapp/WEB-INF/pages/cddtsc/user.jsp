@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript">
-        var userType = "${userType}",/*用户类型*/
+        var userType = "${userType}",/*当前显示的用户类型*/
             title = "${title}";
     </script>
     <m:require src="jquery,common,ev,ac,handlebars,webuploader,bootstrap,table,dialog,noty,font,{cddtsc/user}"></m:require>
@@ -32,6 +32,12 @@
             <label class="col-sm-2 control-label">密码:</label>
             <div class="col-sm-10">
                 <input type="text"  class="form-control"  name="password" value="{{password}}" validate="validate[required]"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">真实姓名:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="realName" value="{{realName}}" validate="validate[required]"/>
             </div>
         </div>
     </form>
