@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContexts;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.moon.exception.ApplicationRunTimeException;
@@ -96,7 +96,7 @@ public class UcpaasSMSService implements SMSService,DisposableBean{
      * @param args 详细参数
      * @return
      */
-    private StringEntity formatParams(String first,String...args){
+    private ByteArrayEntity formatParams(String first,String...args){
         StringBuilder sb = new StringBuilder("{\"").append(first).append("\":{");
         int length ;
         if(Objects.isNull(args) || (length = args.length) == 0){
@@ -110,7 +110,7 @@ public class UcpaasSMSService implements SMSService,DisposableBean{
         }
         sb.append("}}");
         try {
-            return new StringEntity(sb.toString());
+            return new ByteArrayEntity(sb.toString().getBytes("UTF-8"));
         }catch (UnsupportedEncodingException e) {
             throw new ApplicationRunTimeException(e);
         }
