@@ -16,7 +16,7 @@ public class FileUtils {
 	/**
 	 * 保存文件
 	 * @param in
-	 * @param path
+	 * @param file
 	 * @throws java.io.IOException
 	 */
 	public static void save(InputStream in,File file) throws IOException{
