@@ -1,5 +1,6 @@
 package com.tomatorun.service;
 
+import com.tomatorun.dto.Address;
 import org.moon.base.service.BaseService;
 import org.moon.pagination.Pager;
 
@@ -70,4 +71,25 @@ public interface DTUserService extends BaseService {
      * @param id
      */
     public void resetPassword(Long id,String password);
+
+    /**
+     * 更新用户头像
+     * @param id
+     * @param avatar
+     */
+    public void updateAvatar(Long id,String avatar);
+
+
+    /**
+     * 获取收货地址
+     * @param userId
+     * @return
+     */
+    public List<Map<String,Object>> getAddresses(Long userId);
+
+    /**
+     * 添加收货地址
+     * @param address
+     */
+    public Address addAddress(Address address);
 }

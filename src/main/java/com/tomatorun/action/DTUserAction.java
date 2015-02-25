@@ -1,5 +1,7 @@
 package com.tomatorun.action;
 
+import com.tomatorun.dto.Address;
+import com.tomatorun.dto.builder.AddressBuilder;
 import com.tomatorun.repository.DTUserRepository;
 import com.tomatorun.service.AttachmentService;
 import com.tomatorun.service.DTUserService;
@@ -89,6 +91,11 @@ public class DTUserAction {
         return new ModelAndView("pages/cddtsc/user","userType",associatorUserType).addObject("title", "社员列表");
     }
 
+    @Get("/my")
+    @MenuMapping(name = "个人信息", url = "/user/my" , code = "dt_my" , parentCode = "dt")
+    public ModelAndView showMyInfoPage(@WebUser User user){
+        return new ModelAndView("pages/cddtsc/my","user",user.toAllMap());
+    }
     /**
      * 获取审核列表，管理员获取小组长列表，小组长获取该小组的组员
      * @param request
@@ -266,5 +273,43 @@ public class DTUserAction {
     public WebResponse resetPassword(@RequestParam("userId")Long userId){
         dTUserService.resetPassword(userId, MD5.getCryptographicPassword("123456"));
         return WebResponse.build();
+    }
+
+
+    /**
+     * 用户头像更新
+     * @param avatar
+     * @param user
+     * @return
+     */
+    @Post("/avatar/update")
+    @ResponseBody
+    public WebResponse updateAvatar(@RequestParam("avatar")String avatar,@WebUser User user){
+        dTUserService.updateAvatar(user.getId(),avatar);
+        user.setAvatar(avatar);
+        return WebResponse.build();
+    }
+
+    /**
+     * 获取收货地址列表
+     * @param user
+     * @return
+     */
+    @Get("/addresses")
+    @ResponseBody
+    public WebResponse getAddresses(@WebUser User user){
+        return WebResponse.build().setResult(dTUserService.getAddresses(user.getId()));
+    }
+
+    @Post("/address/add")
+    @ResponseBody
+    public WebResponse addAddress(@WebUser User user,@RequestParam("address")String address,
+                                  @RequestParam("phoneNumber")String phoneNumber,
+                                  @RequestParam("consignee")String consignee,
+                                  @RequestParam(value = "isDefault",defaultValue = "false",required = false)Boolean isDefault){
+        AddressBuilder ab = new AddressBuilder();
+        Address ar = ab.address(address).userId(user.getId()).consignee(consignee).isDefault(isDefault)
+            .phoneNumber(phoneNumber).build();
+        return WebResponse.success(dTUserService.addAddress(ar));
     }
 }

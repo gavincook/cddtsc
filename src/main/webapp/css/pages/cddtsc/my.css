@@ -1,0 +1,114 @@
+
+.my .my-info-container{
+    padding: 30px;
+}
+
+/*头像(图片+按钮)容器*/
+.my .my-avatar{
+    float: left;
+    position: relative;
+}
+/*更新头像按钮*/
+.my .update-avatar{
+    position: absolute;
+    left: 50%;
+    color: #F1F3F5;
+    bottom: 0;
+    border: solid 7px #2D2A2A;
+    font-size: 22px;
+    border-radius: 26px;
+    background: #2D2A2A;
+    opacity: 0.9;
+    margin-left: -19px;
+    display: none;
+    cursor: pointer;
+}
+/*更新按钮hover样式*/
+.my .my-avatar:hover .update-avatar{
+    display: inherit;
+}
+/*个人头像容器*/
+.my .image-container{
+    width: 200px;
+    height: 200px;
+    border-radius: 120px;
+    overflow: hidden;
+    border: solid 1px #ccc;
+}
+/*个人头像*/
+.my .image-container img{
+    max-width: 100%;
+    max-height: 100%;
+}
+/*个人信息*/
+.my .my-info{
+    padding: 36px 10px;
+    margin-left: 200px;
+}
+
+/*姓名*/
+.my .my-name{
+    display: block;
+    font-size: 24px;
+    color: #333;
+    font-weight: normal;
+}
+/*余额行*/
+.my .balance{
+    font-size: 20px;
+    margin-top: 20px;
+}
+/*余额数字*/
+.my .balance-num{
+    color: #F4782D;
+}
+/*充值按钮*/
+.my .charge-btn{
+    margin-left: 10px;
+}
+/*收货地址*/
+.my .address-container{
+    min-width: 800px;
+    width: 80%;
+    padding-left: 30px;
+}
+/*加载状态*/
+.my .loading-status{
+    font-size: 20px;
+    text-align: center;
+}
+
+/*标题*/
+.my .title{
+    font-size: 24px;
+    line-height: 44px;
+}
+
+.my .title .address-title{
+    float: left;
+}
+
+.my .title .add-address{
+    float: right;
+    font-size: 20px;
+    color: #FF8D3C;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+/*地址表格*/
+.my .address-table{
+    border: solid 1px #ccc;
+}
+
+.my .address-table table{
+    margin-bottom: 0;
+}
+
+.my .address-table thead{
+    background: #B0E1FF;
+}
+
+.my .btn{
+    width:150px;
+}

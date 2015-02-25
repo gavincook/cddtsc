@@ -2,6 +2,7 @@ package com.tomatorun.service.impl;
 
 import com.reeham.component.ddd.model.ModelContainer;
 import com.reeham.component.ddd.model.ModelUtils;
+import com.tomatorun.dto.Address;
 import com.tomatorun.repository.DTUserRepository;
 import com.tomatorun.service.DTUserService;
 import org.moon.base.service.AbstractService;
@@ -69,6 +70,23 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
 
     @Override
     public void resetPassword(Long id,String password) {
+        modelContainer.removeModel(ModelUtils.asModelKey(User.class,id));
         dTUserRepository.resetPassword(id,password);
+    }
+
+    @Override
+    public void updateAvatar(Long id, String avatar) {
+        dTUserRepository.updateAvatar(id,avatar);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAddresses(Long userId) {
+        return dTUserRepository.getAddresses(userId);
+    }
+
+    @Override
+    public Address addAddress(Address address) {
+        dTUserRepository.addAddress(address);
+        return address;
     }
 }

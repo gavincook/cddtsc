@@ -1,5 +1,6 @@
 package com.tomatorun.repository;
 
+import com.tomatorun.dto.Address;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -66,4 +67,25 @@ public interface DTUserRepository {
      * @param id
      */
     public void resetPassword(@Param("id")Long id,@Param("password")String password);
+
+    /**
+     * 更新头像
+     * @param id
+     * @param avatar
+     */
+    public void updateAvatar(@Param("id")Long id,@Param("avatar")String avatar);
+
+    /**
+     * 获取收货地址
+     * @param userId
+     * @return
+     */
+    public List<Map<String,Object>> getAddresses(@Param("userId")Long userId);
+
+    /**
+     * 添加收货地址
+     * @param address
+     * @return
+     */
+    public void addAddress(@Param("address")Address address);
 }

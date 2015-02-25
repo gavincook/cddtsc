@@ -63,4 +63,20 @@
     <update id="resetPassword">
         update tab_user set password = #{password} where id = #{id}
     </update>
+
+    <update id="updateAvatar">
+        update tab_user set avatar = #{avatar} where id = #{id};
+    </update>
+
+    <select id="getAddresses" resultType="HashMap">
+        SELECT ua.* FROM dt_user_address ua where ua.userId = #{userId}
+    </select>
+
+    <insert id="addAddress">
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert into dt_user_address(address,consignee,isDefault,phoneNumber,userId)
+        values(#{address.address},#{address.consignee},#{address.isDefault},#{address.phoneNumber},#{address.userId});
+    </insert>
 </mapper>
