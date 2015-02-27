@@ -47,6 +47,7 @@
             });
         });
 
+        //添加收货地址
         $(document).on("click",".add-address",function(){
             $("#addressFormTemplate").dialog({
                title:"添加收货地址",
@@ -73,6 +74,66 @@
                         }
                     }
                 ]
+            });
+        });
+
+        //删除地址
+        $(document).on("click",".remove",function(e){
+            moon.confirm("是否要删除该收货地址?").done(function(result){
+                if(result){
+                    var $tr = $(e.target).closest("tr");
+                    var id = $tr.attr("data-id");
+                    $.getJsonData(contextPath+"/user/address/delete",{id:id},{type:"Post"}).done(function(){
+                        moon.success("收货地址删除成功");
+                        $tr.hide(1000,function(){
+                            $(this).remove();
+                        });
+                    });
+                }
+            });
+        });
+
+        //设置默认地址
+        $(document).on("click",".set-default",function(e){
+            var $tr = $(e.target).closest("tr");
+            var id = $tr.attr("data-id");
+            $.getJsonData(contextPath+"/user/address/default/set",{id:id},{type:"Post"}).done(function(){
+                moon.success("默认地址设置成功");
+                $(".address-status").not($tr).empty();
+                $tr.find(".address-status").html("默认");
+            });
+        });
+
+        //更新地址
+        $(document).on("click",".edit",function(e){
+            var $tr = $(e.target).closest("tr");
+            var id = $tr.attr("data-id");
+            $.getJsonData(contextPath+"/user/address/get",{id:id}).done(function(data){
+                $("#addressFormTemplate").dialog({
+                    title:"添加收货地址",
+                    data:data.result,
+                    style:"right",
+                    buttons:[
+                        {
+                            text:"保存",
+                            css:"btn btn-warning",
+                            click:function(){
+                                var dialog = this;
+                                dialog.$e.find("form").ajaxSubmitForm(contextPath+"/user/address/update",{id:id}).done(function(data){
+                                    $tr.replaceWith($("#addressTemplate").renderTemplate([data.result]));
+                                    moon.success("更新收货地址成功");
+                                    dialog.close();
+                                });
+                            }
+                        },{
+                            text:"取消",
+                            css:"btn btn-default",
+                            click:function(){
+                                this.close();
+                            }
+                        }
+                    ]
+                });
             });
         });
     });

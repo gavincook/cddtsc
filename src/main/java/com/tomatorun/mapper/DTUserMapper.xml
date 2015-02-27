@@ -79,4 +79,34 @@
         insert into dt_user_address(address,consignee,isDefault,phoneNumber,userId)
         values(#{address.address},#{address.consignee},#{address.isDefault},#{address.phoneNumber},#{address.userId});
     </insert>
+
+    <delete id="deleteAddress">
+        delete from dt_user_address where id = #{addressId};
+    </delete>
+
+    <update id="updateAddress">
+        update dt_user_address set address = #{address.address},
+        consignee = #{address.consignee},phoneNumber = #{address.phoneNumber} where id = #{address.id}
+    </update>
+
+    <select id="getAddress" resultMap="address">
+        select * from dt_user_address where id = #{addressId};
+    </select>
+
+    <update id="unSetDefaultAddress">
+      update dt_user_address set isDefault = FALSE where userId = #{userId};
+    </update>
+
+    <update id="setDefaultAddress">
+        update dt_user_address set isDefault = true where userId = #{address.userId} and id = #{address.id};
+    </update>
+
+    <resultMap id="address" type="com.tomatorun.dto.Address">
+        <result column="id" property="id" javaType="Long"></result>
+        <result column="address" property="address" javaType="String"></result>
+        <result column="consignee" property="consignee" javaType="String"></result>
+        <result column="phoneNumber" property="phoneNumber" javaType="String"></result>
+        <result column="isDefault" property="isDefault" javaType="Boolean"></result>
+        <result column="userId" property="userId" javaType="Long"></result>
+    </resultMap>
 </mapper>

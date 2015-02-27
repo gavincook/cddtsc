@@ -71,38 +71,41 @@
     <%--地址模板--%>
     <script type="text/html" id="addressTemplate">
         {{#each this}}
-        <tr>
+        <tr data-id="{{id}}">
             <td>{{consignee}}</td>
             <td>{{address}}</td>
             <td>{{phoneNumber}}</td>
-            <td><a href="#">修改</a> <a href="#">删除</a> {{#if isDefault}}{{else}}<a href="#">设为默认</a>{{/if}} </td>
-            <td>{{#if isDefault}}默认{{/if}}</td>
+            <td><a href="#" class="edit">修改</a>
+                <a href="#" class="remove">删除</a>
+                {{#if isDefault}}{{else}}<a href="#" class="set-default">设为默认</a>{{/if}}
+            </td>
+            <td class="address-status">{{#if isDefault}}默认{{/if}}</td>
         </tr>
         {{/each}}
     </script>
 
     <%--地址表单模板--%>
-    <script type="text/html" id="addressFormTemplate">
+    <script type="text/x-handlebars-template" id="addressFormTemplate">
         <form class="form-horizontal address-form">
             <div class="form-group">
                 <span class="control-label col-md-2">收货人</span>
                 <div class="col-md-4">
-                    <input type="text" name="consignee" class="form-control">
+                    <input type="text" name="consignee" class="form-control" value="{{consignee}}">
                 </div>
                 <span class="control-label col-md-2">电话</span>
                 <div class="col-md-4">
-                    <input type="text" name="phoneNumber" class="form-control">
+                    <input type="text" name="phoneNumber" class="form-control" value="{{phoneNumber}}">
                 </div>
             </div>
             <div class="form-group">
                 <span class="control-label col-md-2">详细地址</span>
                 <div class="col-md-10">
-                    <input type="text" name="address" class="form-control">
+                    <input type="text" name="address" class="form-control" value="{{address}}">
                 </div>
             </div>
             <div class="form-group">
                 <span class="control-label margin-top-md">设为默认收货地址</span>
-                <input type="checkbox" name="isDefault">
+                <input type="checkbox" name="isDefault" {{#if isDefault}}checked{{/if}}>
             </div>
         </form>
     </script>

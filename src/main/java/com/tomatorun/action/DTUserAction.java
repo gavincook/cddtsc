@@ -312,4 +312,50 @@ public class DTUserAction {
             .phoneNumber(phoneNumber).build();
         return WebResponse.success(dTUserService.addAddress(ar));
     }
+
+    /**
+     * 删除收货地址
+     * @param id
+     * @return
+     */
+    @Post("/address/delete")
+    @ResponseBody
+    public WebResponse removeAddress(@RequestParam("id")Long id){
+        dTUserService.deleteAddress(id);
+        return WebResponse.success();
+    }
+
+    @Get("/address/get")
+    @ResponseBody
+    public WebResponse getAddress(@RequestParam("id")Long id){
+        return WebResponse.success(dTUserService.getAddress(id));
+    }
+
+    @Post("/address/update")
+    @ResponseBody
+    public WebResponse updateAddress(@WebUser User user,@RequestParam("address")String address,
+                                     @RequestParam("id")Long id,
+                                     @RequestParam("phoneNumber")String phoneNumber,
+                                     @RequestParam("consignee")String consignee,
+                                     @RequestParam(value = "isDefault",defaultValue = "false",required = false)Boolean isDefault){
+        AddressBuilder ab = new AddressBuilder();
+        Address ar = ab.address(address).id(id).userId(user.getId()).consignee(consignee).isDefault(isDefault)
+            .phoneNumber(phoneNumber).build();
+        return WebResponse.success(dTUserService.updateAddress(ar));
+    }
+
+    /**
+     * 设置默认收货地址
+     * @param id
+     * @param user
+     * @return
+     */
+    @Post("/address/default/set")
+    @ResponseBody
+    public WebResponse setDefaultAddress(@RequestParam("id")Long id,@WebUser User user){
+        AddressBuilder ab = new AddressBuilder();
+        Address ar = ab.id(id).userId(user.getId()).build();
+        dTUserService.setDefaultAddress(ar);
+        return WebResponse.success();
+    }
 }

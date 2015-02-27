@@ -88,4 +88,36 @@ public interface DTUserRepository {
      * @return
      */
     public void addAddress(@Param("address")Address address);
+
+    /**
+     * 删除收货地址
+     * @param id
+     */
+    public void deleteAddress(@Param("addressId")Long id);
+
+    /**
+     * 获取地址
+     * @param addressId
+     * @return
+     */
+    public Address getAddress(@Param("addressId")Long addressId);
+
+    /**
+     * 更新收货地址
+     * @param address
+     * @return
+     */
+    public void updateAddress(@Param("address")Address address);
+
+    /**
+     * 设置默认地址时，先将所有地址置为非默认
+     * @param userId
+     */
+    public void unSetDefaultAddress(@Param("userId")Long userId);
+
+    /**
+     * 设置默认地址
+     * @param address
+     */
+    public void setDefaultAddress(@Param("address")Address address);
 }

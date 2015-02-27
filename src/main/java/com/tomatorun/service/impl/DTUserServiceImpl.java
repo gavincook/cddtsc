@@ -89,4 +89,26 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
         dTUserRepository.addAddress(address);
         return address;
     }
+
+    @Override
+    public void deleteAddress(Long addressId) {
+        dTUserRepository.deleteAddress(addressId);
+    }
+
+    @Override
+    public Address getAddress(Long addressId) {
+        return dTUserRepository.getAddress(addressId);
+    }
+
+    @Override
+    public Address updateAddress(Address address) {
+        dTUserRepository.updateAddress(address);
+        return address;
+    }
+
+    @Override
+    public void setDefaultAddress(Address address) {
+        dTUserRepository.unSetDefaultAddress(address.getUserId());
+        dTUserRepository.setDefaultAddress(address);
+    }
 }

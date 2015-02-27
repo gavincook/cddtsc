@@ -92,4 +92,30 @@ public interface DTUserService extends BaseService {
      * @param address
      */
     public Address addAddress(Address address);
+
+    /**
+     * 删除收货地址
+     * @param addressId
+     */
+    public void deleteAddress(Long addressId);
+
+    /**
+     * 获取地址
+     * @param addressId
+     * @return
+     */
+    public Address getAddress(Long addressId);
+
+    /**
+     * 更新收货地址
+     * @param address
+     * @return
+     */
+    public Address updateAddress(Address address);
+
+    /**
+     * 设置默认地址
+     * @param address
+     */
+    public void setDefaultAddress(Address address);
 }
