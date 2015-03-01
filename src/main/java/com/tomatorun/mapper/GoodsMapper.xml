@@ -30,7 +30,8 @@
     </select>
 
     <update id="update">
-        update dt_goods set name = #{name},specification=#{specification} where id = #{id};
+        update dt_goods set name = #{name},specification=#{specification},
+         level = #{level},price=#{price},unit=#{unit} where id = #{id};
     </update>
 
     <delete id="delete">
@@ -45,7 +46,8 @@
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert  into dt_goods(name,categoryId,specification) values(#{name},#{categoryId},#{specification});
+        insert  into dt_goods(name,categoryId,specification,price,level,unit)
+        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit});
     </insert>
 
 </mapper>

@@ -20,4 +20,19 @@
         <item code="4" name="管理员"></item>
         <item code="5" name="超级管理员"></item>
     </dictionary>
+
+    <dictionary code="goodsLevel" name="商品等级">
+        <item code="1" name="一等"></item>
+        <item code="2" name="二等"></item>
+        <item code="3" name="三等"></item>
+        <item code="4" name="四等"></item>
+    </dictionary>
+
+    <dictionary code="goodsUnit" name="商品计量单位">
+        <item code="1" name="斤"></item>
+        <item code="2" name="把"></item>
+        <item code="3" name="个"></item>
+        <item code="4" name="捆"></item>
+    </dictionary>
+
 </dictionaries>

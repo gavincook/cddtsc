@@ -86,14 +86,28 @@ public class GoodsAction {
         return WebResponse.build();
     }
 
+    /**
+     * 添加商品
+     * @param request
+     * @param name 商品名字
+     * @param specification 规格
+     * @param price 价格
+     * @param level 等级
+     * @param unit 计量单位
+     * @param categoryId 所属类别
+     * @param attachments 商品图片
+     * @return
+     */
     @Post("/add")
     @ResponseBody
-    public WebResponse add(HttpServletRequest request, @RequestParam("name")String name, @RequestParam("specification")String specification,
-                           @RequestParam("categoryId")Long categoryId, @RequestParam(value="attachments", required=false)String[] attachments){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("name", name);
-        params.put("specification", specification);
-        params.put("categoryId", categoryId);
+    public WebResponse add(HttpServletRequest request, @RequestParam("name")String name,
+                           @RequestParam("specification")String specification,
+                           @RequestParam("price")Double price,
+                           @RequestParam("level")Integer level,
+                           @RequestParam("unit")Integer unit,
+                           @RequestParam("categoryId")Long categoryId,
+                           @RequestParam(value="attachments", required=false)String[] attachments){
+        Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         goodsService.add(params);
         Long goodId = Long.parseLong(params.get("id").toString());
         if(attachments != null && attachments.length > 0){

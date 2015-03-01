@@ -133,6 +133,7 @@
             ]
         });
 
+        //选择类别显示商品
         $(document).on("click","#categoryTable tbody tr",function(e){
             var rowData = categoryTable.getRowData(e.currentTarget);
             currentCategoryId = rowData.id;
