@@ -22,8 +22,26 @@
     padding: 5px;
     box-shadow: 1px 1px 8px 1px #ccc;
     margin: 5px 0 0 5px;
-    cursor: pointer;
     background: #FFFFFF;
+    position: relative;
+}
+
+.goods-item .delete{
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    font-size: 20px;
+    color: #EC1506;
+    cursor: pointer;
+    display: none;
+}
+
+.select-goods-container .goods-item:hover .delete{
+    display: inline-block;
+}
+
+.goods-container .goods-item{
+    cursor: pointer;
 }
 
 .goods-item .cover-container{
@@ -51,7 +69,7 @@
     border-bottom: solid 1px #ccc;
 }
 
-#storeForm{
+.store-dialog{
     position: absolute;
 }
 

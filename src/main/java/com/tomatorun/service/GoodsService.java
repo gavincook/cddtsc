@@ -22,4 +22,7 @@ public interface GoodsService extends BaseService {
      * @param params
      */
     public void select(Map<String, Object> params);
+
+    public void deleteSelectGoods(Long selectGoodsId);
+
 }

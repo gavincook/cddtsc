@@ -44,4 +44,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     public void select(Map<String, Object> params) {
         goodsRepository.select(params);
     }
+
+    @Override
+    public void deleteSelectGoods(Long selectGoodsId) {
+        goodsRepository.deleteSelectGoods(selectGoodsId);
+    }
 }

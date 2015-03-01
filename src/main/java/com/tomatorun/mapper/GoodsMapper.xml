@@ -82,7 +82,7 @@
     </insert>
 
     <select id="listForSupplier" resultType="HashMap">
-        SELECT dt.* ,
+        SELECT dt.name,dt.price,dug.id ,
         (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         join dt_user_goods dug
@@ -101,4 +101,8 @@
         on dug.goodsId = dt.id
         WHERE dug.userId = #{userId}
     </select>
+
+    <delete id="deleteSelectGoods">
+        delete from dt_user_goods where id = #{selectGoodsId}
+    </delete>
 </mapper>

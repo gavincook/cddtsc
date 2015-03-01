@@ -20,6 +20,7 @@
         <script type="text/html" id="goodsTemplate">
             {{#each this}}
             <div class="goods-item" data-id="{{id}}">
+                <i class="fa fa-times-circle delete"></i>
                 <div class="cover-container">
                     <img src="${pageContext.request.contextPath}/file/get/{{cover}}">
                 </div>
@@ -30,7 +31,7 @@
             {{/each}}
         </script>
 
-        <div class="form-horizontal hide" id="storeForm">
+        <div class="form-horizontal hide store-dialog" id="storeForm">
             <div class="modal-backdrop in"></div>
             <div class="store-form">
                 <h3 class="title">请完善库存</h3>
@@ -41,7 +42,7 @@
                 <div>
                     <button type="button" class="btn btn-warning col-md-5 confirm-store">确认</button>
                     <span class="col-md-2"></span>
-                    <button type="button" class="btn btn-default col-md-5">取消</button>
+                    <button type="button" class="btn btn-default col-md-5 cancel">取消</button>
                     <span class="clearfix"></span>
                 </div>
             </div>

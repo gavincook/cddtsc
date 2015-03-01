@@ -1,5 +1,6 @@
 package com.tomatorun.repository;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,4 +25,10 @@ public interface GoodsRepository {
      * @param params
      */
     public void select(Map<String, Object> params);
+
+    /**
+     * 删除供商选择的商品
+     * @param selectGoodsId
+     */
+    public void deleteSelectGoods(@Param("selectGoodsId")Long selectGoodsId);
 }

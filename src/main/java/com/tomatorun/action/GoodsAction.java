@@ -162,4 +162,17 @@ public class GoodsAction {
         Pager pager = goodsService.listForPage(GoodsRepository.class,"listForSupplier",params);
         return WebResponse.success(pager);
     }
+
+    /**
+     * 删除供商选择的商品
+     * @param user
+     * @param selectGoodsId
+     * @return
+     */
+    @Post("/select/delete")
+    @ResponseBody
+    public WebResponse deleteSelectGoods(@WebUser User user,@RequestParam("selectGoodsId")Long selectGoodsId){
+        goodsService.deleteSelectGoods(selectGoodsId);
+        return WebResponse.success();
+    }
 }

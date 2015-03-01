@@ -35,6 +35,16 @@
             currentGoods.attr("status","confirming");
         });
 
+        //关闭输入库存对话框
+        $(".cancel").click(function(){
+           $storeForm.addClass("hide");
+        });
+
+        //关闭输入库存对话框
+        $("#storeForm .modal-backdrop").click(function(){
+            $storeForm.addClass("hide");
+        });
+
         //添加商品
         $(".confirm-store").click(function(e){
             var $lastSelectGoods = $(".select-goods-container .goods-item");
@@ -53,7 +63,9 @@
                         top:top,
                         left:left
                     },function(){
-                        $selectGoodsContainer.append($currentGoods.removeAttr("status"));
+                        $currentGoods.removeAttr("status");
+                        $currentGoods.attr("data-id",data.result.id);
+                        $selectGoodsContainer.append($currentGoods);
                         $storeForm.addClass("hide");
                     });
                 }else{
@@ -61,6 +73,20 @@
                 }
             });
 
+        });
+
+        //删除已选择商品
+        $(".select-goods-container").on("click",".delete",function(e){
+            var $goodsItem = $(e.target).closest(".goods-item");
+            $.getJsonData(contextPath+"/goods/select/delete",{selectGoodsId:$goodsItem.attr("data-id")},
+                {type:"Post"}).done(function(data){
+                    if(data.success){
+                        moon.success("商品删除成功");
+                        $goodsItem.hide(1000,function(){
+                            $goodsItem.remove();
+                        });
+                    }
+                });
         });
     });
 })();
