@@ -6,6 +6,9 @@ import com.tomatorun.service.GoodsService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.pagination.Pager;
+import org.moon.rbac.domain.User;
+import org.moon.rbac.domain.annotation.MenuMapping;
+import org.moon.rbac.domain.annotation.WebUser;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
 import org.moon.utils.Maps;
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import scala.xml.PrettyPrinter;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,11 +45,22 @@ public class GoodsAction {
     public WebResponse list(HttpServletRequest request){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         Pager pager = goodsService.listForPage(GoodsRepository.class,"list",params);
-//        List<Object> goods = pager.getItems();
-//        for (Object good : goods){
-//            ((HashMap<String,Object>)good).put("images", attachmentService.list(Maps.mapIt("referenceId", ((HashMap<String, Object>) good).get("id"),"type", goodsImageType)));
-//            System.out.println(good);
-//        }
+        return WebResponse.build().setResult(pager);
+    }
+
+    /**
+     * 商品选择页面，列出带封面的商品列表.只列出没有被该用户添加的商品
+     * @param request
+     * @return
+     */
+    @Get("/listWithCover")
+    @ResponseBody
+    public WebResponse listWithCover(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("attachmentType",goodsImageType);
+        params.put("withCover",true);
+        params.put("userId",user.getId());
+        Pager pager = goodsService.listForPage(GoodsRepository.class,"list",params);
         return WebResponse.build().setResult(pager);
     }
 
@@ -52,8 +68,7 @@ public class GoodsAction {
     @ResponseBody
     public WebResponse get(@RequestParam("id")Long id){
         Map<String,Object> good = goodsService.get(Maps.mapIt("id", id));
-        good.put("images", attachmentService.list(Maps.mapIt("referenceId", good.get("id"),"type", goodsImageType)));
-        System.out.println(good);
+        good.put("images", attachmentService.list(Maps.mapIt("referenceId", good.get("id"), "type", goodsImageType)));
         return WebResponse.build().setResult(good);
     }
 
@@ -118,4 +133,33 @@ public class GoodsAction {
         return WebResponse.build().setResult(params.get("id"));
     }
 
+    /**
+     * 显示商品选择界面（供商）
+     * @return
+     */
+    @Get("/selectPage")
+    @MenuMapping(name = "商品类别", url = "/goods/selectPage",code = "dt_goods",parentCode = "dt")
+    public ModelAndView showGoodsPageForSupplier(){
+        return new ModelAndView("pages/cddtsc/selectGoods");
+    }
+
+    @Post("/select")
+    @ResponseBody
+    public WebResponse selectGoods(@RequestParam("inventory")Integer inventory,@RequestParam("goodsId")Integer goodsId,
+                                   @WebUser User user, HttpServletRequest request){
+        Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
+        params.put("userId",user.getId());
+        goodsService.select(params);
+        return WebResponse.success(params);
+    }
+
+    @Get("/listWithCoverForSupplier")
+    @ResponseBody
+    public WebResponse listWithCoverForSupplier(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("attachmentType",goodsImageType);
+        params.put("userId",user.getId());
+        Pager pager = goodsService.listForPage(GoodsRepository.class,"listForSupplier",params);
+        return WebResponse.success(pager);
+    }
 }

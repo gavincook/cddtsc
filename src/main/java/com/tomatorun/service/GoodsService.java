@@ -16,4 +16,10 @@ public interface GoodsService extends BaseService {
     public void delete(Map<String, Object> params);
 
     public void add(Map<String, Object> params);
+
+    /**
+     * 供商选择商品
+     * @param params
+     */
+    public void select(Map<String, Object> params);
 }

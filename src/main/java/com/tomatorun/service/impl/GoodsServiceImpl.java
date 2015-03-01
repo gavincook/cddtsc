@@ -39,4 +39,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     public void add(Map<String, Object> params) {
         goodsRepository.add(params);
     }
+
+    @Override
+    public void select(Map<String, Object> params) {
+        goodsRepository.select(params);
+    }
 }

@@ -2,30 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tomatorun.repository.GoodsRepository">
     <select id="list" resultType="HashMap">
-        SELECT * from dt_goods
+        SELECT dt.*
+        <if test="withCover==true">
+            ,(SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+        </if>
+        from dt_goods dt
+        <if test="withCover==true">
+            LEFT JOIN (SELECT * FROM dt_user_goods WHERE userId = #{userId}) dug ON dt.id = dug.goodsId
+        </if>
         WHERE 1 = 1
+        <if test="withCover==true">
+            AND dug.id IS NULL
+        </if>
         <if test="keyword==null">
-            <if test="categoryId==null">
-                AND categoryId is null
-            </if>
-            <if test="categoryId!=null">
-                AND categoryId = #{categoryId}
+            <if test="withCover!=true">
+                <if test="categoryId==null">
+                    AND dt.categoryId is null
+                </if>
+                <if test="categoryId!=null">
+                    AND dt.categoryId = #{categoryId}
+                </if>
             </if>
         </if>
         <if test="keyword!=null">
-            AND name like CONCAT('${keyword}','%' )
+            AND dt.name like CONCAT('${keyword}','%' )
         </if>
-
+        limit ${offset},${pageSize}
     </select>
 
     <select id="list_count" resultType="Integer">
-        SELECT count(id) from dt_goods
-        WHERE 1 = 1
-        <if test="categoryId==null">
-            AND categoryId is null
+        SELECT count(dt.id) from dt_goods dt
+        <if test="withCover==true">
+            LEFT JOIN (SELECT * FROM dt_user_goods WHERE userId = #{userId}) dug ON dt.id = dug.goodsId
         </if>
-        <if test="categoryId!=null">
-            AND categoryId = #{categoryId}
+        WHERE 1 = 1
+        <if test="withCover==true">
+            AND dug.id IS NULL
+        </if>
+        <if test="keyword==null">
+            <if test="categoryId==null">
+                AND dt.categoryId is null
+            </if>
+            <if test="categoryId!=null">
+                AND dt.categoryId = #{categoryId}
+            </if>
+        </if>
+        <if test="keyword!=null">
+            AND dt.name like CONCAT('${keyword}','%' )
         </if>
     </select>
 
@@ -50,4 +73,32 @@
         values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit});
     </insert>
 
+    <insert id="select">
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert into dt_user_goods(goodsId,inventory,userId)
+        values(#{goodsId},#{inventory},#{userId});
+    </insert>
+
+    <select id="listForSupplier" resultType="HashMap">
+        SELECT dt.* ,
+        (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+        from dt_goods dt
+        join dt_user_goods dug
+        on dug.goodsId = dt.id
+        WHERE dug.userId = #{userId}
+        <if test="keyword!=null">
+            AND dt.name like CONCAT('${keyword}','%' )
+        </if>
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="listForSupplier_count" resultType="Integer">
+        SELECT count(dt.id)
+        from dt_goods dt
+        join dt_user_goods dug
+        on dug.goodsId = dt.id
+        WHERE dug.userId = #{userId}
+    </select>
 </mapper>
