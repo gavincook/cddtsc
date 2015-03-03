@@ -106,3 +106,20 @@
     height: 48px;
     border-bottom: solid 1px #ccc;
 }
+
+.load-more{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    text-align: center;
+    background: #FDE1CF;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+}
+
+.load-more.no-more{
+    cursor:not-allowed;
+    background: #F4F4F4;
+}

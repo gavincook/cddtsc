@@ -26,6 +26,7 @@
             <div class="goods-items">
 
             </div>
+            <div class="load-more load-goods" data-page="1">点击加载更多</div>
         </div>
 
         <script type="text/html" id="goodsTemplate">

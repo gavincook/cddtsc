@@ -102,6 +102,27 @@
                doSearchGoods();
            }
         });
+
+        $(".load-goods").click(function(){
+            var that = this;
+            if($(that).hasClass("no-more")){
+                return;
+            }
+            var inputValue = $("#goodsName").val();
+            var currentPage = $(that).attr("data-page");
+            var nextPage = parseInt(currentPage)+1;
+            var data = {pageIndex:nextPage};
+            if(inputValue){
+                data.keyword = inputValue;
+            }
+            $.getJsonData(contextPath+"/goods/listWithCover",data).done(function(data){
+                $(that).attr("data-page",nextPage);
+                if(data.result.items.length < data.result.pageSize){
+                    $(that).addClass("no-more").html("没有更多了");
+                }
+                $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items"});
+            });
+        });
     });
 
     function doSearchGoods(){
