@@ -100,3 +100,9 @@
 .store-form .btn-container{
     min-height: 34px;
 }
+
+.search-form{
+    margin: 10px;
+    height: 48px;
+    border-bottom: solid 1px #ccc;
+}

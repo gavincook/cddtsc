@@ -29,7 +29,7 @@
             </if>
         </if>
         <if test="keyword!=null">
-            AND dt.name like CONCAT('${keyword}','%' )
+            AND dt.name like CONCAT('%',#{keyword},'%' )
         </if>
         limit ${offset},${pageSize}
     </select>
@@ -52,7 +52,7 @@
             </if>
         </if>
         <if test="keyword!=null">
-            AND dt.name like CONCAT('${keyword}','%' )
+            AND dt.name like CONCAT('%',#{keyword},'%' )
         </if>
     </select>
 

@@ -152,6 +152,12 @@ public class GoodsAction {
         return WebResponse.success(params);
     }
 
+    /**
+     * 列出已经选择了的商品
+     * @param request
+     * @param user
+     * @return
+     */
     @Get("/listWithCoverForSupplier")
     @ResponseBody
     public WebResponse listWithCoverForSupplier(HttpServletRequest request,@WebUser User user){

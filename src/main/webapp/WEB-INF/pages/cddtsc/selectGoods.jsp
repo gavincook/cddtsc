@@ -14,7 +14,18 @@
         </div>
 
         <div class="goods-container  col-md-6">
+            <div class="search-form">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="搜索商品" id="goodsName">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-warning btn-block search-goods" type="button">搜索</button>
+                </div>
+            </div>
+            <div class="goods-items">
 
+            </div>
         </div>
 
         <script type="text/html" id="goodsTemplate">

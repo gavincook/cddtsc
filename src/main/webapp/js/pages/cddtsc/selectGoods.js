@@ -6,12 +6,10 @@
         var $selectGoodsContainer = $(".select-goods-container");
 
         $.getJsonData(contextPath+"/goods/listWithCover").done(function(data){
-            console.log(data);
-            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-container"});
+            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items"});
         });
 
         $.getJsonData(contextPath+"/goods/listWithCoverForSupplier").done(function(data){
-            console.log(data);
             $("#goodsTemplate").renderTemplate(data.result.items,{container:".select-goods-container"});
         });
 
@@ -90,5 +88,30 @@
                     }
                 });
         });
+
+        /**
+         * （右侧）搜索商品
+         */
+        $(document).on("click",".search-goods",function(){
+            doSearchGoods();
+        });
+
+        //回车搜索
+        $("#goodsName").keyup(function(e){
+           if(e.keyCode == 13){
+               doSearchGoods();
+           }
+        });
     });
+
+    function doSearchGoods(){
+        var inputValue = $("#goodsName").val();
+        var data = {};
+        if(inputValue){
+            data = {keyword:inputValue};
+        }
+        $.getJsonData(contextPath+"/goods/listWithCover",data).done(function(data){
+            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items",emptyParent:true});
+        });
+    }
 })();
