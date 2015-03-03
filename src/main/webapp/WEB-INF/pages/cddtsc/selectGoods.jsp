@@ -25,7 +25,23 @@
                     <img src="${pageContext.request.contextPath}/file/get/{{cover}}">
                 </div>
                 <div class="description">
-                    <span>{{name}}</span>
+                    <div class="goods-name">{{name}}</div>
+                    <div class="price">
+                        <span>价格：</span>
+                        <i class="fa fa-rmb"></i> {{price}}
+                    </div>
+                    <div class="level">
+                        <span>等级：</span>
+                        {{level}}
+                    </div>
+                    <div class="unit">
+                        <span>单位：</span>
+                        {{unit}}
+                    </div>
+                    <div class="inventory">
+                        <span>库存：</span>
+                        <span class="inventory-num">{{inventory}}</span>
+                    </div>
                 </div>
             </div>
             {{/each}}
@@ -39,7 +55,7 @@
                 <div class="store-div">
                     <input type="text" placeholder = "库存数量" class="form-control" id="inventory">
                 </div>
-                <div>
+                <div class="btn-container">
                     <button type="button" class="btn btn-warning col-md-5 confirm-store">确认</button>
                     <span class="col-md-2"></span>
                     <button type="button" class="btn btn-default col-md-5 cancel">取消</button>

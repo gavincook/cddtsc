@@ -2,11 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tomatorun.repository.GoodsRepository">
     <select id="list" resultType="HashMap">
-        SELECT dt.*
+        SELECT dt.id,dt.name,dt.price,dt.specification,td.name as level,tdic.name as unit
         <if test="withCover==true">
             ,(SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
         </if>
         from dt_goods dt
+        join tab_dictionary td
+        on td.code = dt.level and td.parentId = #{levelDicId}
+        join tab_dictionary tdic
+        on tdic.code = dt.unit and tdic.parentId = #{unitDicId}
         <if test="withCover==true">
             LEFT JOIN (SELECT * FROM dt_user_goods WHERE userId = #{userId}) dug ON dt.id = dug.goodsId
         </if>
@@ -82,11 +86,15 @@
     </insert>
 
     <select id="listForSupplier" resultType="HashMap">
-        SELECT dt.name,dt.price,dug.id ,
+        SELECT dt.name,dt.price,dug.id ,td.name as level,tdic.name as unit,dug.inventory,
         (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         join dt_user_goods dug
         on dug.goodsId = dt.id
+        join tab_dictionary td
+        on td.code = dt.level and td.parentId = #{levelDicId}
+        join tab_dictionary tdic
+        on tdic.code = dt.unit and tdic.parentId = #{unitDicId}
         WHERE dug.userId = #{userId}
         <if test="keyword!=null">
             AND dt.name like CONCAT('${keyword}','%' )

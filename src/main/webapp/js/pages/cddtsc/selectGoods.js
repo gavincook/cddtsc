@@ -30,7 +30,7 @@
                 left:"50%",
                 top:"50%",
                 "margin-left":"-70px",
-                "margin-top":"-70px"
+                "margin-top":"-192px"
             });
             currentGoods.attr("status","confirming");
         });
@@ -49,15 +49,16 @@
         $(".confirm-store").click(function(e){
             var $lastSelectGoods = $(".select-goods-container .goods-item");
             var $currentGoods = $(".goods-item[status='confirming']");
+            var inventoryNum = $("#inventory").val();
             $.getJsonData(contextPath+"/goods/select",{
                 goodsId: $currentGoods.attr("data-id"),
-                inventory:$("#inventory").val()
+                inventory:inventoryNum
             },{type:"Post"}).done(function(data){
                 if(data.success){
                     var rows = Math.ceil(($lastSelectGoods.length+1)/Math.floor($selectGoodsContainer.width()/132));//新数据应该在的行数
                     var cols = $lastSelectGoods.length%Math.floor($selectGoodsContainer.width()/132)+1;//新数据应该在的列数
 
-                    var top = (rows-1)*132,left = (cols-1)*152;
+                    var top = (rows-1)*244,left = (cols-1)*132;
 
                     $storeForm.animate({
                         top:top,
@@ -65,6 +66,7 @@
                     },function(){
                         $currentGoods.removeAttr("status");
                         $currentGoods.attr("data-id",data.result.id);
+                        $currentGoods.find(".inventory-num").html(inventoryNum);
                         $selectGoodsContainer.append($currentGoods);
                         $storeForm.addClass("hide");
                     });

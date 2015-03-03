@@ -76,7 +76,7 @@ public class GoodsAction {
     @ResponseBody
     public WebResponse update(HttpServletRequest request, @RequestParam("id")Long id, @RequestParam("name")String name, @RequestParam("specification")String specification,
                               @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds){
-        Map<String,Object> params = new HashMap<String, Object>();
+        Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         params.put("id", id);
         params.put("name", name);
         params.put("specification", specification);
@@ -87,7 +87,6 @@ public class GoodsAction {
                 attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodId, "type", goodsImageType));
             }
         }
-        System.out.println(attachmentIds);
         if(attachmentIds != null && attachmentIds.length > 0){
             attachmentService.delete(Maps.mapIt("ids", Strings.join(attachmentIds, ",")));
         }
@@ -138,7 +137,7 @@ public class GoodsAction {
      * @return
      */
     @Get("/selectPage")
-    @MenuMapping(name = "商品类别", url = "/goods/selectPage",code = "dt_goods",parentCode = "dt")
+    @MenuMapping(name = "商品选择", url = "/goods/selectPage",code = "dt_goods",parentCode = "dt")
     public ModelAndView showGoodsPageForSupplier(){
         return new ModelAndView("pages/cddtsc/selectGoods");
     }

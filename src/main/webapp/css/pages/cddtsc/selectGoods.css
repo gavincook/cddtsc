@@ -24,6 +24,7 @@
     margin: 5px 0 0 5px;
     background: #FFFFFF;
     position: relative;
+    text-align: left;
 }
 
 .goods-item .delete{
@@ -40,8 +41,20 @@
     display: inline-block;
 }
 
+.select-goods-container .inventory{
+    display: block;
+}
+
+.store-dialog .inventory{
+    display: none;
+}
+
 .goods-container .goods-item{
     cursor: pointer;
+}
+
+.goods-container .inventory{
+    display: none;
 }
 
 .goods-item .cover-container{
@@ -50,11 +63,18 @@
     vertical-align: middle;
     display: table-cell;
     text-align: center;
+    border: solid 1px #ccc;
 }
 
 .goods-item img{
     max-width: 120px;
     max-height: 120px;
+}
+
+.goods-item .goods-name{
+    color: #F78742;
+    font-size: 16px;
+    padding: 5px;
 }
 
 .store-form{
@@ -75,4 +95,8 @@
 
 .store-form .store-div{
     padding: 5px;
+}
+
+.store-form .btn-container{
+    min-height: 34px;
 }
