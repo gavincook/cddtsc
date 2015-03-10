@@ -19,7 +19,7 @@
     </select>
 
     <update id="update">
-        update dt_shopcart set number=#{number} where id = #{id};
+        update dt_shopcart set number=#{shopcart.number} where id = #{shopcart.id};
     </update>
 
     <delete id="delete">
@@ -31,10 +31,20 @@
     </select>
 
     <insert id="add">
-        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+        <selectKey resultType="Long" order="AFTER" keyProperty="shopcart.id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert  into dt_shopcart(userId,userGoodsId,number) values(#{userId},#{userGoodsId},#{number});
+        insert  into dt_shopcart(userId,userGoodsId,number) values(#{shopcart.userId},#{shopcart.userGoodsId},#{shopcart.number});
     </insert>
 
+    <select id="checkIfExists" resultMap="shopcart">
+        select * from dt_shopcart where userId = #{shopcart.userId} and userGoodsId = #{shopcart.userGoodsId} limit 1;
+    </select>
+
+    <resultMap id="shopcart" type="com.tomatorun.dto.Shopcart">
+        <result column="id" property="id" javaType="Long"></result>
+        <result column="userGoodsId" property="userGoodsId" javaType="Long"></result>
+        <result column="number" property="number" javaType="Integer"></result>
+        <result column="userId" property="userId" javaType="Long"></result>
+    </resultMap>
 </mapper>

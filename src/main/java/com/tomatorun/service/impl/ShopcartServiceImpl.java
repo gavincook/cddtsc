@@ -1,8 +1,10 @@
 package com.tomatorun.service.impl;
 
+import com.tomatorun.dto.Shopcart;
 import com.tomatorun.repository.ShopcartRepository;
 import com.tomatorun.service.ShopcartService;
 import org.moon.base.service.AbstractService;
+import org.moon.utils.Objects;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,8 +27,8 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
     }
 
     @Override
-    public void update(Map<String, Object> params) {
-        shopcartRepository.update(params);
+    public void update(Shopcart shopcart) {
+        shopcartRepository.update(shopcart);
     }
 
     @Override
@@ -35,8 +37,16 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
     }
 
     @Override
-    public void add(Map<String, Object> params) {
-        shopcartRepository.add(params);
+    public void add(Shopcart shopcart) {
+        Shopcart oldShopcart = shopcartRepository.checkIfExists(shopcart);
+        if(Objects.nonNull(oldShopcart)){
+            oldShopcart.setNumber(oldShopcart.getNumber()+shopcart.getNumber());
+            update(oldShopcart);
+            shopcart.setNumber(oldShopcart.getNumber());
+            shopcart.setId(oldShopcart.getId());
+        }else {
+            shopcartRepository.add(shopcart);
+        }
     }
 
 }

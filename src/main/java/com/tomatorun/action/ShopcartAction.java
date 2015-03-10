@@ -1,5 +1,7 @@
 package com.tomatorun.action;
 
+import com.tomatorun.dto.Shopcart;
+import com.tomatorun.dto.builder.ShopcartBuilder;
 import com.tomatorun.repository.OrderRepository;
 import com.tomatorun.repository.ShopcartRepository;
 import com.tomatorun.service.GoodsService;
@@ -9,6 +11,9 @@ import com.tomatorun.service.ShopcartService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.pagination.Pager;
+import org.moon.rbac.domain.User;
+import org.moon.rbac.domain.annotation.MenuMapping;
+import org.moon.rbac.domain.annotation.WebUser;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
 import org.moon.utils.Maps;
@@ -18,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +37,12 @@ public class ShopcartAction {
 
     @Resource
     private ShopcartService shopcartService;
+
+    @Get()
+    @MenuMapping(url = "shop",name = "订单管理",code = "dt_shopcart",parentCode = "dt")
+    public ModelAndView showOrderPage(){
+        return new ModelAndView("pages/cddtsc/shopcart");
+    }
 
     @Get("/get")
     @ResponseBody
@@ -47,16 +59,6 @@ public class ShopcartAction {
         return WebResponse.build().setResult(pager);
     }
 
-    @Post("/update")
-    @ResponseBody
-    public WebResponse update(HttpServletRequest request, @RequestParam("id")Long id, @RequestParam("number")String number){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("id", id);
-        params.put("number", number);
-        shopcartService.update(params);
-        return WebResponse.build();
-    }
-
     @Post("/delete")
     @ResponseBody
     public WebResponse delete(@RequestParam("ids")Long ids[]){
@@ -64,16 +66,21 @@ public class ShopcartAction {
         return WebResponse.build();
     }
 
+    /**
+     * 添加购物车
+     * @param request
+     * @param user
+     * @param userGoodsId
+     * @param number
+     * @return
+     */
     @Post("/add")
     @ResponseBody
-    public WebResponse add(HttpServletRequest request, @RequestParam("userId")Long userId, @RequestParam("userGoodsId")Long userGoodsId,
+    public WebResponse add(HttpServletRequest request, @WebUser User user, @RequestParam("userGoodsId")Long userGoodsId,
                            @RequestParam("number")Integer number){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("userId", userId);
-        params.put("userGoodsId", userGoodsId);
-        params.put("number", number);
-        shopcartService.add(params);
-        return WebResponse.build().setResult(params.get("id"));
+        Shopcart shopcart = new ShopcartBuilder().userId(user.getId()).userGoodsId(userGoodsId).number(number).build();
+        shopcartService.add(shopcart);
+        return WebResponse.build().setResult(shopcart.getId());
     }
 
 }

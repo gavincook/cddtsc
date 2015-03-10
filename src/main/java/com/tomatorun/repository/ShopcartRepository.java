@@ -1,5 +1,7 @@
 package com.tomatorun.repository;
 
+import com.tomatorun.dto.Shopcart;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,9 +15,15 @@ public interface ShopcartRepository {
 
     public List<Map<String,Object>> list(Map<String, Object> params);
 
-    public void update(Map<String, Object> params);
+    public void update(@Param("shopcart")Shopcart shopcart);
 
     public void delete(Map<String, Object> params);
 
-    public void add(Map<String, Object> params);
+    public void add(@Param("shopcart")Shopcart shopcart);
+
+    /**
+     * 检查是否已经添加购物车
+     * @return
+     */
+    public Shopcart checkIfExists(@Param("shopcart")Shopcart shopcart);
 }

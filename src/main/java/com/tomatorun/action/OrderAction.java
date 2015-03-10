@@ -9,6 +9,7 @@ import com.tomatorun.service.ShopcartService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.pagination.Pager;
+import org.moon.rbac.domain.annotation.MenuMapping;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
 import org.moon.utils.Maps;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +39,12 @@ public class OrderAction {
 
     @Resource
     private ShopcartService shopcartService;
+
+    @Get()
+    @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
+    public ModelAndView showOrderPage(){
+        return new ModelAndView("pages/cddtsc/order");
+    }
 
     @Get("/get")
     @ResponseBody

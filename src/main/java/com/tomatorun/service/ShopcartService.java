@@ -1,5 +1,6 @@
 package com.tomatorun.service;
 
+import com.tomatorun.dto.Shopcart;
 import org.moon.base.service.BaseService;
 
 import java.util.List;
@@ -11,10 +12,10 @@ public interface ShopcartService extends BaseService {
 
     public List<Map<String,Object>> list(Map<String, Object> params);
 
-    public void update(Map<String, Object> params);
+    public void update(Shopcart shopcart);
 
     public void delete(Map<String, Object> params);
 
-    public void add(Map<String, Object> params);
+    public void add(Shopcart shopcart);
 
 }
