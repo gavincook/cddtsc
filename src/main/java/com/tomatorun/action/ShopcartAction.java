@@ -53,10 +53,11 @@ public class ShopcartAction {
 
     @Get("/list")
     @ResponseBody
-    public WebResponse list(HttpServletRequest request){
+    public WebResponse list(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
-        Pager pager = shopcartService.listForPage(ShopcartRepository.class,"list",params);
-        return WebResponse.build().setResult(pager);
+        params.put("userId",user.getId());
+        Pager result = shopcartService.list(params);
+        return WebResponse.success(result);
     }
 
     @Post("/delete")

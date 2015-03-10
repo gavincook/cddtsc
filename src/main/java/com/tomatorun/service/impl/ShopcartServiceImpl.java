@@ -4,6 +4,9 @@ import com.tomatorun.dto.Shopcart;
 import com.tomatorun.repository.ShopcartRepository;
 import com.tomatorun.service.ShopcartService;
 import org.moon.base.service.AbstractService;
+import org.moon.core.spring.config.annotation.Config;
+import org.moon.pagination.Pager;
+import org.moon.utils.Maps;
 import org.moon.utils.Objects;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,9 @@ import java.util.Map;
 
 @Service
 public class ShopcartServiceImpl extends AbstractService implements ShopcartService {
+    @Config("attachment.goods")
+    private int goodsAttachment;
+
     @Resource
     private ShopcartRepository shopcartRepository;
 
@@ -22,8 +28,9 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
     }
 
     @Override
-    public List<Map<String, Object>> list(Map<String, Object> params) {
-        return shopcartRepository.list(params);
+    public Pager list(Map<String,Object> params) {
+        params.put("attachmentType",goodsAttachment);
+        return super.listForPage(ShopcartRepository.class, "list", params);
     }
 
     @Override
