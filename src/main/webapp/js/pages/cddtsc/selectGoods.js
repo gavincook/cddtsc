@@ -6,11 +6,11 @@
         var $selectGoodsContainer = $(".select-goods-container");
 
         $.getJsonData(contextPath+"/goods/listWithCover").done(function(data){
-            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items"});
+            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-container .goods-items"});
         });
 
         $.getJsonData(contextPath+"/goods/listWithCoverForSupplier").done(function(data){
-            $("#goodsTemplate").renderTemplate(data.result.items,{container:".select-goods-container"});
+            $("#goodsTemplate").renderTemplate(data.result.items,{container:".select-goods-container .goods-items"});
         });
 
         //输入库存
@@ -103,6 +103,19 @@
            }
         });
 
+
+        $(document).on("click",".search-select-goods",function(){
+            doSearchSelectedGoods();
+        });
+
+        //回车搜索
+        $("#selectGoodsName").keyup(function(e){
+            if(e.keyCode == 13){
+                doSearchSelectedGoods();
+            }
+        });
+
+
         $(".load-goods").click(function(){
             var that = this;
             if($(that).hasClass("no-more")){
@@ -120,7 +133,28 @@
                 if(data.result.items.length < data.result.pageSize){
                     $(that).addClass("no-more").html("没有更多了");
                 }
-                $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items"});
+                $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-container .goods-items"});
+            });
+        });
+
+        $(".load-select-goods").click(function(){
+            var that = this;
+            if($(that).hasClass("no-more")){
+                return;
+            }
+            var inputValue = $("#selectGoodsName").val();
+            var currentPage = $(that).attr("data-page");
+            var nextPage = parseInt(currentPage)+1;
+            var data = {pageIndex:nextPage};
+            if(inputValue){
+                data.keyword = inputValue;
+            }
+            $.getJsonData(contextPath+"/goods/listWithCoverForSupplier",data).done(function(data){
+                $(that).attr("data-page",nextPage);
+                if(data.result.items.length < data.result.pageSize){
+                    $(that).addClass("no-more").html("没有更多了");
+                }
+                $("#goodsTemplate").renderTemplate(data.result.items,{container:".select-goods-container .goods-items"});
             });
         });
     });
@@ -132,7 +166,19 @@
             data = {keyword:inputValue};
         }
         $.getJsonData(contextPath+"/goods/listWithCover",data).done(function(data){
-            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items",emptyParent:true});
+            $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-container .goods-items",emptyParent:true});
         });
     }
+
+    function doSearchSelectedGoods(){
+        var inputValue = $("#selectGoodsName").val();
+        var data = {};
+        if(inputValue){
+            data = {keyword:inputValue};
+        }
+        $.getJsonData(contextPath+"/goods/listWithCoverForSupplier",data).done(function(data){
+            $("#goodsTemplate").renderTemplate(data.result.items,{container:".select-goods-container .goods-items",emptyParent:true});
+        });
+    }
+
 })();

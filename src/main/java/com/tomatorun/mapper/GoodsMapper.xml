@@ -97,7 +97,7 @@
         on tdic.code = dt.unit and tdic.parentId = #{unitDicId}
         WHERE dug.userId = #{userId}
         <if test="keyword!=null">
-            AND dt.name like CONCAT('${keyword}','%' )
+            AND dt.name like CONCAT('%',#{keyword},'%' )
         </if>
         limit ${offset},${pageSize}
     </select>
@@ -108,6 +108,9 @@
         join dt_user_goods dug
         on dug.goodsId = dt.id
         WHERE dug.userId = #{userId}
+        <if test="keyword!=null">
+            AND dt.name like CONCAT('%',#{keyword},'%' )
+        </if>
     </select>
 
     <delete id="deleteSelectGoods">

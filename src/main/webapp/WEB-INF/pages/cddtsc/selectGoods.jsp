@@ -10,7 +10,20 @@
 
     <body>
         <div class="select-goods-container col-md-6">
+            <div class="search-form">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="搜索商品" id="selectGoodsName">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-warning btn-block search-select-goods" type="button">搜索</button>
+                </div>
+            </div>
 
+            <div class="goods-items">
+
+            </div>
+            <div class="load-more load-select-goods" data-page="1">点击加载更多</div>
         </div>
 
         <div class="goods-container  col-md-6">
