@@ -38,8 +38,7 @@ public class ShopcartAction {
     @Resource
     private ShopcartService shopcartService;
 
-    @Get()
-    @MenuMapping(url = "shop",name = "订单管理",code = "dt_shopcart",parentCode = "dt")
+    @Get("")
     public ModelAndView showOrderPage(){
         return new ModelAndView("pages/cddtsc/shopcart");
     }

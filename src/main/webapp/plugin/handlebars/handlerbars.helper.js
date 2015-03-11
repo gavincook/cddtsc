@@ -45,7 +45,16 @@ Handlebars.registerHelper('eqConstant', function(var1,var2, options) {
 
 /**
  * 列出userType与角色对应列表
+ *//**
+ * 判断和系统变量是否相等
  */
+Handlebars.registerHelper('eqConstant', function(var1,var2, options) {
+    if(var1 == moon.constants[var2]) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
 Handlebars.registerHelper('listUserType', function(data,options) {
     var fn = options.fn, inverse = options.inverse;
     var ret = "";
@@ -72,4 +81,11 @@ Handlebars.registerHelper('listUserType', function(data,options) {
         }
     }
     return ret;
+});
+
+/**
+ * 算出总价
+ */
+Handlebars.registerHelper('plus', function(var1,var2, options) {
+    return ((+var1)*(+var2)).toFixed(2);
 });

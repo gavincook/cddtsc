@@ -1,0 +1,16 @@
+
+.shopcart #shopcartTable td{
+    vertical-align: middle;
+}
+
+.shopcart .img-container{
+    width: 120px;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.shopcart .img-container img{
+    max-width: 100%;
+    max-height: 100%;
+}
