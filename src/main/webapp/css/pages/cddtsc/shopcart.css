@@ -14,3 +14,23 @@
     max-width: 100%;
     max-height: 100%;
 }
+
+.shopcart .number{
+    width: 110px;
+}
+
+.shopcart .bar{
+    text-align: right;
+    padding-right: 10%;
+    margin-bottom: 10px;
+}
+
+.shopcart .total{
+    color: #ED5338;
+    font-size: 20px;
+}
+
+.shopcart .horizontal-line{
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 10px;
+}

@@ -12,7 +12,7 @@
 <body class="shopcart">
 
     <%--购物车表格--%>
-    <table id="shopcartTable" class="table">
+    <table id="shopcartTable" class="table table-responsive">
         <thead>
             <th colspan="2">物品</th>
             <th>规格</th>
@@ -24,20 +24,36 @@
 
         </tbody>
     </table>
+    <div class="horizontal-line"></div>
 
+    <div class="bar">
+        <span>合计：</span>
+        <span class="total">
+            <i class="fa fa-rmb"></i>
+            <span id="totalNum"></span>
+        </span>
+        <button class="btn btn-warning btn-lg">结算</button>
+    </div>
+    <div class="horizontal-line"></div>
 
     <%--地址模板--%>
     <script type="text/html" id="shopcartTemplate">
         {{#each this}}
-        <tr data-id="{{id}}">
+        <tr data-id="{{cartId}}" data-price="{{price}}">
             <td class="img-container">
                 <img src="${pageContext.request.contextPath}file/get/{{url}}">
             </td>
             <td>{{name}}</td>
             <td>{{specification}}</td>
             <td>{{price}}</td>
-            <td>{{number}}</td>
-            <td>{{plus number price }}</td>
+            <td>
+                <div class="input-group number">
+                    <span class="input-group-addon btn minus">-</span>
+                    <input type="text" class="form-control number-box" value="{{number}}">
+                    <span class="input-group-addon  btn plus">+</span>
+                </div>
+            </td>
+            <td class="subtotal">{{plus number price }}</td>
 
         </tr>
         {{/each}}

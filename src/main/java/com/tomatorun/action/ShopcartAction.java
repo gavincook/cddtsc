@@ -67,6 +67,19 @@ public class ShopcartAction {
     }
 
     /**
+     * 更新购物车数量
+     * @param number
+     * @param id
+     * @return
+     */
+    @Post("/update")
+    @ResponseBody
+    public WebResponse update(@RequestParam("number")Integer number,@RequestParam("id")Long id){
+        Shopcart shopcart = new ShopcartBuilder().id(id).number(number).build();
+        shopcartService.update(shopcart);
+        return WebResponse.success(shopcart);
+    }
+    /**
      * 添加购物车
      * @param request
      * @param user
