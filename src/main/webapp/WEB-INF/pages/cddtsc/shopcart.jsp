@@ -19,6 +19,7 @@
             <th>单价</th>
             <th>数量</th>
             <th>金额</th>
+            <th></th>
         </thead>
         <tbody class="shopcart-items">
 
@@ -54,7 +55,7 @@
                 </div>
             </td>
             <td class="subtotal">{{plus number price }}</td>
-
+            <td><a href="javascript:void(0)" class="btn-link remove">删除</a></td>
         </tr>
         {{/each}}
     </script>
