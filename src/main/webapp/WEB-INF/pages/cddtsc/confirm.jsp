@@ -57,7 +57,7 @@
         {{#each this}}
         <tr data-id="{{cartId}}" data-price="{{price}}">
             <td class="img-container">
-                <img src="${pageContext.request.contextPath}/bv kifile/get/{{url}}">
+                <img src="${pageContext.request.contextPath}/file/get/{{url}}">
             </td>
             <td>{{name}}</td>
             <td>{{specification}}</td>
