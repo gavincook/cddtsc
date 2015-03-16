@@ -4,10 +4,7 @@ import com.tomatorun.dto.Shopcart;
 import com.tomatorun.dto.builder.ShopcartBuilder;
 import com.tomatorun.repository.OrderRepository;
 import com.tomatorun.repository.ShopcartRepository;
-import com.tomatorun.service.GoodsService;
-import com.tomatorun.service.OrderDetailService;
-import com.tomatorun.service.OrderService;
-import com.tomatorun.service.ShopcartService;
+import com.tomatorun.service.*;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.pagination.Pager;
@@ -38,9 +35,21 @@ public class ShopcartAction {
     @Resource
     private ShopcartService shopcartService;
 
+    @Resource
+    private DTUserService dtUserService;
+
     @Get("")
-    public ModelAndView showOrderPage(){
+    public ModelAndView showShopcartPage(){
         return new ModelAndView("pages/cddtsc/shopcart");
+    }
+
+    /**
+     * 确认订单
+     * @return
+     */
+    @Get("/confirm")
+    public ModelAndView showConfirmPage(@WebUser User user){
+        return new ModelAndView("pages/cddtsc/confirm","addresses",dtUserService.getAddresses(user.getId()));
     }
 
     @Get("/get")

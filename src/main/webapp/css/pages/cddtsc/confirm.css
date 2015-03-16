@@ -1,0 +1,83 @@
+.confirm{
+    padding: 20px;
+}
+
+.confirm h4{
+    font-weight: bold;
+}
+
+.confirm .address-item{
+    display: inline-block;
+    border: solid 1px #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px 1px #cccccc;
+    height: 100px;
+    overflow: hidden;
+    width: 250px;
+    cursor: pointer;
+    position: relative;
+}
+
+.confirm .address-item.selected{
+    border-color: #FC7A1D;
+    box-shadow: 1px 1px 6px 1px #FC7A1D;
+}
+
+.confirm .address-item .check-icon{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 18px;
+    color: #f00;
+    display: none;
+}
+
+.confirm .address-item.selected .check-icon{
+    display: inline-block;
+}
+
+
+.confirm #shopcartTable td{
+    vertical-align: middle;
+}
+
+.confirm .img-container{
+    width: 120px;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.confirm .img-container img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.confirm .number{
+    width: 110px;
+}
+
+.confirm .bar{
+    text-align: right;
+    padding-right: 10%;
+    margin-bottom: 10px;
+}
+
+.confirm .total{
+    color: #ED5338;
+    font-size: 20px;
+}
+
+.confirm .opts{
+    text-align: right;
+    padding-right: 8%;
+    margin-top: 20px;
+}
+
+.confirm .manage-address{
+    font-size: 14px;
+    font-weight: normal;
+    color: #EC773A;
+}
