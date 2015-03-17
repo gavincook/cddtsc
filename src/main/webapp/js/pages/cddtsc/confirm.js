@@ -7,10 +7,10 @@
         //选择收货地址
         $(document).on("click",".address-item",function(e){
             $(".address-item.selected").removeClass("selected");
-            $(e.currentTarget).addClass("selected");
+            $("#addressId").val($(e.currentTarget).addClass("selected").attr("data-id"));
         });
 
-
+        //读取购物车的数据
         $.getJsonData(contextPath+"/shopcart/list").done(function(data){
             $("#shopcartTemplate").renderTemplate(data.result.items,{container:".shopcart-items"});
             var totalNum = 0;
@@ -19,5 +19,16 @@
             });
             $("#totalNum").html(totalNum.toFixed(2));
         });
+
+        ////提交订单
+        //$(document).on("click",".submit-order",function(){
+        //    var addressId = $(".address-item.selected").attr("data-id");
+        //    if(typeof addressId == "undefined"){
+        //        return false;
+        //    }
+        //    $.getJsonData(contextPath+"/order/add",{addressId:addressId},{type:"Post"}).done(function(data){
+        //        console.log(data);
+        //    });
+        //});
     });
 })();

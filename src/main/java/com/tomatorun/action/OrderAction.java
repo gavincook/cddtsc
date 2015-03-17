@@ -1,5 +1,6 @@
 package com.tomatorun.action;
 
+import com.tomatorun.dto.Shopcart;
 import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.repository.OrderRepository;
 import com.tomatorun.service.GoodsService;
@@ -9,7 +10,9 @@ import com.tomatorun.service.ShopcartService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.pagination.Pager;
+import org.moon.rbac.domain.User;
 import org.moon.rbac.domain.annotation.MenuMapping;
+import org.moon.rbac.domain.annotation.WebUser;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
 import org.moon.utils.Maps;
@@ -83,26 +86,31 @@ public class OrderAction {
         return WebResponse.build();
     }
 
-    @Post("/add")
-    @ResponseBody
-    public WebResponse add(HttpServletRequest request, @RequestParam("userId")Long userId, @RequestParam("addressId")Long addressId,
-                           @RequestParam("totalPrice")Long totalPrice, @RequestParam(value="userGoodsIds", required=false)Long[] userGoodsIds){
+    /**
+     * 提交订单
+     * @param request
+     * @param user
+     * @param addressId
+     * @param userGoodsIds
+     * @return
+     */
+    @Post("/submit")
+    public ModelAndView add(HttpServletRequest request, @WebUser User user,@RequestParam("addressId")Long addressId,
+                           @RequestParam(value="userGoodsIds", required=false)Long[] userGoodsIds){
         Map<String,Object> params = new HashMap<String, Object>();
-        params.put("userId", userId);
+        params.put("userId", user.getId());
         params.put("addressId", addressId);
-        params.put("totalPrice", totalPrice);
+        List<Shopcart> shopcarts = shopcartService.getShopCartGoodsForUser(user.getId());
+        params.put("totalPrice", shopcarts.stream().mapToDouble(s -> s.getNumber() * s.getGoods().getPrice()).sum());
         orderService.add(params);
+
         Long orderId = Long.parseLong(params.get("id").toString());
-        if(userGoodsIds != null && userGoodsIds.length > 0){
-            for(Long userGoodsId : userGoodsIds){
-                Map<String,Object> item = shopcartService.get(Maps.mapIt("id", userGoodsId));
-                item.remove("id");
-                item.put("orderId", orderId);
-                item.put("purchaseNumber", item.get("nubmer"));
-                orderDetailService.add(item);
-            }
-        }
-        return WebResponse.build().setResult(params.get("id"));
+        shopcarts.stream().forEach(shopcart->{
+            orderDetailService.add(Maps.mapIt("orderId",orderId,
+                "purchaseNumber",shopcart.getNumber(),"userGoodsId",shopcart.getUserGoodsId()));
+            shopcartService.delete(shopcart.getId());
+        });
+        return new ModelAndView("pages/cddtsc/pay");
     }
 
     @Post("/paidOrder")

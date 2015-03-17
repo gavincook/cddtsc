@@ -27,7 +27,7 @@
     </update>
 
     <delete id="delete">
-        delete from dt_shopcart where id in (${ids});
+        delete from dt_shopcart where id =#{id};
     </delete>
 
     <select id="get" resultType="HashMap">
@@ -50,5 +50,18 @@
         <result column="userGoodsId" property="userGoodsId" javaType="Long"></result>
         <result column="number" property="number" javaType="Integer"></result>
         <result column="userId" property="userId" javaType="Long"></result>
+        <result column="price" property="goods.price" javaType="Double"></result>
+        <result column="name" property="goods.name" javaType="String"></result>
     </resultMap>
+
+    <select id="getShopCartGoodsForUser" resultMap="shopcart">
+        SELECT dg.name,dg.specification,dg.price,dsc.id AS id,dug.inventory,dsc.number,dug.id as userGoodsId
+        FROM dt_shopcart dsc
+        JOIN dt_user_goods dug
+        ON dug.id = dsc.userGoodsId
+        JOIN dt_goods dg
+        ON dg.id = dug.goodsId
+        WHERE dsc.userId = #{userId}
+        GROUP BY dg.id
+    </select>
 </mapper>

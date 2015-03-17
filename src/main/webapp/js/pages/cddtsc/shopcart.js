@@ -27,7 +27,7 @@
             var id = $tr.attr("data-id");
             moon.confirm("确认从购物车中移除该商品?").done(function(result){
                if(result){
-                   $.getJsonData(contextPath+"/shopcart/delete",{ids:id},{type:"Post"}).done(function(data){
+                   $.getJsonData(contextPath+"/shopcart/delete",{id:id},{type:"Post"}).done(function(data){
                       if(data.success){
                           $tr.hide("slow",function(){
                              $tr.remove();

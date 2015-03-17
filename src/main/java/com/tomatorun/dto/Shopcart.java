@@ -8,6 +8,7 @@ public class Shopcart extends BaseDto {
     private Long userId;
     private Long userGoodsId;
     private Integer number;
+    private Goods goods;
 
     public Long getUserId() {
         return userId;
@@ -31,6 +32,14 @@ public class Shopcart extends BaseDto {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }
 

@@ -70,8 +70,8 @@ public class ShopcartAction {
 
     @Post("/delete")
     @ResponseBody
-    public WebResponse delete(@RequestParam("ids")Long ids[]){
-        shopcartService.delete(Maps.mapIt("ids", Strings.join(ids, ",")));
+    public WebResponse delete(@RequestParam("id")Long id){
+        shopcartService.delete(id);
         return WebResponse.build();
     }
 

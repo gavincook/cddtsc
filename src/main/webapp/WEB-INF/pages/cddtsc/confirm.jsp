@@ -49,8 +49,12 @@
     </div>
     <div class="horizontal-line"></div>
     <div class="opts">
-        <a href="${pageContext.request.contextPath}/shopcart" class="btn btn-link btn-warning">返回购物车修改</a>
-        <button class="btn btn-danger btn-lg">提交订单</button>
+
+        <form action="${pageContext.request.contextPath}/order/submit" method="post">
+            <a href="${pageContext.request.contextPath}/shopcart" class="btn btn-link btn-warning">返回购物车修改</a>
+            <input name="addressId" id="addressId" type="hidden">
+            <button class="btn btn-danger btn-lg submit-order" type="submit">提交订单</button>
+        </form>
     </div>
     <%--地址模板--%>
     <script type="text/html" id="shopcartTemplate">

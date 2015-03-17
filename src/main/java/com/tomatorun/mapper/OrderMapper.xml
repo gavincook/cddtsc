@@ -39,7 +39,8 @@
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert  into dt_order(number,userId,addressId,totalPrice,status) values(#{name},#{userId},#{addressId},#{totalPrice},#{status});
+        insert  into dt_order(number,userId,addressId,totalPrice,status,time)
+        values(#{name},#{userId},#{addressId},#{totalPrice},#{status},CURRENT_TIMESTAMP );
     </insert>
 
 </mapper>

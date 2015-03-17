@@ -39,8 +39,8 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
     }
 
     @Override
-    public void delete(Map<String,Object> params) {
-        shopcartRepository.delete(params);
+    public void delete(Long id) {
+        shopcartRepository.delete(id);
     }
 
     @Override
@@ -54,6 +54,11 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
         }else {
             shopcartRepository.add(shopcart);
         }
+    }
+
+    @Override
+    public List<Shopcart> getShopCartGoodsForUser(Long userId) {
+        return shopcartRepository.getShopCartGoodsForUser(userId);
     }
 
 }

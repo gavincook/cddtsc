@@ -17,7 +17,7 @@ public interface ShopcartRepository {
 
     public void update(@Param("shopcart")Shopcart shopcart);
 
-    public void delete(Map<String, Object> params);
+    public void delete(@Param("id")Long id);
 
     public void add(@Param("shopcart")Shopcart shopcart);
 
@@ -26,4 +26,6 @@ public interface ShopcartRepository {
      * @return
      */
     public Shopcart checkIfExists(@Param("shopcart")Shopcart shopcart);
+
+    public List<Shopcart> getShopCartGoodsForUser(@Param("userId")Long userId);
 }
