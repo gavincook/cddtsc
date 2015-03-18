@@ -1,0 +1,52 @@
+
+.list-bought #shopcartTable td{
+    vertical-align: middle;
+}
+
+.list-bought .img-container{
+    width: 120px;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.list-bought .img-container img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.list-bought .number{
+    width: 110px;
+}
+
+.list-bought .bar{
+    text-align: right;
+    padding-right: 10%;
+    margin-bottom: 10px;
+}
+
+.list-bought .total{
+    color: #ED5338;
+    font-size: 20px;
+}
+
+.list-bought .horizontal-line{
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 10px;
+}
+
+.list-bought .order-summarize{
+    background: #EFEFEF;
+}
+
+.list-bought .sep-row{
+    height: 10px;
+}
+
+.list-bought #listBoughtTable{
+    margin: 10px;
+}
+
+.list-bought tbody{
+    border: solid 1px #ccc;
+}
