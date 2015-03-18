@@ -49,6 +49,12 @@ public class OrderAction {
         return new ModelAndView("pages/cddtsc/order");
     }
 
+    @Get("/list_bought_items.html")
+    @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
+    public ModelAndView boughtItems(){
+        return new ModelAndView("pages/cddtsc/listBought");
+    }
+
     @Get("/get")
     @ResponseBody
     public WebResponse get(@RequestParam("id")Long id){
@@ -59,7 +65,7 @@ public class OrderAction {
 
     @Get("/list")
     @ResponseBody
-    public WebResponse list(HttpServletRequest request){
+    public WebResponse list(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
         List<Object> orders = pager.getItems();
@@ -67,6 +73,25 @@ public class OrderAction {
             ((HashMap<String,Object>)order).put("orderdetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
         }
         return WebResponse.build().setResult(pager);
+    }
+
+    /**
+     * 罗列已购买订单
+     * @param request
+     * @param user
+     * @return
+     */
+    @Get("/list_bought_items")
+    @ResponseBody
+    public WebResponse listBoughtItems(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("userId",user.getId());
+        Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
+        List<Object> orders = pager.getItems();
+        for (Object order : orders){
+            ((HashMap<String,Object>)order).put("orderDetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
+        }
+        return WebResponse.success(pager);
     }
 
     @Post("/update")

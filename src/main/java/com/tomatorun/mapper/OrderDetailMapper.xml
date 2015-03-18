@@ -2,8 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tomatorun.repository.OrderDetailRepository">
     <select id="list" resultType="HashMap">
-        SELECT * from dt_order_detail
+        SELECT od.id,dg.name,da.url,od.purchaseNumber,dg.price from dt_order_detail od
+        JOIN dt_user_goods dug
+        ON dug.id = od.userGoodsId
+        JOIN dt_goods dg
+        ON dg.id = dug.goodsId
+        LEFT JOIN dt_attachment da
+        ON da.referenceId = dg.id AND da.type = #{attachmentType}
         WHERE orderId = #{orderId}
+        group by dg.id
 
     </select>
 
