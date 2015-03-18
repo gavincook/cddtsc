@@ -24,7 +24,7 @@
 <div class="form-container">
    
    <div class="title-container">
-       <span class="title">成都道通蔬菜</span>
+       <span class="title"><a href="cddtsc/index.jsp">成都道通蔬菜</a></span>
    </div>
    <div class="split-line"></div>
    <form id="loginForm" class="loginForm">
