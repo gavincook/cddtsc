@@ -27,16 +27,17 @@
 <%--订单模板--%>
 <script type="text/html" id="listBoughtTemplate">
     {{#each this}}
-    <tbody>
+    <tbody data-id="{{id}}">
     <tr class="sep-row"></tr>
     <tr class="order-summarize">
         <td colspan="7">
             <span>订单时间：{{time}}</span>
             <span>总价格：<i class="fa fa-rmb"></i> {{totalPrice}}</span>
+            <a href="javascript:void(0)" class="btn-link remove">删除</a>
         </td>
     </tr>
         {{#each orderDetail}}
-        <tr data-id="{{cartId}}" data-price="{{price}}">
+        <tr data-price="{{price}}">
             <td class="img-container">
                 <img src="${pageContext.request.contextPath}/file/get/{{url}}">
             </td>
@@ -49,7 +50,7 @@
                 </div>
             </td>
             <td class="subtotal">{{plus purchaseNumber price }}</td>
-            <td><a href="javascript:void(0)" class="btn-link remove">删除</a></td>
+            <td></td>
         </tr>
         {{/each}}
     </tbody>

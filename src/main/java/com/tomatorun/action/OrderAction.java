@@ -104,11 +104,18 @@ public class OrderAction {
         return WebResponse.build();
     }
 
+    @Post("/batchDelete")
+    @ResponseBody
+    public WebResponse batchDelete(@RequestParam("ids")Long ids[]){
+        orderService.delete(Maps.mapIt("ids", Strings.join(ids, ",")));
+        return WebResponse.success();
+    }
+
     @Post("/delete")
     @ResponseBody
-    public WebResponse delete(@RequestParam("ids")Long ids[]){
-        orderService.delete(Maps.mapIt("ids", Strings.join(ids, ",")));
-        return WebResponse.build();
+    public WebResponse delete(@RequestParam("id")Long id){
+        orderService.delete(Maps.mapIt("ids",id));
+        return WebResponse.success();
     }
 
     /**
