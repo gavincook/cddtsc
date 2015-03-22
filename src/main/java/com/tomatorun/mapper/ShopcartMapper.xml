@@ -52,10 +52,11 @@
         <result column="userId" property="userId" javaType="Long"></result>
         <result column="price" property="goods.price" javaType="Double"></result>
         <result column="name" property="goods.name" javaType="String"></result>
+        <result column="shopId" property="shopId" javaType="Long"></result>
     </resultMap>
 
     <select id="getShopCartGoodsForUser" resultMap="shopcart">
-        SELECT dg.name,dg.specification,dg.price,dsc.id AS id,dug.inventory,dsc.number,dug.id as userGoodsId
+        SELECT dg.name,dg.specification,dg.price,dsc.id AS id,dug.inventory,dsc.number,dug.id as userGoodsId,dug.userId as shopId
         FROM dt_shopcart dsc
         JOIN dt_user_goods dug
         ON dug.id = dsc.userGoodsId

@@ -26,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
@@ -42,6 +44,9 @@ public class OrderAction {
 
     @Resource
     private ShopcartService shopcartService;
+
+    @Resource
+    private GoodsService goodsService;
 
     @Get()
     @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
@@ -63,8 +68,14 @@ public class OrderAction {
         return WebResponse.build().setResult(order);
     }
 
-    @Get("/list")
-    @ResponseBody
+    /**
+     * 罗列店铺订单
+     * @param request
+     * @param user
+     * @return
+     */
+    //@Get("/list")
+    //@ResponseBody
     public WebResponse list(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
@@ -74,6 +85,25 @@ public class OrderAction {
         }
         return WebResponse.build().setResult(pager);
     }
+
+    /**
+     * 罗列店铺订单
+     * @param request
+     * @param user
+     * @return
+     */
+    @Get("/list")
+    @ResponseBody
+    public WebResponse listForShop(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
+        List<Object> orders = pager.getItems();
+        for (Object order : orders){
+            ((HashMap<String,Object>)order).put("orderdetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
+        }
+        return WebResponse.build().setResult(pager);
+    }
+
 
     /**
      * 罗列已购买订单
@@ -133,15 +163,19 @@ public class OrderAction {
         params.put("userId", user.getId());
         params.put("addressId", addressId);
         List<Shopcart> shopcarts = shopcartService.getShopCartGoodsForUser(user.getId());
-        params.put("totalPrice", shopcarts.stream().mapToDouble(s -> s.getNumber() * s.getGoods().getPrice()).sum());
-        orderService.add(params);
 
-        Long orderId = Long.parseLong(params.get("id").toString());
-        shopcarts.stream().forEach(shopcart->{
-            orderDetailService.add(Maps.mapIt("orderId",orderId,
-                "purchaseNumber",shopcart.getNumber(),"userGoodsId",shopcart.getUserGoodsId()));
-            shopcartService.delete(shopcart.getId());
-        });
+        Map<Long,List<Shopcart>> groupedShopcart = shopcarts.stream().collect(Collectors.groupingBy(s -> s.getShopId()));
+        for(List<Shopcart> shopcartList:groupedShopcart.values()){
+            params.put("totalPrice", shopcartList.stream().mapToDouble(s -> s.getNumber() * s.getGoods().getPrice()).sum());
+            orderService.add(params);
+            Long orderId = Long.parseLong(params.get("id").toString());
+            shopcartList.stream().forEach(shopcart->{
+                orderDetailService.add(Maps.mapIt("orderId",orderId,
+                    "purchaseNumber",shopcart.getNumber(),"userGoodsId",shopcart.getUserGoodsId()));
+                shopcartService.delete(shopcart.getId());
+            });
+        }
+
         return new ModelAndView("pages/cddtsc/pay");
     }
 
@@ -173,4 +207,14 @@ public class OrderAction {
         return WebResponse.build();
     }
 
+
+    public static void main(String[] args) {
+        List<Map<String,Object>> list = new ArrayList<>();
+        list.add(Maps.mapIt("key",1,"value",1));
+        list.add(Maps.mapIt("key",1,"value",2));
+        list.add(Maps.mapIt("key",2,"value",1));
+        list.add(Maps.mapIt("key",2,"value",2));
+        Object o = list.stream().collect(Collectors.groupingBy(s->s.get("key")));
+        System.out.println(o);
+    }
 }

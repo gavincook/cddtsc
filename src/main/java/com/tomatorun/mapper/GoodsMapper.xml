@@ -116,4 +116,19 @@
     <delete id="deleteSelectGoods">
         delete from dt_user_goods where id = #{selectGoodsId}
     </delete>
+
+    <select id="getUserGoodsForSpecified" resultMap="UserGoods">
+        select * from dt_user_goods
+        where id IN 
+        <foreach collection="userGoodsIds" item="userGoodsId" open="(" close=")" separator=",">
+            #{userGoodsId}
+        </foreach>
+    </select>
+
+    <resultMap id="UserGoods" type="com.tomatorun.dto.UserGoods">
+        <result column="id" property="id" javaType="Long"></result>
+        <result column="goodsId" property="goodsId" javaType="Long"></result>
+        <result column="userId" property="userId" javaType="Long"></result>
+        <result column="inventory" property="inventory" javaType="Integer"></result>
+    </resultMap>
 </mapper>

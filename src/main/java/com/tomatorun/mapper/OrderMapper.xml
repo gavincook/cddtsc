@@ -49,4 +49,26 @@
         values(#{name},#{userId},#{addressId},#{totalPrice},#{status},CURRENT_TIMESTAMP );
     </insert>
 
+
+    <select id="listForShop" resultType="HashMap">
+        SELECT doe.*,u.userName,u.realName
+        FROM dt_order_detail  dod
+        JOIN dt_user_goods dug
+        ON dug.id = dod.userGoodsId
+        JOIN dt_order doe
+        ON doe.id = dod.orderId
+        JOIN tab_user u
+        ON u.id = doe.userId
+        WHERE dug.userId = #{userId}
+        GROUP BY orderId
+    </select>
+
+    <select id="listForShop_count" resultType="Integer">
+        SELECT count(*)
+        FROM dt_order_detail  dod
+        JOIN dt_user_goods dug
+        ON dug.id = dod.userGoodsId
+        WHERE dug.userId = #{userId}
+        GROUP BY orderId
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.tomatorun.service.impl;
 
+import com.tomatorun.dto.UserGoods;
 import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.service.GoodsService;
 import org.moon.base.service.AbstractService;
@@ -61,6 +62,11 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     @Override
     public void deleteSelectGoods(Long selectGoodsId) {
         goodsRepository.deleteSelectGoods(selectGoodsId);
+    }
+
+    @Override
+    public List<UserGoods> getUserGoodsForSpecified(Long[] userGoodsIds) {
+        return goodsRepository.getUserGoodsForSpecified(userGoodsIds);
     }
 
     @Override

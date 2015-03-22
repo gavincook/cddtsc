@@ -1,5 +1,6 @@
 package com.tomatorun.service;
 
+import com.tomatorun.dto.UserGoods;
 import org.moon.base.service.BaseService;
 
 import java.util.List;
@@ -25,4 +26,10 @@ public interface GoodsService extends BaseService {
 
     public void deleteSelectGoods(Long selectGoodsId);
 
+    /**
+     * 获取指定的用户商品列表
+     * @param userGoodsIds
+     * @return
+     */
+    public List<UserGoods> getUserGoodsForSpecified(Long[] userGoodsIds);
 }

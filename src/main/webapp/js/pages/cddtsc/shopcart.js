@@ -37,6 +37,11 @@
                }
             });
         });
+
+        //确认订单
+        $(document).on("click",".confirm",function(){
+            window.location.href = contextPath+"/shopcart/confirm";
+        });
     });
 
 

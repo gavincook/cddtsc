@@ -33,7 +33,7 @@
             <i class="fa fa-rmb"></i>
             <span id="totalNum"></span>
         </span>
-        <button class="btn btn-warning btn-lg">结算</button>
+        <button class="btn btn-warning btn-lg confirm">结算</button>
     </div>
     <div class="horizontal-line"></div>
 

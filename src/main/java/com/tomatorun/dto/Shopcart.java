@@ -9,6 +9,7 @@ public class Shopcart extends BaseDto {
     private Long userGoodsId;
     private Integer number;
     private Goods goods;
+    private Long shopId;//店铺id，现在取为该店铺的用户id
 
     public Long getUserId() {
         return userId;
@@ -40,6 +41,14 @@ public class Shopcart extends BaseDto {
 
     public void setGoods(Goods goods) {
         this.goods = goods;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 }
 

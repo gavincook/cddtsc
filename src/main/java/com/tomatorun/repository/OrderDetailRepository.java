@@ -1,5 +1,6 @@
 package com.tomatorun.repository;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface OrderDetailRepository {
     public void delete(Map<String, Object> params);
 
     public void add(Map<String, Object> params);
+
 }

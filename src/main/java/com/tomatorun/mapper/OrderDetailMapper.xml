@@ -39,4 +39,18 @@
         insert  into dt_order_detail(orderId,userGoodsId,purchaseNumber) values(#{orderId},#{userGoodsId},#{purchaseNumber});
     </insert>
 
+
+    <select id="listForShop" resultType="HashMap">
+        SELECT od.id,dg.name,da.url,od.purchaseNumber,dg.price from dt_order_detail od
+        JOIN dt_user_goods dug
+        ON dug.id = od.userGoodsId
+        JOIN dt_goods dg
+        ON dg.id = dug.goodsId
+        LEFT JOIN dt_attachment da
+        ON da.referenceId = dg.id AND da.type = #{attachmentType}
+        WHERE orderId = #{orderId} and dug.userId = #{userId}
+        group by dg.id
+    </select>
+
+
 </mapper>
