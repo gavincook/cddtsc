@@ -1,0 +1,55 @@
+.order{
+    padding: 20px;
+}
+
+.order #listBoughtTable td{
+    vertical-align: middle;
+}
+
+.order .img-container{
+    width: 120px;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.order .img-container img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.order .number{
+    width: 110px;
+}
+
+.order .bar{
+    text-align: right;
+    padding-right: 10%;
+    margin-bottom: 10px;
+}
+
+.order .total{
+    color: #ED5338;
+    font-size: 20px;
+}
+
+.order .horizontal-line{
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 10px;
+}
+
+.order .order-summarize{
+    background: #EFEFEF;
+}
+
+.order .sep-row{
+    height: 10px;
+}
+
+.order #listBoughtTable{
+    margin:0px;
+}
+
+.order tbody{
+    border: solid 1px #ccc;
+}

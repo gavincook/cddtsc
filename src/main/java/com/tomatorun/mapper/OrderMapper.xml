@@ -64,11 +64,10 @@
     </select>
 
     <select id="listForShop_count" resultType="Integer">
-        SELECT count(*)
+        SELECT count(DISTINCT orderId)
         FROM dt_order_detail  dod
         JOIN dt_user_goods dug
         ON dug.id = dod.userGoodsId
         WHERE dug.userId = #{userId}
-        GROUP BY orderId
     </select>
 </mapper>

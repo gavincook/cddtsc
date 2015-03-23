@@ -24,4 +24,6 @@ public interface OrderService extends BaseService {
     public void orderArrived(Map<String, Object> params);
 
     public void confirmOrder(Map<String, Object> params);
+
+    public void cancelOrder(Long id);
 }

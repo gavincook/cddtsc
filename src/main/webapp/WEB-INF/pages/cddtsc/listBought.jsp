@@ -11,7 +11,7 @@
 </head>
 <body class="list-bought">
 
-<%--购物车表格--%>
+<%--订单表格--%>
 <table id="listBoughtTable" class="table table-responsive">
     <thead>
     <th colspan="2">物品</th>

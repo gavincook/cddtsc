@@ -48,6 +48,24 @@ public class OrderAction {
     @Resource
     private GoodsService goodsService;
 
+    @Config("orderType.unpaid")
+    private int unpaidOrderType;
+
+    @Config("orderType.undistribute")
+    private int undistributeOrderType;
+
+    @Config("orderType.distributing")
+    private int distributingOrderType;
+
+    @Config("orderType.arrived")
+    private int arrivedOrderType;
+
+    @Config("orderType.confirmed")
+    private int confirmedOrderType;
+
+    @Config("orderType.cancel")
+    private int cancelOrderType;
+
     @Get()
     @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
     public ModelAndView showOrderPage(){
@@ -81,7 +99,7 @@ public class OrderAction {
         Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
         List<Object> orders = pager.getItems();
         for (Object order : orders){
-            ((HashMap<String,Object>)order).put("orderdetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
+            ((HashMap<String,Object>)order).put("orderDetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
         }
         return WebResponse.build().setResult(pager);
     }
@@ -96,10 +114,22 @@ public class OrderAction {
     @ResponseBody
     public WebResponse listForShop(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
-        Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
+        params.put("userId",user.getId());//店铺管理员id
+        Pager pager = orderService.listForPage(OrderRepository.class,"listForShop",params);
         List<Object> orders = pager.getItems();
         for (Object order : orders){
-            ((HashMap<String,Object>)order).put("orderdetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
+            String orderBtnText,action = "";
+            switch ((Integer)((HashMap<String,Object>)order).get("status")){
+                case 0 : orderBtnText = "支付";action="paidOrder";break;
+                case 1 : orderBtnText = "配送";action="distributeOrder";break;
+                case 2 : orderBtnText = "完成配送";action="orderArrived";break;
+                case 3 : orderBtnText = "确认收货";action="confirmOrder";break;
+                case 4 : orderBtnText = "已完成";break;
+                default:orderBtnText = "已取消";
+            }
+            ((HashMap<String, Object>) order).put("orderBtnText",orderBtnText);//按钮文字
+            ((HashMap<String, Object>) order).put("action",action);//下一步动作
+            ((HashMap<String, Object>) order).put("orderDetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
         }
         return WebResponse.build().setResult(pager);
     }
@@ -179,6 +209,11 @@ public class OrderAction {
         return new ModelAndView("pages/cddtsc/pay");
     }
 
+    /**
+     * 支付订单
+     * @param id
+     * @return
+     */
     @Post("/paidOrder")
     @ResponseBody
     public WebResponse paidOrder(@RequestParam("id")Long id){
@@ -186,6 +221,11 @@ public class OrderAction {
         return WebResponse.build();
     }
 
+    /**
+     * 配送订单
+     * @param id
+     * @return
+     */
     @Post("/distributeOrder")
     @ResponseBody
     public WebResponse distributeOrder(@RequestParam("id")Long id){
@@ -193,6 +233,11 @@ public class OrderAction {
         return WebResponse.build();
     }
 
+    /**
+     * 送达订单
+     * @param id
+     * @return
+     */
     @Post("/orderArrived")
     @ResponseBody
     public WebResponse orderArrived(@RequestParam("id")Long id){
@@ -200,6 +245,11 @@ public class OrderAction {
         return WebResponse.build();
     }
 
+    /**
+     * 买家确认收到
+     * @param id
+     * @return
+     */
     @Post("/confirmOrder")
     @ResponseBody
     public WebResponse confirmOrder(@RequestParam("id")Long id){
@@ -207,14 +257,15 @@ public class OrderAction {
         return WebResponse.build();
     }
 
-
-    public static void main(String[] args) {
-        List<Map<String,Object>> list = new ArrayList<>();
-        list.add(Maps.mapIt("key",1,"value",1));
-        list.add(Maps.mapIt("key",1,"value",2));
-        list.add(Maps.mapIt("key",2,"value",1));
-        list.add(Maps.mapIt("key",2,"value",2));
-        Object o = list.stream().collect(Collectors.groupingBy(s->s.get("key")));
-        System.out.println(o);
+    /**
+     * 取消订单
+     * @param id
+     * @return
+     */
+    @Post("/confirmOrder")
+    @ResponseBody
+    public WebResponse cancelOrder(@RequestParam("id")Long id){
+        orderService.cancelOrder(id);
+        return WebResponse.build();
     }
 }

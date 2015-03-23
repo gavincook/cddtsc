@@ -4,6 +4,7 @@ import com.tomatorun.repository.OrderRepository;
 import com.tomatorun.service.OrderService;
 import org.moon.base.service.AbstractService;
 import org.moon.core.spring.config.annotation.Config;
+import org.moon.utils.Maps;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +28,9 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Config("orderType.confirmed")
     private int confirmedOrderType;
+
+    @Config("orderType.cancel")
+    private int cancelOrderType;
 
     @Resource
     private OrderRepository orderRepository;
@@ -79,5 +83,10 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
     public void confirmOrder(Map<String, Object> params) {
         params.put("status", confirmedOrderType);
         orderRepository.update(params);
+    }
+
+    @Override
+    public void cancelOrder(Long id) {
+        orderRepository.update(Maps.mapIt("id",id,"status",cancelOrderType));
     }
 }
