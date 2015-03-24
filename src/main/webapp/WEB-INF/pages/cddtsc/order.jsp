@@ -34,7 +34,12 @@
             <span>订单时间：{{time}}</span>
             <span>总价格：<i class="fa fa-rmb"></i> {{totalPrice}}</span>
             <span>
-                <m:dicSelect code="orderStatus" css="form-control"></m:dicSelect>
+                {{#if serverOpt}}
+                     <button type="button" class="btn btn-default opt" data-action="{{action}}">{{orderBtnText}}</button>
+                {{else}}
+                    {{currentStatus}}
+                {{/if}}
+
             </span>
             <a href="javascript:void(0)" class="btn-link remove">删除</a>
         </td>

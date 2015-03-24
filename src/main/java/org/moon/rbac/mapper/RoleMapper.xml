@@ -26,7 +26,7 @@
 	
 	<select id="hasMenu" resultType="Boolean">
 		SELECT COUNT(*) 
-		FROM tab_role_Menu trm
+		FROM tab_role_menu trm
 		JOIN tab_menu tm 
 		ON trm.menuId = tm.id	AND	tm.code=#{code} AND trm.roleId=#{rid}
 	</select>

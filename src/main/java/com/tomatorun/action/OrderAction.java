@@ -118,17 +118,20 @@ public class OrderAction {
         Pager pager = orderService.listForPage(OrderRepository.class,"listForShop",params);
         List<Object> orders = pager.getItems();
         for (Object order : orders){
-            String orderBtnText,action = "";
+            String orderBtnText,action = "",currentStatus;
+            boolean serverOpt = true;//后台操作
             switch ((Integer)((HashMap<String,Object>)order).get("status")){
-                case 0 : orderBtnText = "支付";action="paidOrder";break;
-                case 1 : orderBtnText = "配送";action="distributeOrder";break;
-                case 2 : orderBtnText = "完成配送";action="orderArrived";break;
-                case 3 : orderBtnText = "确认收货";action="confirmOrder";break;
-                case 4 : orderBtnText = "已完成";break;
-                default:orderBtnText = "已取消";
+                case 0 : orderBtnText = "支付";action="paidOrder";currentStatus="待支付";serverOpt = false;break;
+                case 1 : orderBtnText = "配送";action="distributeOrder";currentStatus="已支付";break;
+                case 2 : orderBtnText = "完成配送";action="orderArrived";currentStatus="配送中";break;
+                case 3 : orderBtnText = "确认收货";action="confirmOrder";currentStatus="等待确认收货";serverOpt = false;break;
+                case 4 : orderBtnText = "已完成";currentStatus="已完成";serverOpt = false;break;
+                default:orderBtnText = "已取消";currentStatus="已取消";serverOpt = false;
             }
             ((HashMap<String, Object>) order).put("orderBtnText",orderBtnText);//按钮文字
             ((HashMap<String, Object>) order).put("action",action);//下一步动作
+            ((HashMap<String, Object>) order).put("currentStatus",currentStatus);//当前状态
+            ((HashMap<String, Object>) order).put("serverOpt",serverOpt);//是否该后台操作
             ((HashMap<String, Object>) order).put("orderDetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
         }
         return WebResponse.build().setResult(pager);
@@ -218,7 +221,7 @@ public class OrderAction {
     @ResponseBody
     public WebResponse paidOrder(@RequestParam("id")Long id){
         orderService.paidOrder(Maps.mapIt("id", id));
-        return WebResponse.build();
+        return WebResponse.success(Maps.mapIt("currentStatus","等待配送","frontOpt",false));
     }
 
     /**
@@ -230,7 +233,7 @@ public class OrderAction {
     @ResponseBody
     public WebResponse distributeOrder(@RequestParam("id")Long id){
         orderService.distributeOrder(Maps.mapIt("id", id));
-        return WebResponse.build();
+        return WebResponse.success(Maps.mapIt("orderBtnText","送达","serverOpt",true,"action","orderArrived"));
     }
 
     /**
@@ -242,7 +245,7 @@ public class OrderAction {
     @ResponseBody
     public WebResponse orderArrived(@RequestParam("id")Long id){
         orderService.orderArrived(Maps.mapIt("id", id));
-        return WebResponse.build();
+        return WebResponse.success(Maps.mapIt("currentStatus","等待确认收货","serverOpt",false));
     }
 
     /**
@@ -254,7 +257,7 @@ public class OrderAction {
     @ResponseBody
     public WebResponse confirmOrder(@RequestParam("id")Long id){
         orderService.confirmOrder(Maps.mapIt("id", id));
-        return WebResponse.build();
+        return WebResponse.success(Maps.mapIt("currentStatus","已完成","frontOpt",false));
     }
 
     /**
@@ -262,10 +265,10 @@ public class OrderAction {
      * @param id
      * @return
      */
-    @Post("/confirmOrder")
+    @Post("/cancelOrder")
     @ResponseBody
     public WebResponse cancelOrder(@RequestParam("id")Long id){
         orderService.cancelOrder(id);
-        return WebResponse.build();
+        return WebResponse.success(Maps.mapIt("currentStatus","已取消","serverOpt",false));
     }
 }
