@@ -12,6 +12,8 @@ public interface GoodsService extends BaseService {
 
     public List<Map<String,Object>> list(Map<String, Object> params);
 
+    public List<Map<String, Object>> listGoods(Map<String, Object> params) ;
+
     public void update(Map<String, Object> params);
 
     public void delete(Map<String, Object> params);

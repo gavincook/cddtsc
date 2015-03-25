@@ -39,4 +39,11 @@ public interface GoodsRepository {
      * @return
      */
     public List<UserGoods> getUserGoodsForSpecified(@Param("userGoodsIds")Long[] userGoodsIds);
+
+    /**
+     * 获取在主页展示的商品列表
+     * @param params
+     * @return
+     */
+    public List<Map<String,Object>> listGoods(Map<String, Object> params);
 }

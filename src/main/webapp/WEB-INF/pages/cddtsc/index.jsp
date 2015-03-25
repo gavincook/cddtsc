@@ -18,8 +18,8 @@
         <div class="header-container">
             <span class="floatl">品质食材，只要成都道通蔬菜！<span class="boldhead">免费配送</span>。</span>
             <span class="floatr">
-                <a href="/user/regist"><span class="boldhead">注册</span></a>
-                <a href="/index"><span class="boldhead">登陆</span></a>
+                <a href="/user/regist.html"><span class="boldhead">注册</span></a>
+                <a href="/user/login.html"><span class="boldhead">登陆</span></a>
                 <a href="login.html">会员中心</a>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
                     设为首页</a>|<a href="javascript:void(0)" onclick="AddFavorite(window.location,document.title)" style="color:red;font-weight:bold;">
@@ -106,63 +106,63 @@
         {{/each}}
     </script>
 <%--页面底部信息栏--%>
-<div class="service-list wrapper">
-    <dl class="svrfore-0">
-        <dt>
-            <b></b>
-            <strong>关于我们</strong>
-        </dt>
-        <dd>
-            <div><a href="newslist.html?cid=43">产品介绍</a></div>
-            <div><a href="aboutus.html?cid=8">公司简介</a></div>
-            <div><a href="aboutus.html?cid=7">联系我们</a></div>
-            <div><a href="aboutus.html?cid=20">人才招聘</a></div>
-            <div><a href="aboutus.html?cid=47">我要当会员</a></div>
-        </dd>
-    </dl>
-    <dl class="svrfore-2">
-        <dt>
-            <b></b>
-            <strong>配送方式</strong>
-        </dt>
-        <dd>
-            <div><a href="aboutus.html?cid=23">上门自提</a></div>
-            <div><a href="aboutus.html?cid=25">配送服务查询</a></div>
-            <div><a href="aboutus.html?cid=26">配送收费标准</a></div>
-            <div><a href="0?cid=46">本社连锁店配送到小区</a></div>
-        </dd>
-    </dl>
-    <dl class="svrfore-3">
-        <dt>
-            <b></b>
-            <strong>支付方式 </strong>
-        </dt>
-        <dd>
-            <div><a href="aboutus.html?cid=29">在线支付</a></div>
-            <div><a href="aboutus.html?cid=32">公司转账</a></div>
-            <div><a href="0?cid=44">到连锁店现金充值</a></div>
-            <div><a href="aboutus.html?cid=45">到连锁店刷信用卡或借记卡</a></div>
-        </dd>
-    </dl>
-    <dl class="svrfore-4">
-        <dt>
-            <b></b>
-            <strong>售后服务</strong>
-        </dt>
-        <dd>
-            <div><a href="aboutus.html?cid=34">售后政策</a></div>
-            <div><a href="aboutus.html?cid=35">价格保护</a></div>
-            <div><a href="aboutus.html?cid=36">会员权利</a></div>
-        </dd>
-    </dl>
-    <div class="callctn">
-        <div>售前咨询</div>
-        <div class="call-serve">400 8822 883</div>
-        <div>售前咨询</div>
-        <div class="call-serve">400 8822 883</div>
-        <div>服务时间：9:00-21:00</div>
-    </div>
-</div>
+<%--<div class="service-list wrapper">--%>
+    <%--<dl class="svrfore-0">--%>
+        <%--<dt>--%>
+            <%--<b></b>--%>
+            <%--<strong>关于我们</strong>--%>
+        <%--</dt>--%>
+        <%--<dd>--%>
+            <%--<div><a href="newslist.html?cid=43">产品介绍</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=8">公司简介</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=7">联系我们</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=20">人才招聘</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=47">我要当会员</a></div>--%>
+        <%--</dd>--%>
+    <%--</dl>--%>
+    <%--<dl class="svrfore-2">--%>
+        <%--<dt>--%>
+            <%--<b></b>--%>
+            <%--<strong>配送方式</strong>--%>
+        <%--</dt>--%>
+        <%--<dd>--%>
+            <%--<div><a href="aboutus.html?cid=23">上门自提</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=25">配送服务查询</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=26">配送收费标准</a></div>--%>
+            <%--<div><a href="0?cid=46">本社连锁店配送到小区</a></div>--%>
+        <%--</dd>--%>
+    <%--</dl>--%>
+    <%--<dl class="svrfore-3">--%>
+        <%--<dt>--%>
+            <%--<b></b>--%>
+            <%--<strong>支付方式 </strong>--%>
+        <%--</dt>--%>
+        <%--<dd>--%>
+            <%--<div><a href="aboutus.html?cid=29">在线支付</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=32">公司转账</a></div>--%>
+            <%--<div><a href="0?cid=44">到连锁店现金充值</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=45">到连锁店刷信用卡或借记卡</a></div>--%>
+        <%--</dd>--%>
+    <%--</dl>--%>
+    <%--<dl class="svrfore-4">--%>
+        <%--<dt>--%>
+            <%--<b></b>--%>
+            <%--<strong>售后服务</strong>--%>
+        <%--</dt>--%>
+        <%--<dd>--%>
+            <%--<div><a href="aboutus.html?cid=34">售后政策</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=35">价格保护</a></div>--%>
+            <%--<div><a href="aboutus.html?cid=36">会员权利</a></div>--%>
+        <%--</dd>--%>
+    <%--</dl>--%>
+    <%--<div class="callctn">--%>
+        <%--<div>售前咨询</div>--%>
+        <%--<div class="call-serve">400 8822 883</div>--%>
+        <%--<div>售前咨询</div>--%>
+        <%--<div class="call-serve">400 8822 883</div>--%>
+        <%--<div>服务时间：9:00-21:00</div>--%>
+    <%--</div>--%>
+<%--</div>--%>
 
 <div class="footer">
     <div class="wrapper">

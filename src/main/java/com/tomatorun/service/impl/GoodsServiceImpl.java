@@ -40,6 +40,12 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     }
 
     @Override
+    public List<Map<String, Object>> listGoods(Map<String, Object> params) {
+        System.out.println("service");
+        return goodsRepository.listGoods(params);
+    }
+
+    @Override
     public void update(Map<String, Object> params) {
         goodsRepository.update(params);
     }

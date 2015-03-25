@@ -33,18 +33,60 @@ import java.util.Map;
 @Controller("cddtscAction")
 public class IndexAction {
 
+    @Config("attachment.goods")
+    private int goodsImageType;
+
     @Resource
     private DomainLoader domainLoader;
 
+    @Resource
+    private GoodsService goodsService;
+
     /**
-     * show the index page
+     * show the index.html page
      * @return
      * @throws Exception
      */
     @RequestMapping("/index.html")
     public ModelAndView index( ){
 
-        System.out.println("test www");
         return new ModelAndView("pages/cddtsc/index");
+    }
+
+    @Get("/user/regist.html")
+    public ModelAndView registPage(){
+        return new ModelAndView("pages/cddtsc/register");
+    }
+
+    @Get("/user/login.html")
+    public ModelAndView loginPage(){
+        return new ModelAndView("pages/cddtsc/login");
+    }
+
+    /**
+     * show the goods.html page
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/goods.html")
+    public ModelAndView goods( ){
+
+        return new ModelAndView("pages/cddtsc/goods");
+    }
+
+    /**
+     * 获取要在主页展示的商品列表(默认一页30个)
+     * @param request
+     * @return
+     */
+    @Get("/listGoods")
+    @ResponseBody
+    public WebResponse listGoods(HttpServletRequest request){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("attachmentType",goodsImageType);
+        params.put("offset",0);
+        params.put("pageSize",15);
+        Pager pager = goodsService.listForPage(GoodsRepository.class,"listGoods",params);
+        return WebResponse.build().setResult(pager);
     }
 }

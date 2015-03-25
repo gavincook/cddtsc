@@ -62,11 +62,6 @@ public class DTUserAction {
         return new ModelAndView("pages/cddtsc/user","pageType","").addObject("title","用户列表");
     }
 
-    @Get("/regist")
-    public ModelAndView registPage(){
-        return new ModelAndView("pages/cddtsc/register");
-    }
-
     @Get("/member")
     @MenuMapping(name = "会员管理", url = "/user/member",code = "dt_member",parentCode = "dt")
     public ModelAndView showMemberPage(){

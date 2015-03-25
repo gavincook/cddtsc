@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <m:require src="jquery,handlebars,common,noty,font,ev,webuploader,dialog,bootstrap,{cddtsc/goods}"></m:require>
+    <m:require src="jquery,handlebars,common,noty,font,ev,webuploader,dialog,bootstrap,{cddtsc/login}"></m:require>
     <m:require src="css/pages/cddtsc/common.css" type="css"></m:require>
     <title>成都通道蔬菜</title>
 </head>
@@ -18,8 +18,8 @@
         <div class="header-container">
             <span class="floatl">品质食材，只要成都道通蔬菜！<span class="boldhead">免费配送</span>。</span>
             <span class="floatr">
-                <a href="/user/regist"><span class="boldhead">注册</span></a>
-                <a href="/index"><span class="boldhead">登陆</span></a>
+                <a href="/user/regist.html"><span class="boldhead">注册</span></a>
+                <a href="/user/login.html"><span class="boldhead">登陆</span></a>
                 <a href="login.html">会员中心</a>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
                     设为首页</a>|<a href="javascript:void(0)" onclick="AddFavorite(window.location,document.title)" style="color:red;font-weight:bold;">
@@ -43,32 +43,30 @@
     </div>
 </div>
 
-<div class="goods-show wrapper">
-    <div>今天一共有如下商铺销售<span>{{name}}</span></div>
-</div>
-
-<%--商品列表--%>
-<div class="goods-list-container wrapper">
-    <ul class="container-ul">
-
-    </ul>
-</div>
-    <script type="text/html" id="goodsTemplate">
-        {{#each this}}
-        <li class="container-li" data-goods-id="{{id}}">
-            <div>
-                <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/{{cover}}"></div>
-                <div class="goods-content">
-                    <div class="goods-name">商品名称: <span>{{name}}</span></div>
-                    <div class="goods-seller">店铺: <span>{{store}}</span></div>
-                </div>
+<div class="login-container wrapper">
+    <form id="regist-form" action="">
+        <div class="control-group">
+            <div class="content left">会员名称</div>
+            <div class="right">
+                <input type="text"  name="userName" validate="validate[required,number,call(checkPhoneNumber),call(isUserNameExists)]" placeholder="请输入您的手机号" errMsg="请输入有效的电话号码!"/>
             </div>
-        </li>
-        {{/each}}
-    </script>
+            <div class="errer-messae"></div>
+        </div>
+        <div class="control-group">
+            <div class="content left">密   码</div>
+            <div class="right">
+                <input type="password" class="password" name="password" validate="validate[required,minsize(6)]" placeholder="请输入不少于6个字符" errMsg="请输入不少于6个字符的密码!"/>
+            </div>
+            <div class="errer-messae"></div>
+        </div>
+        <div class="user-regist-bottom">
+            <span class="login"><button class="btn btn-primary" type="button">登陆</button></span>
+            <span class="cancel"><button class="btn btn-primary" type="button">取消</button></span>
+        </div>
+    </form>
+</div>
+
 <%--页面底部信息栏--%>
-
-
 <div class="footer">
     <div class="wrapper">
         <div class="copyright">版权所有&nbsp;&nbsp;&nbsp;道通蔬菜专业合作社 Copyright www.cddtsc.com All Rights Reserved&nbsp;&nbsp;&nbsp;蜀ICP备13024935号-1&nbsp;&nbsp;&nbsp; 网站建设及推广服务：<a href="http://www.renrenbang.com" target="_blank" style="color:white;">人人帮</a></div>

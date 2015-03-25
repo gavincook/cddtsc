@@ -131,4 +131,22 @@
         <result column="userId" property="userId" javaType="Long"></result>
         <result column="inventory" property="inventory" javaType="Integer"></result>
     </resultMap>
+
+    <select id="listGoods" resultType="HashMap">
+        SELECT dt.id,dt.name,dt.price,dt.specification,td.name as level,tdic.name as unit
+        ,(SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+        from dt_goods dt
+        join tab_dictionary td
+        on td.code = dt.level
+        join tab_dictionary tdic
+        on tdic.code = dt.unit
+        group by dt.id
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="listGoods_count" resultType="Integer">
+        SELECT count(dt.id)
+        from dt_goods dt
+        where dt.unit is not  NULL and dt.level is not NULL ;
+    </select>
 </mapper>
