@@ -111,4 +111,14 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
         dTUserRepository.unSetDefaultAddress(address.getUserId());
         dTUserRepository.setDefaultAddress(address);
     }
+
+    @Override
+    public Double getBalance(Long userId) {
+        return dTUserRepository.getBalance(userId);
+    }
+
+    @Override
+    public void consume(Double balance, Long userId) {
+        dTUserRepository.consume(balance,userId);
+    }
 }

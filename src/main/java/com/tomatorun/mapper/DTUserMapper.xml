@@ -109,4 +109,12 @@
         <result column="isDefault" property="isDefault" javaType="Boolean"></result>
         <result column="userId" property="userId" javaType="Long"></result>
     </resultMap>
+
+    <select id="getBalance" resultType="Double">
+        select balance from dt_balance where userId = #{userId}
+    </select>
+
+    <update id="consume">
+        update dt_balance set balance = #{balance} where userId = #{userId}
+    </update>
 </mapper>

@@ -33,6 +33,13 @@
         <td colspan="7">
             <span>订单时间：{{time}}</span>
             <span>总价格：<i class="fa fa-rmb"></i> {{totalPrice}}</span>
+            <span>
+                {{#if frontOpt}}
+                     <button type="button" class="btn btn-default opt" data-action="{{action}}">{{orderBtnText}}</button>
+                {{else}}
+                    {{currentStatus}}
+                {{/if}}
+            </span>
             <a href="javascript:void(0)" class="btn-link remove">删除</a>
         </td>
     </tr>

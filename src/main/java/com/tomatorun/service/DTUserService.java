@@ -118,4 +118,18 @@ public interface DTUserService extends BaseService {
      * @param address
      */
     public void setDefaultAddress(Address address);
+
+    /**
+     * 获取用户余额
+     * @param userId
+     * @return
+     */
+    public Double getBalance(Long userId);
+
+    /**
+     * 消费
+     * @param balance
+     * @param userId
+     */
+    public void consume(Double balance,Long userId);
 }

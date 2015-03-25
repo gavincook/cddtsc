@@ -120,4 +120,18 @@ public interface DTUserRepository {
      * @param address
      */
     public void setDefaultAddress(@Param("address")Address address);
+
+    /**
+     * 获取用户余额
+     * @param userId
+     * @return
+     */
+    public Double getBalance(@Param("userId")Long userId);
+
+    /**
+     * 消费
+     * @param balance
+     * @param userId
+     */
+    public void consume(@Param("balance")Double balance,@Param("userId")Long userId);
 }

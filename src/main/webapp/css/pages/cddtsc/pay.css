@@ -1,0 +1,34 @@
+.order-detail{
+    padding: 20px;
+}
+
+.order-detail-item {
+    line-height: 30px;
+}
+
+.order-detail .goods-name {
+    width: 150px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-detail .purchase-number {
+    width: 150px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pay-item{
+    padding: 20px;
+}
+
+.pay-item .money{
+    color: #9E1010;
+    font-size: 20px;
+}
+
+.pay-item .pay-btn{
+    width:80px;
+}
