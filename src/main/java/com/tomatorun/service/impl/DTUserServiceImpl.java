@@ -8,6 +8,7 @@ import com.tomatorun.service.DTUserService;
 import org.moon.base.service.AbstractService;
 import org.moon.pagination.Pager;
 import org.moon.rbac.domain.User;
+import org.moon.utils.Objects;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -114,7 +115,8 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
 
     @Override
     public Double getBalance(Long userId) {
-        return dTUserRepository.getBalance(userId);
+        Double balance = dTUserRepository.getBalance(userId);
+        return Objects.nonNull(balance) ? balance : 0d;
     }
 
     @Override

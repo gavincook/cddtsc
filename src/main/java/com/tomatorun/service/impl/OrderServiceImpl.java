@@ -7,6 +7,7 @@ import org.moon.base.service.AbstractService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.exception.ApplicationRunTimeException;
 import org.moon.utils.Maps;
+import org.moon.utils.Objects;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -101,6 +102,9 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
         List<Map<String,Object>> orders = list(Maps.mapIt("ids",orderIds,"userId",userId,"unpaid",unpaidOrderType));
         double totalPrice = orders.stream().mapToDouble(order->Double.valueOf(order.get("totalPrice")+"")).sum();
 
+        if(orders.size()!=orderIds.length){
+            throw new ApplicationRunTimeException("参数非法");
+        }
         Double balance = userService.getBalance(userId);
         if(balance > totalPrice){//余额够
             userService.consume(balance-totalPrice,userId);

@@ -8,7 +8,15 @@
                return false;
            }
            $("#payForm").ajaxSubmitForm(contextPath+"/order/pay").done(function(data){
-               console.log(data);
+               if(data.success){
+
+               }else{
+                   if(data.result) {
+                       moon.error(data.result.errMsg);
+                   }else{
+                       moon.error(data.throwable.localizedMessage);
+                   }
+               }
            })
        });
     });

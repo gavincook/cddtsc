@@ -233,7 +233,7 @@ public class OrderAction {
 
     @Get("/pay.html")
     public ModelAndView showPay(@RequestParam("orderId")Long[] ids,@WebUser User user,HttpServletRequest request){
-        List<Map<String,Object>> orders = orderService.list(Maps.mapIt("ids",ids,"userId",user.getId(),"unpaid",unpaidOrderType));
+        List<Map<String,Object>> orders = orderService.list(Maps.mapIt("ids", ids, "userId", user.getId(), "unpaid", unpaidOrderType));
         if(ids.length != orders.size()){
             throw new ApplicationRunTimeException("参数非法");
         }
@@ -243,34 +243,22 @@ public class OrderAction {
         });
 
         totalPrice = orders.stream().mapToDouble(order->Double.valueOf(order.get("totalPrice")+"")).sum();
-        request.setAttribute("payOrderIds",ids);
+        request.getSession().setAttribute("payOrderIds", ids);
         return new ModelAndView("pages/cddtsc/pay","orders",orders).addObject("totalPrice",totalPrice);
     }
 
     /**
      * 支付订单
-     * @param ids
      * @return
      */
     @Post("/pay")
     @ResponseBody
-    public WebResponse paidOrder(@RequestParam("orderId")Long[] ids,@WebUser User user,
+    public WebResponse paidOrder(@WebUser User user,
                                  HttpServletRequest request,@RequestParam("password")String password){
-        Long[] payOrderIds = (Long[]) request.getAttribute("payOrderIds");
-        boolean valid = true;
-        if(Objects.nonNull(payOrderIds)){
-            for(int i=0,l=ids.length;i<l;i++){
-                if(payOrderIds[i].equals(ids[i])) continue;
-                valid = false;
-            }
-        }else{
-            valid = false;
-        }
-        if(!valid){
-            throw new ApplicationRunTimeException("参数非法");
-        }
+        Long[] payOrderIds = (Long[]) request.getSession().getAttribute("payOrderIds");
+
         if(MD5.getCryptographicPassword(password).equals(user.getPassword())) {
-            orderService.pay(ids,user.getId());
+            orderService.pay(payOrderIds,user.getId());
             return WebResponse.success(Maps.mapIt("currentStatus", "等待配送", "frontOpt", false));
         }else{
             return WebResponse.fail(Maps.mapIt("errMsg","支付密码不正确"));
