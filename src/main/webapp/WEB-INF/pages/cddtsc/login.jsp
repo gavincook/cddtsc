@@ -18,7 +18,6 @@
         <div class="header-container">
             <span class="floatl">品质食材，只要成都道通蔬菜！<span class="boldhead">免费配送</span>。</span>
             <span class="floatr">
-                <a href="/user/regist.html"><span class="boldhead">注册</span></a>
                 <a href="/user/login.html"><span class="boldhead">登陆</span></a>
                 <a href="login.html">会员中心</a>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
@@ -32,11 +31,11 @@
     <div class="header clearfix">
         <div class="wrapper thead">
             <h1 class="logo">
-                <a href="/"><img src="css/images/cddtsc/logo.png" width="260" height="38" title="道通蔬菜"></a>
+                <a href="/"><img src="/css/images/cddtsc/logo.png" width="260" height="38" title="道通蔬菜"></a>
             </h1>
             <div class="telephone">
                 <span class="topimg">
-                  <img src="css/images/cddtsc/tel.png" width="280" height="55">
+                  <img src="/css/images/cddtsc/tel.png" width="280" height="55">
                 </span>
             </div>
         </div>
@@ -44,24 +43,23 @@
 </div>
 
 <div class="login-container wrapper">
-    <form id="regist-form" action="">
+    <form id="login-form" action="">
         <div class="control-group">
-            <div class="content left">会员名称</div>
-            <div class="right">
+            <span class="content left">会员名称:</span>
+            <span class="right">
                 <input type="text"  name="userName" validate="validate[required,number,call(checkPhoneNumber),call(isUserNameExists)]" placeholder="请输入您的手机号" errMsg="请输入有效的电话号码!"/>
-            </div>
-            <div class="errer-messae"></div>
+            </span>
+            <span class="errer-messae"></span>
         </div>
         <div class="control-group">
-            <div class="content left">密   码</div>
-            <div class="right">
+            <span class="content left">密&nbsp;&nbsp;&nbsp;&nbsp;码:</span>
+            <span class="right">
                 <input type="password" class="password" name="password" validate="validate[required,minsize(6)]" placeholder="请输入不少于6个字符" errMsg="请输入不少于6个字符的密码!"/>
-            </div>
-            <div class="errer-messae"></div>
+            </span>
+            <span class="errer-messae"></span>
         </div>
         <div class="user-regist-bottom">
-            <span class="login"><button class="btn btn-primary" type="button">登陆</button></span>
-            <span class="cancel"><button class="btn btn-primary" type="button">取消</button></span>
+            <span><button class="btn btn-primary btn-user-login" type="button">登陆</button></span>
         </div>
     </form>
 </div>

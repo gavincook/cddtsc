@@ -18,8 +18,8 @@
         <div class="header-container">
             <span class="floatl">品质食材，只要成都道通蔬菜！<span class="boldhead">免费配送</span>。</span>
             <span class="floatr">
-                <a href="/user/regist"><span class="boldhead">注册</span></a>
-                <a href="/index"><span class="boldhead">登陆</span></a>
+                <a href="/user/regist.html"><span class="boldhead">注册</span></a>
+                <a href="/user/login.html"><span class="boldhead">登陆</span></a>
                 <a href="login.html">会员中心</a>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
                     设为首页</a>|<a href="javascript:void(0)" onclick="AddFavorite(window.location,document.title)" style="color:red;font-weight:bold;">
