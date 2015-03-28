@@ -48,6 +48,14 @@ public class GoodsAction {
         return WebResponse.build().setResult(pager);
     }
 
+    @Get("/listGoodsOnSell")
+    @ResponseBody
+    public WebResponse listGoodsOnSell(HttpServletRequest request){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        Pager pager = goodsService.listForPage(GoodsRepository.class,"listGoodsOnSell",params);
+        return WebResponse.build().setResult(pager);
+    }
+
     /**
      * 商品选择页面，列出带封面的商品列表.只列出没有被该用户添加的商品
      * @param request

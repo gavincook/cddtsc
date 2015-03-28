@@ -29,6 +29,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     @Config("dic.goodsUnit")
     private String goodsUnit ;
 
+    @Config("attachment.goods")
+    private int goodsImageType;
+
     @Override
     public Map<String, Object> get(Map<String,Object> params) {
         return goodsRepository.get(params);
@@ -79,11 +82,13 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     public Pager listForPage(Class clazz, String statementId, Map params) {
         params.put("levelDicId",dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsLevelKey)).get("id"));
         params.put("unitDicId",dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsUnit)).get("id"));
+        params.put("attachmentType",goodsImageType);
         return super.listForPage(clazz, statementId, params);
     }
 
     @Override
     public Map<String, Object> getGoodsDetail(Map<String,Object> params) {
+        params.put("attachmentType",goodsImageType);
         return goodsRepository.getGoodsDetail(params);
     }
 }

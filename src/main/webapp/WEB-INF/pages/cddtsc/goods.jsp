@@ -44,28 +44,25 @@
 </div>
 
 <div class="goods-show wrapper">
-    <div>今天一共有如下商铺销售<span>{{name}}</span></div>
+    <div>今天一共有如下商铺销售<span>${goods.name}</span></div>
 </div>
 
 <%--商品列表--%>
 <div class="goods-list-container wrapper">
     <ul class="container-ul">
-
+        <c:forEach items="${shops.items}" var="shop">
+            <li class="container-li" data-goods-id="{{id}}">
+                <div>
+                    <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/${goods.cover}"></div>
+                    <div class="goods-content">
+                        <div class="goods-seller">店铺: <span>${shop.shopName}</span></div>
+                    </div>
+                </div>
+            </li>
+        </c:forEach>
     </ul>
 </div>
-    <script type="text/html" id="goodsTemplate">
-        {{#each this}}
-        <li class="container-li" data-goods-id="{{id}}">
-            <div>
-                <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/{{cover}}"></div>
-                <div class="goods-content">
-                    <div class="goods-name">商品名称: <span>{{name}}</span></div>
-                    <div class="goods-seller">店铺: <span>{{store}}</span></div>
-                </div>
-            </div>
-        </li>
-        {{/each}}
-    </script>
+
 <%--页面底部信息栏--%>
 
 

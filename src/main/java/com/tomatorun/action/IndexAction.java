@@ -19,6 +19,7 @@ import org.moon.utils.Objects;
 import org.moon.utils.ParamUtils;
 import org.moon.utils.Strings;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,10 +73,13 @@ public class IndexAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/goods.html")
-    public ModelAndView goods(@WebUser User user, HttpServletRequest request){
+    @RequestMapping("/{goodsId}_goods.html")
+    public ModelAndView goods(@WebUser User user, HttpServletRequest request,@PathVariable("goodsId")Long goodsId){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
-        return new ModelAndView("pages/cddtsc/goods");
+        params.put("goodsId",goodsId);
+        return new ModelAndView("pages/cddtsc/goods",
+                "shops",goodsService.listForPage(GoodsRepository.class,"listShopForGoods",params))
+                .addObject("goods",goodsService.getGoodsDetail(Maps.mapIt("id",goodsId)));
     }
     /**
      * show the goods.html page

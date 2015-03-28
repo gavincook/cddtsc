@@ -137,9 +137,9 @@
         ,(SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         join tab_dictionary td
-        on td.code = dt.level
+        on td.code = dt.level and td.parentId = #{levelDicId}
         join tab_dictionary tdic
-        on tdic.code = dt.unit
+        on tdic.code = dt.unit and tdic.parentId = #{levelDicId}
         group by dt.id
         limit ${offset},${pageSize}
     </select>
@@ -155,5 +155,38 @@
           (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         where id = #{id};
+    </select>
+    
+    <select id="listGoodsOnSell" resultType="HashMap">
+        SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,dg.unit,tdic.name AS unit
+        ,(SELECT url FROM dt_attachment WHERE referenceId = dg.id AND type =#{attachmentType} LIMIT 1 ) AS cover
+        FROM dt_user_goods dug
+        JOIN dt_goods dg
+        ON dug.goodsId = dg.id
+        JOIN tab_dictionary td
+        ON td.code = dg.level and td.parentId = #{levelDicId}
+        JOIN tab_dictionary tdic
+        ON tdic.code = dg.unit and tdic.parentId = #{levelDicId}
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="listGoodsOnSell_count" resultType="Integer">
+        SELECT count(*)
+        FROM dt_user_goods dug
+    </select>
+    
+    <select id="listShopForGoods" resultType="HashMap">
+        SELECT dug.*,ds.name as shopName
+        FROM dt_user_goods dug
+        JOIN dt_shop ds
+        ON dug.userId = ds.userId
+        WHERE dug.goodsId = #{goodsId}
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="listShopForGoods_count" resultType="Integer">
+        SELECT count(*)
+        FROM dt_user_goods dug
+        WHERE dug.goodsId = #{goodsId}
     </select>
 </mapper>

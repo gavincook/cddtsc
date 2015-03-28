@@ -5,7 +5,7 @@
         var $storeForm = $("#storeForm");
 
         //显示主页的产品列表
-        $.getJsonData(contextPath+"/listGoods").done(function(data){
+        $.getJsonData(contextPath+"/goods/listGoodsOnSell").done(function(data){
             $("#goodsTemplate").renderTemplate(data.result.items,{container:".container-ul"});
         });
 
@@ -15,7 +15,7 @@
             console.log(currentGoods.attr('data-goods-id'));
             goodsId = currentGoods.attr('data-goods-id');
 //            window.open(contextPath+"/goods.html",'_self');
-            window.location.href = contextPath+"/goods.html/?"+"goodsId="+goodsId;
+            window.location.href = contextPath+"/"+goodsId+"_goods.html/";
         });
 
         $(".container-ul").on("click",".search-goods",function(){
