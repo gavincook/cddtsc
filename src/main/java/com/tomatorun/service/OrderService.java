@@ -1,5 +1,6 @@
 package com.tomatorun.service;
 
+import com.tomatorun.dto.Order;
 import org.moon.base.service.BaseService;
 
 import java.util.List;
@@ -28,4 +29,21 @@ public interface OrderService extends BaseService {
     public void cancelOrder(Long id);
 
     public void pay(Long[] orderIds,Long userId);
+
+    public Order get(Long id);
+
+    /**
+     * 店铺删除订单
+     * @param order
+     * @return
+     */
+    public Order deleteByShop(Order order);
+
+    /**
+     * 用户删除订单
+     * @param order
+     * @return
+     */
+    public Order deleteByUser(Order order);
+
 }

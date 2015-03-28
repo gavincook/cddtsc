@@ -1,5 +1,6 @@
 package com.tomatorun.service.impl;
 
+import com.tomatorun.dto.Order;
 import com.tomatorun.repository.OrderRepository;
 import com.tomatorun.service.DTUserService;
 import com.tomatorun.service.OrderService;
@@ -7,11 +8,9 @@ import org.moon.base.service.AbstractService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.exception.ApplicationRunTimeException;
 import org.moon.utils.Maps;
-import org.moon.utils.Objects;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +34,15 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Config("orderType.cancel")
     private int cancelOrderType;
+
+    @Config("orderFlag.none")
+    private int notDeleted;
+
+    @Config("orderFlag.shop")
+    private int deletedByShop;
+
+    @Config("orderFlag.user")
+    private int deletedByUser;
 
     @Resource
     private OrderRepository orderRepository;
@@ -65,6 +73,7 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
     @Override
     public void add(Map<String, Object> params) {
         params.put("status", unpaidOrderType);
+        params.put("flag",notDeleted);
         orderRepository.add(params);
     }
 
@@ -115,4 +124,24 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
             throw new ApplicationRunTimeException("余额不足，请充值.");
         }
     }
+
+    @Override
+    public Order get(Long id) {
+        return orderRepository.get(id);
+    }
+
+    @Override
+    public Order deleteByShop(Order order) {
+        order.setFlag(order.getFlag()|deletedByShop);
+        orderRepository.updateFlag(order);
+        return order;
+    }
+
+    @Override
+    public Order deleteByUser(Order order) {
+        order.setFlag(order.getFlag()|deletedByUser);
+        orderRepository.updateFlag(order);
+        return order;
+    }
+
 }

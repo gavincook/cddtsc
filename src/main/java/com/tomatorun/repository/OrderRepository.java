@@ -1,5 +1,7 @@
 package com.tomatorun.repository;
 
+import com.tomatorun.dto.Order;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +20,9 @@ public interface OrderRepository {
     public void delete(Map<String, Object> params);
 
     public void add(Map<String, Object> params);
+
+    public Order get(@Param("id")Long id);
+
+    public void updateFlag(@Param("order")Order order);
+
 }

@@ -1,5 +1,6 @@
 package com.tomatorun.action;
 
+import com.tomatorun.dto.Order;
 import com.tomatorun.dto.Shopcart;
 import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.repository.OrderRepository;
@@ -70,6 +71,12 @@ public class OrderAction {
     @Config("orderType.cancel")
     private int cancelOrderType;
 
+    @Config("orderFlag.shop")
+    private int deletedByShop;
+
+    @Config("orderFlag.user")
+    private int deletedByUser;
+
     @Get()
     @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
     public ModelAndView showOrderPage(){
@@ -96,29 +103,12 @@ public class OrderAction {
      * @param user
      * @return
      */
-    //@Get("/list")
-    //@ResponseBody
-    public WebResponse list(HttpServletRequest request,@WebUser User user){
-        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
-        Pager pager = orderService.listForPage(OrderRepository.class,"list",params);
-        List<Object> orders = pager.getItems();
-        for (Object order : orders){
-            ((HashMap<String,Object>)order).put("orderDetail", orderDetailService.list(Maps.mapIt("orderId", ((HashMap<String, Object>) order).get("id"))));
-        }
-        return WebResponse.build().setResult(pager);
-    }
-
-    /**
-     * 罗列店铺订单
-     * @param request
-     * @param user
-     * @return
-     */
     @Get("/list")
     @ResponseBody
     public WebResponse listForShop(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         params.put("userId",user.getId());//店铺管理员id
+        params.put("deletedFlag",deletedByShop);
         Pager pager = orderService.listForPage(OrderRepository.class,"listForShop",params);
         List<Object> orders = pager.getItems();
         for (Object order : orders){
@@ -153,7 +143,8 @@ public class OrderAction {
     public WebResponse listBoughtItems(HttpServletRequest request,@WebUser User user){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         params.put("userId",user.getId());//店铺管理员id
-        Pager pager = orderService.listForPage(OrderRepository.class,"listForShop",params);
+        params.put("deletedFlag",deletedByUser);
+        Pager pager = orderService.listForPage(OrderRepository.class,"listForUser",params);
         List<Object> orders = pager.getItems();
         for (Object order : orders){
             String orderBtnText = "",action = "",currentStatus = "";
@@ -194,8 +185,16 @@ public class OrderAction {
 
     @Post("/delete")
     @ResponseBody
-    public WebResponse delete(@RequestParam("id")Long id){
-        orderService.delete(Maps.mapIt("ids",id));
+    public WebResponse delete(@RequestParam("id")Long id,@WebUser User user){
+        Order order = orderService.get(id);
+        if(Objects.isNull(order)){
+            throw new ApplicationRunTimeException("订单不存在");
+        }
+        if(order.getUserId() == user.getId()){//买家删除
+            orderService.deleteByUser(order);
+        }else if(order.getShopId() == user.getId()){//店家删除
+            orderService.deleteByShop(order);
+        }
         return WebResponse.success();
     }
 
@@ -216,8 +215,10 @@ public class OrderAction {
         List<Shopcart> shopcarts = shopcartService.getShopCartGoodsForUser(user.getId());
         List<Long> orderIds = new ArrayList<>();
         Map<Long,List<Shopcart>> groupedShopcart = shopcarts.stream().collect(Collectors.groupingBy(s -> s.getShopId()));
-        for(List<Shopcart> shopcartList:groupedShopcart.values()){
+        for(Map.Entry<Long,List<Shopcart>> entry:groupedShopcart.entrySet()){
+            List<Shopcart> shopcartList = entry.getValue();
             params.put("totalPrice", shopcartList.stream().mapToDouble(s -> s.getNumber() * s.getGoods().getPrice()).sum());
+            params.put("shopId",entry.getKey());
             orderService.add(params);
             Long orderId = Long.parseLong(params.get("id").toString());
             orderIds.add(orderId);
@@ -274,7 +275,7 @@ public class OrderAction {
     @ResponseBody
     public WebResponse distributeOrder(@RequestParam("id")Long id){
         orderService.distributeOrder(Maps.mapIt("id", id));
-        return WebResponse.success(Maps.mapIt("orderBtnText", "送达", "serverOpt", true, "action", "orderArrived"));
+        return WebResponse.success(Maps.mapIt("orderBtnText", "完成配送", "serverOpt", true, "action", "orderArrived"));
     }
 
     /**
@@ -311,5 +312,9 @@ public class OrderAction {
     public WebResponse cancelOrder(@RequestParam("id")Long id){
         orderService.cancelOrder(id);
         return WebResponse.success(Maps.mapIt("currentStatus", "已取消", "serverOpt", false));
+    }
+
+    public static void main(String[] args) {
+        System.out.println(0|4);
     }
 }

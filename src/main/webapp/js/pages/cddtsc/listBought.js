@@ -21,5 +21,29 @@
                 });
             }
         });
+
+        //订单操作
+        $(document).on("click",".opt",function(e){
+            var $opt = $(e.target);
+            var action = $opt.attr("data-action");
+            var orderId = $opt.closest("tbody").attr("data-id");
+
+            switch(action){
+                case "pay"         : window.location.href = contextPath+"/order/pay.html?orderId="+orderId; break;
+                case "confirmOrder" :
+                    if(confirm("是否确认收货?")){
+                        $.getJsonData(contextPath+"/order/confirmOrder",{id:orderId},{type:"Post"}).done(function(data){
+                            if(data.success){
+                                moon.success("操作成功");
+                                $opt[0].outerHTML = data.result.currentStatus;
+                            }else{
+                                moon.error("操作失败");
+                            }
+                        });
+                    }
+                    break;
+                default :
+            }
+        });
     });
 })();
