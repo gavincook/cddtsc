@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomatorun.repository.ShopRepository">
+    <select id="list" resultType="HashMap">
+        SELECT ds.name,u.realName,u.realName,ds.id
+        FROM dt_shop ds
+        JOIN tab_user u
+        ON ds.userId = u.id
+        limit ${offset},{pageSize}
+    </select>
+
+    <select id="list_count" resultType="Integer">
+        SELECT count(id) from dt_shop
+    </select>
+
+    <update id="update">
+        update dt_shop set name = #{shop.name} where id = #{shop.id};
+    </update>
+
+    <delete id="delete">
+        delete from dt_shop where id =#{shop.id};
+    </delete>
+
+    <insert id="add">
+        <selectKey resultType="Long" order="AFTER" keyProperty="shop.id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert  into dt_shop(userId,name) values(#{shop.userId},#{shop.name});
+    </insert>
+
+    <select id="checkIfExists" resultMap="shop">
+        select * from dt_shop where userId = #{userId} limit 1;
+    </select>
+
+    <resultMap id="shop" type="com.tomatorun.dto.Shop">
+        <result column="id" property="id" javaType="Long"></result>
+        <result column="userId" property="userId" javaType="Long"></result>
+        <result column="name" property="name" javaType="String"></result>
+    </resultMap>
+
+</mapper>

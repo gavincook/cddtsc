@@ -5,6 +5,7 @@ import com.tomatorun.dto.builder.AddressBuilder;
 import com.tomatorun.repository.DTUserRepository;
 import com.tomatorun.service.AttachmentService;
 import com.tomatorun.service.DTUserService;
+import com.tomatorun.service.ShopService;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.rbac.domain.User;
@@ -56,6 +57,9 @@ public class DTUserAction {
     @Resource
     private AttachmentService attachmentService;
 
+    @Resource
+    private ShopService shopService;
+
     @Get("")
     @MenuMapping(name = "用户管理", url = "/user",code = "dt_user",parentCode = "dt")
     public ModelAndView showUserPage(){
@@ -89,7 +93,7 @@ public class DTUserAction {
     @Get("/my")
     @MenuMapping(name = "个人信息", url = "/user/my" , code = "dt_my" , parentCode = "dt")
     public ModelAndView showMyInfoPage(@WebUser User user){
-        return new ModelAndView("pages/cddtsc/my","user",user.toAllMap());
+        return new ModelAndView("pages/cddtsc/my","user",user.toAllMap()).addObject("shop",shopService.getForUser(user.getId()));
     }
     /**
      * 获取审核列表，管理员获取小组长列表，小组长获取该小组的组员

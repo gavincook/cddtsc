@@ -136,6 +136,22 @@
                 });
             });
         });
+
+        //保存店铺信息
+        $(".save-shop").click(function(){
+            var shopName = $("#shopName").val();
+            if(shopName.length == 0){
+                moon.error("请输入店铺名字");
+                return false;
+            }
+            $.getJsonData(contextPath+"/shop/update",{name:shopName},{type:"Post"}).done(function(data){
+                if(data.success){
+                    moon.success("店铺更新成功");
+                }else{
+                    moon.error("店铺更新失败");
+                }
+            });
+        });
     });
 
     /**

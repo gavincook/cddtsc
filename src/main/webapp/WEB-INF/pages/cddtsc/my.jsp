@@ -30,10 +30,22 @@
         </div>
         <div class="clearfix"></div>
     </div>
+
+    <div class="shop-container">
+        <div class="title">
+            <i class="fa fa-home"></i>
+            <span>我的店铺</span>
+        </div>
+        <div class="shop-form">
+            <span>名称：</span>
+            <input type="text" value="${shop.name}" id="shopName">
+            <button type="button" class="btn btn-primary save-shop">保存</button>
+        </div>
+    </div>
 <%--地址容器--%>
     <div class="address-container">
         <div class="title">
-            <div class="address-title"><i class="fa fa-th-list"></i>收货地址</div>
+            <div class="address-title"><i class="fa fa-th-list"></i><span>收货地址</span></div>
             <div class="add-address"><i class="fa fa-plus-circle"></i>新增收货地址 </div>
             <div class="clearfix"></div>
         </div>
