@@ -46,4 +46,11 @@ public interface GoodsRepository {
      * @return
      */
     public List<Map<String,Object>> listGoods(Map<String, Object> params);
+
+    /**
+     * 获取该商品的详细信息
+     * @param params
+     * @return
+     */
+    public  Map<String,Object> getGoodsDetail(Map<String, Object> params);
 }

@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,24 +43,27 @@ public class IndexAction {
     @Resource
     private GoodsService goodsService;
 
+    @Resource
+    private AttachmentService attachmentService;
+
     /**
      * show the index.html page
      * @return
      * @throws Exception
      */
     @RequestMapping("/index.html")
-    public ModelAndView index( ){
+    public ModelAndView index(@WebUser User user ){
 
         return new ModelAndView("pages/cddtsc/index");
     }
 
     @Get("/user/regist.html")
-    public ModelAndView registPage(){
+    public ModelAndView registPage(@WebUser User user){
         return new ModelAndView("pages/cddtsc/register");
     }
 
     @Get("/user/login.html")
-    public ModelAndView loginPage(){
+    public ModelAndView loginPage(@WebUser User user){
         return new ModelAndView("pages/cddtsc/login");
     }
 
@@ -69,9 +73,26 @@ public class IndexAction {
      * @throws Exception
      */
     @RequestMapping("/goods.html")
-    public ModelAndView goods( ){
-
+    public ModelAndView goods(@WebUser User user, HttpServletRequest request){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         return new ModelAndView("pages/cddtsc/goods");
+    }
+    /**
+     * show the goods.html page
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/goodsDetail.html")
+    public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request, @RequestParam("goodsId")Long id){
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("id",id);
+        Map<String,Object> goodsDetail = goodsService.getGoodsDetail(params);
+        params.remove("id");
+        params.put("referenceId",id);
+        params.put("type",goodsImageType);
+        List<Map<String,Object>> goodsImages = attachmentService.list(params);
+        System.out.println(goodsImages.size());
+        return new ModelAndView("pages/cddtsc/goodsDetail").addObject("user",user).addObject("goods",goodsDetail).addObject("images",goodsImages);
     }
 
     /**

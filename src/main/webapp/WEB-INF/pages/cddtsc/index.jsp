@@ -20,19 +20,19 @@
             <span class="floatr">
                 <a href="/user/regist.html"><span class="boldhead">注册</span></a>
                 <a href="/user/login.html"><span class="boldhead">登陆</span></a>
-                <a href="login.html">会员中心</a>
+                <a href="/index">会员中心</a>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
                     设为首页</a>|<a href="javascript:void(0)" onclick="AddFavorite(window.location,document.title)" style="color:red;font-weight:bold;">
                 收藏本站</a>
-                <a href="/aboutus.html?cid=7">帮助中心</a>
-                <a href="/aboutus.html?cid=1">关于我们</a>
+                <a href="/index.html">帮助中心</a>
+                <a href="/index.html">关于我们</a>
             </span>
         </div>
     </div>
     <div class="header clearfix">
         <div class="wrapper thead">
             <h1 class="logo">
-                <a href="/"><img src="css/images/cddtsc/logo.png" width="260" height="38" title="道通蔬菜"></a>
+                <a href="/index.html"><img src="css/images/cddtsc/logo.png" width="260" height="38" title="道通蔬菜"></a>
             </h1>
             <div class="telephone">
                 <span class="topimg">
@@ -47,7 +47,7 @@
     <div class="clearfix">
         <div class="goods-picture-container">
             <div class="banner">
-                <a href="http://www.cddtsc.com/newsdetail.html?id=73"><img src="css/images/cddtsc/m4nxyu.jpg"></a>
+                <a href="/index.html"><img src="css/images/cddtsc/m4nxyu.jpg"></a>
             </div>
         </div>
         <div class="goods-scare-buying-container">

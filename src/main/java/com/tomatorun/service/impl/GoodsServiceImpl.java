@@ -81,4 +81,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
         params.put("unitDicId",dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsUnit)).get("id"));
         return super.listForPage(clazz, statementId, params);
     }
+
+    @Override
+    public Map<String, Object> getGoodsDetail(Map<String,Object> params) {
+        return goodsRepository.getGoodsDetail(params);
+    }
 }

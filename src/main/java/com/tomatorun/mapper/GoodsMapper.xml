@@ -149,4 +149,11 @@
         from dt_goods dt
         where dt.unit is not  NULL and dt.level is not NULL ;
     </select>
+
+    <select id="getGoodsDetail" resultType="HashMap">
+        SELECT dt.id,dt.name,dt.price,dt.specification,
+          (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+        from dt_goods dt
+        where id = #{id};
+    </select>
 </mapper>

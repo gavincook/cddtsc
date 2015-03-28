@@ -34,4 +34,11 @@ public interface GoodsService extends BaseService {
      * @return
      */
     public List<UserGoods> getUserGoodsForSpecified(Long[] userGoodsIds);
+
+    /**
+     * 获取该商品的详细信息
+     * @param params
+     * @return
+     */
+    public  Map<String,Object> getGoodsDetail(Map<String, Object> params);
 }

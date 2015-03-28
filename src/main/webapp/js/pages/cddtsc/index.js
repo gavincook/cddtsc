@@ -11,10 +11,11 @@
 
         //点击某个商品跳转到展示全部正在销售此商品的商品列表页面
         $(".container-ul").on("click",".good-img",function(e){
-            var currentGoods = $(e.currentTarget);
+            var currentGoods = $(e.currentTarget).closest('li');
             console.log(currentGoods.attr('data-goods-id'));
             goodsId = currentGoods.attr('data-goods-id');
-            window.open(contextPath+"/goods.html",'_self');
+//            window.open(contextPath+"/goods.html",'_self');
+            window.location.href = contextPath+"/goods.html/?"+"goodsId="+goodsId;
         });
 
         $(".container-ul").on("click",".search-goods",function(){
@@ -87,4 +88,6 @@
             $("#goodsTemplate").renderTemplate(data.result.items,{container:".goods-items",emptyParent:true});
         });
     }
+
+
 })();
