@@ -191,7 +191,7 @@
     </select>
 
     <select id="getGoodsForShop" resultType="HashMap">
-        SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit,
+        SELECT dug.id as userGoodsId,dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit,
         dug.inventory
         from dt_goods dg
         JOIN dt_user_goods dug

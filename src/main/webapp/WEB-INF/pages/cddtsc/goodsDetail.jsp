@@ -9,6 +9,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <m:require src="jquery,handlebars,common,noty,font,bootstrap,jqzoom,{cddtsc/goodsDetail}"></m:require>
     <m:require src="css/pages/cddtsc/common.css" type="css"></m:require>
+    <script type="text/javascript">
+        var user = "${user.userName}";
+        var inventory = "${goods.inventory}";
+    </script>
     <title>成都通道蔬菜</title>
 </head>
 
@@ -48,7 +52,7 @@
 </div>
 
 <%--商品详情--%>
-<div class="goods-container wrapper"  data-user-name="${user.userName}" data-goods-id="${goods.id}">
+<div class="goods-container wrapper" data-goods-id="${goods.userGoodsId}">
     <span class="goods-left">
         <div class="goods-img">
             <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="triumph" >
@@ -82,7 +86,10 @@
             </div>
             <span>(库存：${goods.inventory} ${goods.unit})</span>
         </div>
-        <div class="goods-add"><button class="btn btn-danger add-shopcar">添加到购物车</button></div>
+        <div class="goods-add">
+            <button class="btn btn-danger buy">立即购买</button>
+            <button class="btn btn-danger add-shopcar">添加到购物车</button>
+        </div>
     </span>
 </div>
 

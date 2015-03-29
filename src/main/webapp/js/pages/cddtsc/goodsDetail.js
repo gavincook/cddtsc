@@ -8,17 +8,26 @@
             $("#goodsTemplate").renderTemplate(data.result.items,{container:".container-ul"});
         });
 
-        //点击某个商品跳转到展示全部正在销售此商品的商品列表页面
+        //添加购物车
         $(".goods-container").on("click",".add-shopcar",function(e){
+            if(user == ""){
+                if(confirm("您还未登录,请先登录.")){
+                    window.location.href = contextPath+"/user/login.html?from="+window.location.href;
+                }
+                return false;
+            }
             var goodsContainer = $(".goods-container");
             var data = {}, param = {};
             data.userGoodsId = goodsContainer.attr("data-goods-id");
             data.number = goodsContainer.find(".goods-buy input").val();
+            if(data.number > inventory){
+                moon.error("您所填写的商品数量超过库存");
+                return;
+            }
             if(!data.number){
                 alert("请输入您要购买的数量！");
                 return false;
             }
-            console.log(param);
             param.type = "POST";
             param.dataType = "Json";
             $.getJsonData("/shopcart/add",data,param).done(function(){
@@ -67,6 +76,11 @@
             $numberDiv.find(".minus").addClass("disabled");
         }else{
             $numberDiv.find(".minus").removeClass("disabled");
+        }
+        if(number == inventory){
+            $numberDiv.find(".plus").addClass("disabled");
+        }else{
+            $numberDiv.find(".plus").removeClass("disabled");
         }
     }
 })();

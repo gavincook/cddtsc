@@ -42,24 +42,19 @@
     </div>
 </div>
 
-<div class="login-container wrapper">
-    <form id="login-form" action="">
-        <div class="control-group">
-            <span class="content left">会员名称:</span>
-            <span class="right">
-                <input type="text"  name="userName" validate="validate[required,number,call(checkPhoneNumber),call(isUserNameExists)]" placeholder="请输入您的手机号" errMsg="请输入有效的电话号码!"/>
-            </span>
-            <span class="errer-messae"></span>
+<div class="login-container container">
+    <form id="loginForm" action="" class="login-form">
+        <h3 class="title">登录</h3>
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-user input-icon"></i></div>
+            <input type="text" name="userName" autocomplete="off" class="form-control"validate="validate[minsize(6),maxsize(15)]" errmsg="用户名为6~15个字符">
         </div>
-        <div class="control-group">
-            <span class="content left">密&nbsp;&nbsp;&nbsp;&nbsp;码:</span>
-            <span class="right">
-                <input type="password" class="password" name="password" validate="validate[required,minsize(6)]" placeholder="请输入不少于6个字符" errMsg="请输入不少于6个字符的密码!"/>
-            </span>
-            <span class="errer-messae"></span>
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-lock input-icon"></i></div>
+            <input name="password" type="password" autocomplete="off" class="form-control" validate="validate[minsize(6)]" errmsg="密码须6位以上">
         </div>
         <div class="user-regist-bottom">
-            <span><button class="btn btn-primary btn-user-login" type="button">登陆</button></span>
+            <button class="btn btn-primary btn-user-login" type="button">登&nbsp;录</button>
         </div>
     </form>
 </div>

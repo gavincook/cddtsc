@@ -243,3 +243,7 @@ body{
 .goods-buy .number input{
     text-align: center;
 }
+
+.goods-add .btn{
+    width: 120px;
+}
