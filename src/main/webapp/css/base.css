@@ -89,3 +89,87 @@
 }
 
 
+html,body{
+    height:100% ;
+}
+
+a{
+    outline: 0;
+}
+.clearLine{
+    _blr:expression(this.onFocus=this.blur());
+    outline: 0;
+}
+
+.floatl{
+    float: left;
+}
+.floatr{
+    float: right;
+}
+.wrapper{
+    width: 1004px;
+    margin: 0 auto;
+    position: relative;
+}
+/* CSS Document common */
+body{
+    font-size: 12px;
+    font-family: "宋体";
+    color: #5D5D5D;
+    background-color: #ECF5DB;
+}
+
+.page-navigation{
+    width: 100%;
+}
+.navigationbar{
+    height: 35px;
+    width: 100%;
+    line-height: 35px;
+    text-align:right;
+    background: #E2DFDF;
+    border-bottom: 1px solid #FFFFFF;
+}
+.navigationbar .header-container{
+    width:1004px;
+    margin:0 auto;
+    height:30px;
+    overflow:hidden;
+}
+.navigationbar .header-container .boldhead{
+    font-weight:bold;
+    color: #736F73;
+}
+.page-navigation .header{
+    height: 88px;
+    width: 100%;
+}
+.page-navigation .header .thead{
+    padding-top:20px;
+}
+.page-navigation .header .thead .logo{
+    float: left;
+    height: 38px;
+    padding-top: 10px;
+}
+.page-navigation .header .thead .telephone{
+    display: inline-flex;
+    float: right;
+    width: 300px;
+    height: 62px;
+}
+
+.content{
+    min-height: 100%;
+    padding-bottom:50px ;
+}
+
+.footer{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #FFFFFF;
+    background-color: #59A111;
+    margin-top:-50px;
+}
