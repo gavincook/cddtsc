@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <m:require src="jquery,handlebars,common,noty,font,ev,webuploader,dialog,bootstrap,{cddtsc/goodsDetail}"></m:require>
+    <m:require src="jquery,handlebars,common,noty,font,bootstrap,jqzoom,{cddtsc/goodsDetail}"></m:require>
     <m:require src="css/pages/cddtsc/common.css" type="css"></m:require>
     <title>成都通道蔬菜</title>
 </head>
@@ -51,21 +51,38 @@
 <div class="goods-container wrapper"  data-user-name="${user.userName}" data-goods-id="${goods.id}">
     <span class="goods-left">
         <div class="goods-img">
-            <img src="${pageContext.request.contextPath}/file/get/${images[0].url}">
+            <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="triumph" >
+                <img src="${pageContext.request.contextPath}/file/get/${images[0].url}"  title="triumph"  style="border: 4px solid #666;">
+            </a>
         </div>
         <div class="goods-img-list">
             <c:forEach items="${images}" var="image">
-                <span class="image"><img src="${pageContext.request.contextPath}/file/get/${image.url}"></span>
+                <span class="image">
+                    <a class="zoomThumbActive" href='javascript:void(0);'
+                       rel="{gallery: 'gal1', smallimage: '${pageContext.request.contextPath}/file/get/${image.url}',largeimage: '${pageContext.request.contextPath}/file/get/${image.url}'}">
+                        <img src='${pageContext.request.contextPath}/file/get/${image.url}'>
+                    </a>
+                </span>
             </c:forEach>
         </div>
     </span>
     <span class="goods-right">
         <div class="goods-name">商品名称：&nbsp;${goods.name}</div>
-        <div class="goods-price">价格：&nbsp;${goods.price}元</div>
+        <div class="goods-price">价格：&nbsp;<i class="fa fa-rmb"></i> ${goods.price}</div>
+        <div class="goods-price">等级：&nbsp; ${goods.level}</div>
+        <div class="goods-price">计量单位：&nbsp; ${goods.unit}</div>
         <div class="goods-buy">
-            <span>购买数量：&nbsp;</span><span><input type="text" class="form-control" placeholder="请输入您要购买的数量" id="goodsNumber"></span>
+            <span>购买数量：&nbsp;</span>
+            <div class="number">
+                <div class="input-group">
+                    <span class="input-group-addon btn minus">-</span>
+                    <input type="text" class="form-control number-box" value="1" id="goodsNumber">
+                    <span class="input-group-addon  btn plus">+</span>
+                </div>
+            </div>
+            <span>(库存：${goods.inventory} ${goods.unit})</span>
         </div>
-        <div class="goods-add"><span class="add-shopcar">添加到购物车</span></div>
+        <div class="goods-add"><button class="btn btn-danger add-shopcar">添加到购物车</button></div>
     </span>
 </div>
 

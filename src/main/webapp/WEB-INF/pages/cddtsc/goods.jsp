@@ -51,7 +51,7 @@
 <div class="goods-list-container wrapper">
     <ul class="container-ul">
         <c:forEach items="${shops.items}" var="shop">
-            <li class="container-li" data-goods-id="{{id}}">
+            <li class="container-li" data-goods-id="${shop.goodsId}">
                 <div>
                     <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/${goods.cover}"></div>
                     <div class="goods-content">

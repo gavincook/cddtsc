@@ -26,7 +26,47 @@
             });
         });
 
+        //减少数量
+        $(document).on("click",".minus",function(e){
+            changeShopCartNumber(event,false);
+        });
+
+        //增加
+        $(document).on("click",".plus",function(e){
+            changeShopCartNumber(event,true);
+        });
+
+        $('.jqzoom').jqzoom({
+            zoomType: 'standard',
+            lens:true,
+            preloadImages: false,
+            alwaysOn:false,
+            zoomWidth: 0,
+            zoomHeight: 0,
+            xOffset:90,
+            yOffset:30,
+            position:'left'
+        });
+
 
     });
 
+    function changeShopCartNumber(event,plus){
+        var $numberDiv = $(event.target).closest(".number");
+        var $numberBox = $numberDiv.find(".number-box");
+        var $tr = $numberDiv.closest("tr");
+
+        var number = $numberBox.val();
+        if(plus) {
+            number = (+number)+1;
+        }else{
+            number = (+number)-1;
+        }
+        $numberBox.val(number);
+        if(number == 1){
+            $numberDiv.find(".minus").addClass("disabled");
+        }else{
+            $numberDiv.find(".minus").removeClass("disabled");
+        }
+    }
 })();

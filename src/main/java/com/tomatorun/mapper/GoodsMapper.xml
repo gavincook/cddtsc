@@ -139,7 +139,7 @@
         join tab_dictionary td
         on td.code = dt.level and td.parentId = #{levelDicId}
         join tab_dictionary tdic
-        on tdic.code = dt.unit and tdic.parentId = #{levelDicId}
+        on tdic.code = dt.unit and tdic.parentId = #{unitDicId}
         group by dt.id
         limit ${offset},${pageSize}
     </select>
@@ -158,7 +158,7 @@
     </select>
     
     <select id="listGoodsOnSell" resultType="HashMap">
-        SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,dg.unit,tdic.name AS unit
+        SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit
         ,(SELECT url FROM dt_attachment WHERE referenceId = dg.id AND type =#{attachmentType} LIMIT 1 ) AS cover
         FROM dt_user_goods dug
         JOIN dt_goods dg
@@ -166,7 +166,7 @@
         JOIN tab_dictionary td
         ON td.code = dg.level and td.parentId = #{levelDicId}
         JOIN tab_dictionary tdic
-        ON tdic.code = dg.unit and tdic.parentId = #{levelDicId}
+        ON tdic.code = dg.unit and tdic.parentId = #{unitDicId}
         limit ${offset},${pageSize}
     </select>
 
@@ -176,7 +176,7 @@
     </select>
     
     <select id="listShopForGoods" resultType="HashMap">
-        SELECT dug.*,ds.name as shopName
+        SELECT dug.id as goodsId,ds.name as shopName
         FROM dt_user_goods dug
         JOIN dt_shop ds
         ON dug.userId = ds.userId
@@ -188,5 +188,18 @@
         SELECT count(*)
         FROM dt_user_goods dug
         WHERE dug.goodsId = #{goodsId}
+    </select>
+
+    <select id="getGoodsForShop" resultType="HashMap">
+        SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit,
+        dug.inventory
+        from dt_goods dg
+        JOIN dt_user_goods dug
+        ON dg.id = dug.goodsId
+        JOIN tab_dictionary td
+        ON td.code = dg.level and td.parentId = #{levelDicId}
+        JOIN tab_dictionary tdic
+        ON tdic.code = dg.unit and tdic.parentId = #{unitDicId}
+        where dug.id = #{userGoodsId}
     </select>
 </mapper>

@@ -91,4 +91,11 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
         params.put("attachmentType",goodsImageType);
         return goodsRepository.getGoodsDetail(params);
     }
+
+    @Override
+    public Map<String, Object> getGoodsForShop(Long userGoodsId) {
+        return goodsRepository.getGoodsForShop(userGoodsId,
+            dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsLevelKey)).get("id"),
+            dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsUnit)).get("id"));
+    }
 }

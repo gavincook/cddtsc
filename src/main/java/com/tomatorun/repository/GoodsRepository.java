@@ -52,5 +52,13 @@ public interface GoodsRepository {
      * @param params
      * @return
      */
-    public  Map<String,Object> getGoodsDetail(Map<String, Object> params);
+    public Map<String,Object> getGoodsDetail(Map<String, Object> params);
+
+    /**
+     * 根据userGoodsId获取商品信息
+     * @param userGoodsId
+     * @return
+     */
+    public Map<String,Object> getGoodsForShop(@Param("userGoodsId")Long userGoodsId,@Param("levelDicId")Object levelDicId,
+        @Param("unitDicId")Object unitDicId);
 }

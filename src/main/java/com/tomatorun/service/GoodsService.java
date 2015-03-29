@@ -41,4 +41,11 @@ public interface GoodsService extends BaseService {
      * @return
      */
     public  Map<String,Object> getGoodsDetail(Map<String, Object> params);
+
+    /**
+     * 根据userGoodsId获取商品信息
+     * @param userGoodsId
+     * @return
+     */
+    public Map<String,Object> getGoodsForShop(Long userGoodsId);
 }

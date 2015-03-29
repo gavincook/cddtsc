@@ -86,14 +86,10 @@ public class IndexAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/goodsDetail.html")
-    public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request, @RequestParam("goodsId")Long id){
-        Map<String,Object> params = new HashMap<String,Object>();
-        params.put("id",id);
-        Map<String,Object> goodsDetail = goodsService.getGoodsDetail(params);
-        params.remove("id");
-        params.put("referenceId",id);
-        params.put("type",goodsImageType);
+    @RequestMapping("/{userGoodsId}_item.html")
+    public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request, @PathVariable("userGoodsId")Long userGoodsId){
+        Map<String,Object> goodsDetail = goodsService.getGoodsForShop(userGoodsId);
+        Map<String,Object> params = Maps.mapIt("referenceId",goodsDetail.get("id"),"type",goodsImageType);
         List<Map<String,Object>> goodsImages = attachmentService.list(params);
         System.out.println(goodsImages.size());
         return new ModelAndView("pages/cddtsc/goodsDetail").addObject("user",user).addObject("goods",goodsDetail).addObject("images",goodsImages);
