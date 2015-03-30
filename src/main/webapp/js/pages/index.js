@@ -1,7 +1,12 @@
 var moon = moon||{};
 (function(w){
+    //通知栏目模板
+    var noticeTemplate = "<li><a class='no-tab' href='javascript:void(0)'><span class='msg-sender'>{0}:</span>{1}</a></li>";
 
     $(document).ready(function () {
+        $('.collapse').collapse({
+            toggle: false
+        });
         moon.tabs = $(".tab").KandyTabs({
             trigger:"click",
             scroll:true
@@ -21,27 +26,17 @@ var moon = moon||{};
             });
         });
 
-        /**
-         * 异步加载菜单
-         */
-        $("[id^='menu_']").click(function(){
-            var $li = $(this);
-            var id = $(this).attr("id").replace("menu_","");
-            if($(".dropdown-menu",$li).find(".loading").length>0){
-                $.getJsonData(contextPath+"/menu/getSubMenus",{pid:id}).done(function(data){
-                    var subMenus="";
-                    $.each(data.result,function(index,menu){
-                        subMenus+="<li ><a href='"+contextPath+menu.url+"' target='main'>"+menu.menuName+"</a></li>";
-                    });
-                    $(".dropdown-menu",$li).html(subMenus||"<span class=\"no-menu\">没有菜单</span>");
-                });
-            }
-        });
+
         $(document).on("click",".dropdown-menu a:not(.no-tab)",function(e){
             var $menu = $(e.target);
             moon.addTab($menu.html(),$menu.attr("href"));
             e.preventDefault();
             window.event.returnValue = false;
         });
+
+//
     });
+
+
+
 })(window);

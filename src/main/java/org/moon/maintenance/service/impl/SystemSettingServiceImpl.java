@@ -3,6 +3,7 @@ package org.moon.maintenance.service.impl;
 import org.moon.maintenance.repository.SystemSettingRepository;
 import org.moon.maintenance.service.SystemSettingService;
 import org.moon.utils.Objects;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -55,6 +56,7 @@ public class SystemSettingServiceImpl implements SystemSettingService{
     }
 
     @Override
+    @Cacheable(value = "cache" , key="'setting'.concat(#name)")
     public Map getSetting(String name) {
         return repository.getSetting(name);
     }

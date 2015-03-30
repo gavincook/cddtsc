@@ -19,7 +19,7 @@ public interface UserService extends BaseDomainService<User> {
 	
 	public Long getCurrentUserId(HttpServletRequest request);
 	
-	public void delete(Long ids[], boolean logicDel);
+	public void delete(Long ids[],boolean logicDel);
 	
 	public boolean isUserNameExists(String userName);
 	

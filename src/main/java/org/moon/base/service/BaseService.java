@@ -17,7 +17,7 @@ public interface BaseService {
      * @return
      * @see {@link BaseDomainService#listForPage(Class, String, java.util.Map)}
      */
-    public Pager listForPage(Class clazz, String statementId);
+    public Pager listForPage(Class clazz,String statementId);
 
     /**
      * 根据配置在mapper xml中的语句id获取分页结果,在改命名空间应至少有：
@@ -29,6 +29,6 @@ public interface BaseService {
      * @param params 查询条件(包含分页信息)
      * @return
      */
-    public Pager listForPage(Class clazz, String statementId, Map params);
+    public Pager listForPage(Class clazz,String statementId,Map params);
 
 }

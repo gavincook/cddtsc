@@ -1,6 +1,8 @@
 
 .DBMaintence{
-    padding: 5px;
+    background: #FFFFFF;
+    margin: -10px 20px 0;
+    padding: 10px 2px;
 }
 
 .DBMaintence .db-info{
@@ -15,10 +17,10 @@
 .DBMaintence .table-content{
     float: left;
     position: absolute;
-    top: 50px;
+    top: 197px;
     bottom: 5px;
-    left: 5px;
-    right: 5px;
+    left: 240px;
+    right: 20px;
     overflow: auto;
     border-top: solid 1px #BBD3B0;
 }
@@ -40,11 +42,13 @@
     top: 0;
     bottom: 0;
     overflow: auto;
+    background: #FFFFFF;
 }
 
 .DBMaintence .columns{
     width: auto;
-    margin-left: 221px;
+    margin: 20px;
+    margin-left: 240px;
     position: absolute;
     right: 5px;
     left: 1px;
@@ -59,4 +63,11 @@
 
 .DBMaintence .clicked{
     background-color: #eee;
+}
+
+.wrapper .DBMaintence .datagrid{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 100%;
 }

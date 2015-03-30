@@ -43,7 +43,8 @@ public class DefaultMenuLoader {
             for (int i = 0; i < menus.getLength(); i++) {
                 if (menus.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Element menuElement = (Element) menus.item(i);
-                    Map<String, Object> menu = Maps.mapIt("menuName", menuElement.getAttribute("name"), "code", menuElement.getAttribute("code"));
+                    Map<String, Object> menu = Maps.mapIt("menuName", menuElement.getAttribute("name"),
+                            "code", menuElement.getAttribute("code"),"iconCss",menuElement.getAttribute("iconCss"));
                     list.add(menu);
 
                     NodeList childNodes = menuElement.getChildNodes();

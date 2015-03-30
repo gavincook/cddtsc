@@ -76,9 +76,15 @@ public class User extends BaseDomain{
 	 */
 	private String contact;
 
+    private int type;
+
+    private String idNumber;
+
+    private String phoneNumber;
+
     private String avatar;
 
-	private int type;
+    private int age;
     /**
 	 * 密码是否加密
 	 */
@@ -86,7 +92,7 @@ public class User extends BaseDomain{
 	private boolean isEncrypt = false;
 	
 	@Resource
-	private UserEventSender userEventSender;
+	private transient UserEventSender userEventSender;
 	
 	public Role getRole() {
 		if(Constants.SYSTEM_ROLEID.equals(roleId)){
@@ -95,7 +101,7 @@ public class User extends BaseDomain{
 		if(roleId==null||roleId<=0){
 			return null;
 		}
-		return (Role) userEventSender.getRole(this).getEventResult();
+        return (Role) userEventSender.getRole(this).getEventResult();
 	}
 	
 	public Map<String,Object> toMap(){
@@ -121,9 +127,12 @@ public class User extends BaseDomain{
 			m.put("roleName", getRole().getRoleName());
 		}
 		m.put("realName", realName);
+        m.put("idNumber",idNumber);
+        m.put("type",type);
+        m.put("phoneNumber",phoneNumber);
         m.put("avatar",avatar);
         m.put("sex",sex);
-		m.put("type",type);
+        m.put("age",age);
 		return m;
 	}
 	
@@ -288,6 +297,30 @@ public class User extends BaseDomain{
 		this.createBy = createBy;
 	}
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getAvatar() {
         return avatar;
     }
@@ -296,13 +329,13 @@ public class User extends BaseDomain{
         this.avatar = avatar;
     }
 
+    public int getAge() {
+        return age;
+    }
 
-	public int getType() {
-		return type;
-	}
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
     /******************** /setter/getter  ********************/
 }

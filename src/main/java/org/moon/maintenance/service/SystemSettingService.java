@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public interface SystemSettingService{
 
-    public void updateSetting(Map<String, String> settings);
+    public void updateSetting(Map<String,String> settings);
 
     public Map getSettingMap(String prefix);
 

@@ -38,7 +38,7 @@ public interface BaseDomainService<T> extends ModelLoader,BaseService{
 	 * @param id
 	 * @return
 	 */
-	public <K> K loadDomain(Class<K> c, Long id);
+	public <K> K loadDomain(Class<K> c,Long id);
 	
 	/**
 	 * 获取数据列表
@@ -65,7 +65,7 @@ public interface BaseDomainService<T> extends ModelLoader,BaseService{
 	 * @param criteria
 	 * @return
 	 */
-	public Pager listForPage(Criteria criteria, DataConverter<Map> dataConverter);
+	public Pager listForPage(Criteria criteria,DataConverter<Map> dataConverter);
 	
 	/**
 	 * 将查询结果转换为域模型
@@ -79,5 +79,5 @@ public interface BaseDomainService<T> extends ModelLoader,BaseService{
 	 * @param ids
 	 * @param logicFlag
 	 */
-	public void delete(Long[] ids, boolean logicFlag);
+	public void delete(Long[] ids,boolean logicFlag);
 }

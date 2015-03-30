@@ -14,14 +14,6 @@
 	<!-- 引入jdbc配置文件 -->
 	<context:property-placeholder location="/WEB-INF/config/DBPool.properties" />
 
-	<cache:annotation-driven cache-manager="cacheManager" />
-
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
-		p:cacheManager-ref="cacheManagerFactory" />
-
-	<bean id="cacheManagerFactory"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
-		p:configLocation="/WEB-INF/config/ehcache.xml" />
 
 
 	<!--bean id="paginationEvents" class="com.reeham.component.webbiz.events.PaginationEvents"/> -->
@@ -67,7 +59,7 @@
 	
 	<!-- 自动装配mapper @see http://mybatis.github.io/spring/zh/mappers.html -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.moon,com.tomatorun" />
+		<property name="basePackage" value="org.moon;com.tomatorun" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
 	</bean>
 

@@ -31,7 +31,7 @@ public class MailSender {
      * @param receiver 接收邮箱
      * @param subject 主题
      * @param content 内容
-     * @throws javax.mail.MessagingException
+     * @throws MessagingException
      */
     public void send(String receiver,String subject,String content) throws MessagingException {
         Properties props = new Properties();

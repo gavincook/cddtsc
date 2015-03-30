@@ -4,6 +4,8 @@ import org.moon.base.service.AbstractDomainService;
 import org.moon.dictionary.domain.Dictionary;
 import org.moon.dictionary.repository.DictionaryRepository;
 import org.moon.dictionary.service.DictionaryService;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,7 +29,19 @@ public class DictionaryServiceImpl extends AbstractDomainService<Dictionary> imp
     }
 
     @Override
-    public Map<String, Object> getDictionaryByCode(Map<String, Object> params) {
-        return dictionaryRepository.getDictionaryByCode(params);
+    public Map<String, Object> getDictionaryByCode(String code) {
+        return dictionaryRepository.getDictionaryByCode(code,null);
+    }
+
+    @Override
+    @Cacheable(value = "cache",key = "'dictionaryId'.concat(#code)")
+    public Long getDictionaryIdByCode(String code) {
+        Map<String,Object> dictionary = getDictionaryByCode(code);
+        Object id = dictionary.get("id");
+        try{
+            return (Long)id;
+        }catch (Exception e){
+            return Long.parseLong(id+"");
+        }
     }
 }

@@ -18,12 +18,12 @@
 <div class="content">
 <%@ include file="../common/frontHeader.jsp"%>
 
-<div class="goods-show wrapper">
+<div class="goods-show container">
     <div><span>${goods.name}</span></div>
 </div>
 
 <%--商品详情--%>
-<div class="goods-container wrapper" data-goods-id="${goods.userGoodsId}">
+<div class="goods-container container" data-goods-id="${goods.userGoodsId}">
     <span class="goods-left">
         <div class="goods-img">
             <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="triumph" >

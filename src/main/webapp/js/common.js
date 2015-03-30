@@ -405,12 +405,18 @@ var moon = moon || {};
      * 系统常量
      */
     m.constants = {
-        "userType.member":0,
-        "userType.associator":1,
-		"userType.groupLeader":2,
-        "userType.supplier":3,
-        "userType.manager":4,
-        "userType.superManager":5
+        "consultation.notice.unread":0,
+        "consultation.notice.read":1,
+        "userType.patient":0,
+        "userType.doctor":1,
+        "userType.admin":2,
+        "article.type.user":0,
+        "article.type.news":1,
+        "article.type.library":2,
+        "article.domain.all":0,
+        "friend.request.agree":1,
+        "friend.request.refuse":2,
+        "consultation.hasNewResponse":0
     }
 	/** ************* 私有方法 ********************** */
 

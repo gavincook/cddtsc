@@ -96,8 +96,8 @@ public abstract class BaseEventHandler<T extends BaseDomain,K extends BaseDomain
     }
     
     public  T save(T domain){
-    	domain.setId(commonRepository.save(domain));
-    	return domain;
+        commonRepository.save(domain);
+        return domain;
     }
     
     public  T get(Long id){

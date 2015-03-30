@@ -120,4 +120,12 @@ public class MenuServiceImpl extends AbstractDomainService<Menu> implements Menu
     public void add(Map<String, Object> params) {
         menuRepository.add(params);
     }
+
+    @Override
+    public Menu getSpecialMenuForRole(String url, Long rid) {
+        if(Constants.SYSTEM_ROLEID.equals(rid)){
+            rid = null;
+        }
+        return menuRepository.getSpecialMenuForRole(url,rid);
+    }
 }

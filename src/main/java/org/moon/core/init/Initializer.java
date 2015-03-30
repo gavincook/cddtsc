@@ -42,10 +42,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (event instanceof ContextRefreshedEvent) {
             loadMenu();
-
-			log.info("[spring-rbac]Success init the permissions");
-			
-			log.info("[spring-rbac]Starting init the permissions");
+			log.info("[moon]Starting init the permissions");
 			Map<String, Permission> permissions = permissionService.getPermissionsByCode();
 			if (permissions.keySet().size() == 0) {//当系统中没有菜单时，直接保存
 				permissionService.batchSave(PermissionMappingHelper
@@ -78,7 +75,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 				}
 			}
 
-            log.info("[spring-rbac]Starting init the dictionaries");
+            log.info("[moon]Starting init the dictionaries");
             DictionaryLoader dictionaryLoader = new DictionaryLoader();
             List<Map<String,Object>> dictionaries =  dictionaryLoader.getDictionaries();
 
@@ -125,7 +122,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
     private void loadMenu(){
         //注意：顶级菜单只能通过配置文件配置，注解上的菜单一律为子菜单！
 
-        log.info("[spring-rbac] Starting init menu");
+        log.info("[moon] Starting init menu");
         //加载出数据库的系统菜单
         List<Map> systemMenus = menuService.getSystemMenus();
 

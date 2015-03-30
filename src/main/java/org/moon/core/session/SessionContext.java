@@ -17,28 +17,6 @@ public class SessionContext {
        requestLocal.set(request);  
    }  
    
-   /**
-    * 返回请求的具体访问路径
-    * @return
-    */
-   public static String getFullPath(){
-	   HttpServletRequest request = getRequest();
-	   StringBuilder fullPath = new StringBuilder();
-	   if(request.getProtocol().contains("HTTPS")){
-		   fullPath.append("https://");
-	   }else{
-		   fullPath.append("http://");
-	   }
-	   
-	   fullPath.append(request.getServerName());
-	   
-	   if(request.getServerPort()!=80){
-		   fullPath.append(":").append(request.getServerPort());
-	   }
-	   fullPath.append(request.getContextPath());
-	   return fullPath.toString();
-   }
-
     public static String getContextPath(){
         HttpServletRequest request = getRequest();
         StringBuilder contextPath = new StringBuilder();
@@ -53,6 +31,7 @@ public class SessionContext {
         if(request.getServerPort()!=80){
             contextPath.append(":").append(request.getServerPort());
         }
+        contextPath.append(request.getContextPath());
         return contextPath.toString();
     }
    

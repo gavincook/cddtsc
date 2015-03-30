@@ -26,7 +26,7 @@ public interface PermissionService extends BaseDomainService<Permission> {
 	 * @param pids
 	 * @param rid
 	 */
-	public void assignPermission(Long[] pids, Boolean[] status, Long[] rids);
+	public void assignPermission(Long[] pids,Boolean[] status,Long[] rids);
 	
 	/**
 	 * 获取权限信息，用于系统启动时添加处理权限信息，返回形式：{code-->permission}

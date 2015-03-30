@@ -1,6 +1,5 @@
 package org.moon.maintenance.action;
 
-import org.moon.core.cache.memcached.MemCachedManager;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.maintenance.service.SystemSettingService;
 import org.moon.message.WebResponse;
@@ -39,9 +38,6 @@ public class SystemSettingAction {
     @Resource
     private SystemSettingService systemSettingService;
 
-    @Resource
-    private MemCachedManager memCachedManager;
-
     @Get("")
     @MenuMapping(name = "系统设置",code = "platform_9",parentCode = "platform",url = "/setting")
     public ModelAndView showPage(){
@@ -53,11 +49,6 @@ public class SystemSettingAction {
     public WebResponse update(HttpServletRequest request,@RequestParam("memcached.open")String open,
                               @RequestParam("memcached.host")String host,@RequestParam("memcached.port")String port){
 
-        if("true".equals(open)){//打开缓存
-            memCachedManager.openCache(host,Integer.parseInt(port));
-        }else{
-            memCachedManager.closeCache();
-        }
         Map<String,String> settings = Maps.mapIt("memcached.open",open,"memcached.host",host,"memcached.port",port);
         systemSettingService.updateSetting(settings);
         return WebResponse.build();

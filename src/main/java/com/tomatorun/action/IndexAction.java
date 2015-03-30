@@ -11,6 +11,7 @@ import org.moon.rbac.domain.Menu;
 import org.moon.rbac.domain.Role;
 import org.moon.rbac.domain.User;
 import org.moon.rbac.domain.annotation.MenuMapping;
+import org.moon.rbac.domain.annotation.NoMenuIntercept;
 import org.moon.rbac.domain.annotation.WebUser;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("cddtscAction")
+@NoMenuIntercept
 public class IndexAction {
 
     @Config("attachment.goods")

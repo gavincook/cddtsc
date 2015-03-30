@@ -19,6 +19,7 @@
                   pageIndex : 1,
 		           pageSize : 10,
 		             params : {},
+                   bordered :false,//是否显示表格border
 		         formatData : '',//格式化数据
 		      showSelectBox : false,//是否显示单选框或者复选框
 		        multiSelect : true,//是否允许多选
@@ -34,7 +35,8 @@
 		           sortType : "asc",//默认排序方式
              showPagination : true,//是否显示分页栏
                   showTitle : true,//是否显示title
-            showTableHeader : true//是否显示表格标题
+            showTableHeader : true,//是否显示表格标题
+          serialNumberScope : "all"//序列号作用范围可选值为"page"或"all". 如果为page则序列号会为每一页重新生成序列号,如果为all则序列号在翻页时会继续累加
 	};
 
 	var methods  = {
@@ -75,7 +77,12 @@
 			if(opts.showNumber){//处理序号列
 				var $seriesTd = methods.ce("td",{"class":"number"});
 				if(methods.getLevel(level) == 1){
-					$seriesTd.html(index+1);
+                    if(opts.serialNumberScope === "all"){//序列号叠加
+                        var lastIndex = (opts.currentDataSize==0)?0:((opts.pageIndex-1)*opts.pageSize);//上一页最后的序列号
+                        $seriesTd.html(lastIndex + index + 1);
+                    }else{
+                        $seriesTd.html( index + 1);//page范围，每一页都要重新生成序列号
+                    }
 				}
 				$tr.append($seriesTd);
 			}
@@ -248,8 +255,11 @@
             if(opts.showTableHeader) {
                 $table.append(methods.renderHeader.call(tableInstance));
             }
-			$table.addClass("table table-bordered table-hover");
-			
+			$table.addClass("table table-hover table-striped");
+
+            if(opts.bordered === true){
+                $table.addClass("table-bordered");
+            }
 			var renderTableDfd = $.Deferred();//渲染表格延时对象，ajax等异步需要使用
 			methods.renderData.call(tableInstance).done(function(tbody){
 				$table.append(tbody);
@@ -371,7 +381,7 @@
             var tableInstance = this;
             var $container = tableInstance.$container;
             var tableData = tableDataCache[$container.selector];
-            var levels = level.substring(2).match(/(\d)/g);//返回[2,3],第一个0-(表示第一级)需要去掉
+            var levels = level.substring(2).match(/(\d+)/g);//返回[2,3],第一个0-(表示第一级)需要去掉
             var tempData = tableData;
             for(var i = 0,l =levels.length;i<l;i++){
                 if(i>0){
@@ -700,9 +710,6 @@
 			$.each(tableInstance.opts.buttons,function(index,button){
 				var $btn = methods.ce("button");
 				$btn.addClass("btn btn-small btn-link").html(button.text);
-				if(button.css){
-					$btn.addClass(button.css);
-				}
 				$btn.bind("click",function(){
 					button.click.call(tableInstance,button);
 				});

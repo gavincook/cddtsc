@@ -47,6 +47,12 @@
     <select id="getDictionaryByCode" resultType="HashMap">
         select *
         from tab_dictionary dic
-        where dic.code = #{code} and parentId is null
+        where dic.code = #{code}
+        <if test="parentId == null">
+            and parentId is null
+        </if>
+        <if test="parentId != null">
+            and parentId = #{parentId}
+        </if>
     </select>
 </mapper>

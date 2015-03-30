@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <m:require src="jquery,handlebars,common,noty,font,ev,webuploader,dialog,bootstrap,{cddtsc/index}"></m:require>
     <%@ include file="../common/header.jsp" %>
+    <m:require src="jquery,handlebars,common,noty,font,ev,webuploader,dialog,bootstrap,{cddtsc/index}"></m:require>
     <title>成都通道蔬菜</title>
 </head>
 
@@ -12,7 +12,7 @@
 <div class="content">
 <%@ include file="../common/frontHeader.jsp"%>
 
-<div class="goods-show wrapper">
+<div class="goods-show container">
     <div class="clearfix">
         <div class="goods-picture-container">
             <div class="banner">
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="menu-bar wrapper">
+<div class="menu-bar container">
     <h2 class="tita1">
         <ul class="arrondi-tit">
             <li class="licur"><a href="product.html" target="_blank">所有新品</a></li>
@@ -53,7 +53,7 @@
     </h2>
 </div>
 <%--商品列表--%>
-<div class="goods-list-container wrapper">
+<div class="goods-list-container container">
     <ul class="container-ul">
 
     </ul>

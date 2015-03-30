@@ -20,12 +20,19 @@ public interface DictionaryService extends BaseDomainService<Dictionary> {
      * @param params
      * @return
      */
-    public Long add(Map<String, Object> params);
+    public Long add(Map<String,Object> params);
 
     /**
-     *
-     * @param params
+     *根据字典代码获取字典
+     * @param code
      * @return
      */
-    public Map<String,Object> getDictionaryByCode(Map<String, Object> params);
+    public Map<String,Object> getDictionaryByCode(String code);
+
+    /**
+     * 根据字典代码获取字典ID
+     * @param code
+     * @return
+     */
+    public Long getDictionaryIdByCode(String code);
 }

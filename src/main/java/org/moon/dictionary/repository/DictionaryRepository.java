@@ -11,15 +11,15 @@ import java.util.Map;
 @Repository
 public interface DictionaryRepository extends BaseRepository<Dictionary>{
 
-    public List<Map<String,Object>> listChildrenByCode(@Param("code") String code);
+    public List<Map<String,Object>> listChildrenByCode(@Param("code")String code);
 
-    public Long add(Map<String, Object> params);
+    public Long add(Map<String,Object> params);
 
     /**
      * 根据字典code获取字典
-     * @param params
+     * @param code
      * @return
      */
-    public Map<String,Object> getDictionaryByCode(Map<String, Object> params);
+    public Map<String,Object> getDictionaryByCode(@Param("code")String code,@Param("parentId")Long parentId);
 
 }

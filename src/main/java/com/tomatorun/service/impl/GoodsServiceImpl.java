@@ -80,8 +80,8 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
 
     @Override
     public Pager listForPage(Class clazz, String statementId, Map params) {
-        params.put("levelDicId",dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsLevelKey)).get("id"));
-        params.put("unitDicId",dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsUnit)).get("id"));
+        params.put("levelDicId",dictionaryService.getDictionaryByCode(goodsLevelKey).get("id"));
+        params.put("unitDicId",dictionaryService.getDictionaryByCode(goodsUnit).get("id"));
         params.put("attachmentType",goodsImageType);
         return super.listForPage(clazz, statementId, params);
     }
@@ -95,7 +95,7 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     @Override
     public Map<String, Object> getGoodsForShop(Long userGoodsId) {
         return goodsRepository.getGoodsForShop(userGoodsId,
-            dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsLevelKey)).get("id"),
-            dictionaryService.getDictionaryByCode(Maps.mapIt("code",goodsUnit)).get("id"));
+            dictionaryService.getDictionaryByCode(goodsLevelKey).get("id"),
+            dictionaryService.getDictionaryByCode(goodsUnit).get("id"));
     }
 }

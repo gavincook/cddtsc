@@ -14,12 +14,12 @@
 <div class="content">
 <%@ include file="../common/frontHeader.jsp"%>
 
-<div class="goods-show wrapper">
+<div class="goods-show container">
     <div>今天一共有如下商铺销售<span>${goods.name}</span></div>
 </div>
 
 <%--商品列表--%>
-<div class="goods-list-container wrapper">
+<div class="goods-list-container container">
     <ul class="container-ul">
         <c:forEach items="${shops.items}" var="shop">
             <li class="container-li" data-goods-id="${shop.goodsId}">

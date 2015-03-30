@@ -1,6 +1,7 @@
 package org.moon.rbac.action;
 
 import org.moon.base.action.BaseAction;
+import org.moon.core.spring.annotation.FormParam;
 import org.moon.log.domain.Log;
 import org.moon.maintenance.service.SystemSettingService;
 import org.moon.message.WebResponse;
@@ -15,8 +16,6 @@ import org.moon.rbac.service.RoleService;
 import org.moon.rbac.service.UserService;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
-import org.moon.core.spring.annotation.FormParam;
-import org.moon.utils.Maps;
 import org.moon.utils.Objects;
 import org.moon.utils.ParamUtils;
 import org.springframework.stereotype.Controller;
@@ -48,18 +47,19 @@ public class UserAction extends BaseAction {
 
     @Resource
     private RoleService roleService;
+
     /**
      * 显示登录页面
      *
      * @return
      */
     @Get("/login")
-    public ModelAndView showLoginPage(@RequestParam("from") String from) {
+    public ModelAndView showLoginPage(@RequestParam(value = "from",defaultValue = "") String from) {
         return new ModelAndView("pages/login", "from", from);
     }
 
     @Get("/~")
-    @MenuMapping(url = "/user/~", name = "用户列表", code = "platform_1", parentCode = "platform")
+    @MenuMapping(url = "/user", name = "用户列表", code = "platform_1", parentCode = "platform")
     @PermissionMapping(code = "000008", name = "用户列表")
     public ModelAndView userList(HttpServletRequest request) {
         return new ModelAndView("pages/rbac/userList");
@@ -107,10 +107,6 @@ public class UserAction extends BaseAction {
     @ResponseBody
     WebResponse add(@WebUser User creator, @FormParam(value = "user") User user) {
         user.setCreateBy(creator.getId());
-        Object roleId = systemSettingService.getSetting("role.userType"+user.getType()).get("value");
-        if(Objects.nonNull(roleId)){
-            user.setRoleId(Long.parseLong((String)roleId));
-        }
         user.sync(user.encryptPassword().save());
         return WebResponse.build().setSuccess(true);
     }
@@ -233,6 +229,7 @@ public class UserAction extends BaseAction {
         return WebResponse.build().setResult(userService.isUserNameExists(userName));
     }
 
+
     /**
      * 获取系统角色和用户角色配置
      *
@@ -254,11 +251,11 @@ public class UserAction extends BaseAction {
     @Post("/~/role/update")
     @ResponseBody
     public WebResponse updateUserRoleSetting(HttpServletRequest request) {
-        Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
-        Map<String,String> userTypeRoleRel = new HashMap<String, String>();
-        for(String key : params.keySet()){
-            if(key.indexOf("userType") != -1){
-                userTypeRoleRel.put("role.".concat(key),(String)params.get(key));
+        Map<String, Object> params = ParamUtils.getParamMapFromRequest(request);
+        Map<String, String> userTypeRoleRel = new HashMap<String, String>();
+        for (String key : params.keySet()) {
+            if (key.indexOf("userType") != -1) {
+                userTypeRoleRel.put("role.".concat(key), (String) params.get(key));
             }
         }
         systemSettingService.updateSetting(userTypeRoleRel);

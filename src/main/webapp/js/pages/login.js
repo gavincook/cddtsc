@@ -1,7 +1,8 @@
 $(function(){
 	//登录页面欢迎信息
-	moon.info("欢迎来到成都道通蔬菜!","top");
-	
+//	moon.info("欢迎使用携心医疗BS版!","top");
+    $(".mobile i").popover({trigger:"hover",placement:"top",html:true});
+
 	//登录动作
 	$("#submit").click(function(){
 		$("#loginForm").validate("validate").done(function(result){
@@ -30,14 +31,14 @@ $(function(){
         }
     });
 	//页面动画
-	$(".form-container").animate({
-		"margin-top":"-120px"
-	},2000,"linear",function(){
-		$(".system-info-container").animate({
-			"margin-left":0
-		});
-	});
-	
+//	$(".form-container").animate({
+//		"margin-top":"-120px"
+//	},2000,"linear",function(){
+//		$(".system-info-container").animate({
+//			"margin-left":0
+//		});
+//	});
+
 	//添加表单验证
-	$("#loginForm").validate({align:'bottom',theme:"darkblue"});
+	$("#loginForm").validate({align:'bottom',theme:"darkgrey"});
 });

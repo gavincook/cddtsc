@@ -20,8 +20,8 @@
             </span>
     </div>
   </div>
-  <div class="header clearfix">
-    <div class="wrapper thead">
+  <div class="header clearfix container">
+    <div class="thead">
       <h1 class="logo">
         <a href="/index.html"><img src="${pageContext.request.contextPath}/css/images/cddtsc/logo.png" width="260" height="38" title="道通蔬菜"></a>
       </h1>

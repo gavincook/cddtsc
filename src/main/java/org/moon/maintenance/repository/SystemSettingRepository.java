@@ -15,11 +15,11 @@ import java.util.Map;
 @Repository
 public interface SystemSettingRepository extends BaseRepository{
 
-    public void addSetting(@Param("name") String name, @Param("value") String value);
+    public void addSetting(@Param("name")String name,@Param("value")String value);
 
-    public void updateSetting(@Param("name") String name, @Param("value") String value);
+    public void updateSetting(@Param("name")String name,@Param("value")String value);
 
-    public List<Map> listSettings(@Param("prefix") String prefix);
+    public List<Map> listSettings(@Param("prefix")String prefix);
 
-    public Map getSetting(@Param("name") String name);
+    public Map getSetting(@Param("name")String name);
 }

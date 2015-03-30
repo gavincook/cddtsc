@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +43,8 @@ public class RoleAction extends BaseAction {
 	
 	@Get("")
 	@MenuMapping(url = "/role", name = "角色管理", code = "platform_4", parentCode = "platform")
-	public String showRolePage() {
-		return "pages/rbac/role";
+	public ModelAndView showRolePage() {
+		return new ModelAndView("pages/rbac/role");
 	}
 
 	@Get("/getSubRoles")
@@ -64,8 +65,9 @@ public class RoleAction extends BaseAction {
 		if (Objects.isNull(role.getParentId()) || role.getParentId() == -1L) {
 			role.setParentId(null);
 		}
-		role.sync(role.save());
-		return WebResponse.build().setSuccess(true);
+        role = (Role) role.sync(role.save());
+        System.out.println(role);
+        return WebResponse.build().setResult(role);
 	}
 
 	@Post("/logicDelete")

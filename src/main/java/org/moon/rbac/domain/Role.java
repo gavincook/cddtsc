@@ -36,7 +36,7 @@ public class Role extends BaseDomain {
 	private Long parentId;
 
 	@Resource
-	private RoleEventSender roleEventSender;
+	private transient RoleEventSender roleEventSender;
 
 	/**
 	 * @return 获取当前角色的顶级菜单
