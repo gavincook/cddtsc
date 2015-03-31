@@ -1,14 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
       <%@ include file="../common/header.jsp" %>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <m:require src="jquery,handlebars,common,noty,font,ev,webuploader,dialog,bootstrap,{cddtsc/selectGoods}"></m:require>
         <title>选择商品</title>
     </head>
 
     <body>
+    <div class="wrapper">
+        <%@ include file="../common/nav.jsp" %>
+        <section class="content-section">
+            <h3 class="header-title">${currentMenu.menuName}</h3>
         <div class="select-goods-container col-md-6">
             <div class="search-form">
                 <div class="col-md-1"></div>
@@ -88,6 +91,7 @@
                 </div>
             </div>
         </div>
-
+</section>
+        </div>
     </body>
 </html>
