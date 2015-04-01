@@ -58,7 +58,7 @@
             <span>(库存：${goods.inventory} ${goods.unit})</span>
         </div>
         <div class="goods-add">
-            <button class="btn btn-danger buy">立即购买</button>
+            <%--<button class="btn btn-danger buy">立即购买</button>--%>
             <button class="btn btn-danger add-shopcar">添加到购物车</button>
         </div>
     </span>

@@ -11,7 +11,6 @@
                     <i class="fa fa-shopping-cart"></i>购物车
                   </span>
                 </a>
-                <a href="#" id="addToDesktop">添加到桌面</a>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
                   设为首页</a>|<a href="javascript:void(0)" onclick="AddFavorite(window.location,document.title)" style="color:red;font-weight:bold;">
               收藏本站</a>
