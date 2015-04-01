@@ -13,76 +13,78 @@
     <section class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
 
-        <div id="categoryTable" class="category-table"></div>
-        <div id="goodsTable" class="goods-table">
-            <div class="empty">
-                <span>选择类别后，这里就能显示该类别的商品了哦.</span>
+        <div>
+            <div id="categoryTable" class="category-table"></div>
+            <div id="goodsTable" class="goods-table">
+                <div class="empty">
+                    <span>选择类别后，这里就能显示该类别的商品了哦.</span>
+                </div>
             </div>
+            <form id="categoryForm" class="hide form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">类别名字:</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="类别名字" class="form-control" name="name"
+                               validate="validate[required]"/>
+                    </div>
+                </div>
+            </form>
+
+            <form id="goodsForm" class="hide form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品名字:</label>
+
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="商品名字" class="form-control" name="name"
+                               validate="validate[required]"/>
+                    </div>
+                    <label class="col-sm-2 control-label">价格:</label>
+
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="商品价格" class="form-control" name="price"
+                               validate="validate[required]"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品规格:</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="商品规格" class="form-control" name="specification"
+                               validate="validate[required]"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品等级:</label>
+
+                    <div class="col-sm-10">
+                        <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">计量单位:</label>
+
+                    <div class="col-sm-10">
+                        <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品图片:</label>
+                    <input type="hidden" name="url" class="url"/>
+
+                    <div class="col-sm-10">
+                        <div id="fileContainer" class="uploader-list">
+                        </div>
+                        <div id="btns">
+                            <div id="picker">点击选择文件</div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
-        <form id="categoryForm" class="hide form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">类别名字:</label>
-
-                <div class="col-sm-10">
-                    <input type="text" placeholder="类别名字" class="form-control" name="name"
-                           validate="validate[required]"/>
-                </div>
-            </div>
-        </form>
-
-        <form id="goodsForm" class="hide form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">商品名字:</label>
-
-                <div class="col-sm-4">
-                    <input type="text" placeholder="商品名字" class="form-control" name="name"
-                           validate="validate[required]"/>
-                </div>
-                <label class="col-sm-2 control-label">价格:</label>
-
-                <div class="col-sm-4">
-                    <input type="text" placeholder="商品价格" class="form-control" name="price"
-                           validate="validate[required]"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">商品规格:</label>
-
-                <div class="col-sm-10">
-                    <input type="text" placeholder="商品规格" class="form-control" name="specification"
-                           validate="validate[required]"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">商品等级:</label>
-
-                <div class="col-sm-10">
-                    <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">计量单位:</label>
-
-                <div class="col-sm-10">
-                    <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">商品图片:</label>
-                <input type="hidden" name="url" class="url"/>
-
-                <div class="col-sm-10">
-                    <div id="fileContainer" class="uploader-list">
-                    </div>
-                    <div id="btns">
-                        <div id="picker">点击选择文件</div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
     </section>
 </div>
 </body>

@@ -2,7 +2,7 @@
 .select-goods-container {
     border: solid 1px #ccc;
     position: absolute;
-    top: 0;
+    top: 145px;
     bottom: 0;
     width: 50%;
 }
@@ -10,7 +10,7 @@
 .goods-container{
     border: solid 1px #ccc;
     position: absolute;
-    top: 0;
+    top: 145px;
     left:50%;
     bottom: 0;
     width: 50%;
@@ -122,4 +122,12 @@
 .load-more.no-more{
     cursor:not-allowed;
     background: #F4F4F4;
+}
+
+.content-section{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 60px;
 }

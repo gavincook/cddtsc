@@ -78,13 +78,12 @@ public class OrderAction {
     private int deletedByUser;
 
     @Get()
-    @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
+    @MenuMapping(url = "/order",name = "订单管理",code = "dt_order",parentCode = "dt")
     public ModelAndView showOrderPage(){
         return new ModelAndView("pages/cddtsc/order");
     }
 
     @Get("/list_bought_items.html")
-    @MenuMapping(url = "order",name = "订单管理",code = "dt_order",parentCode = "dt")
     public ModelAndView boughtItems(){
         return new ModelAndView("pages/cddtsc/listBought");
     }
