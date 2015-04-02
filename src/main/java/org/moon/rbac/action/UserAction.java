@@ -86,6 +86,11 @@ public class UserAction extends BaseAction {
             return WebResponse.build().setSuccess(false);
         } else {
             request.getSession().setAttribute(User.CURRENT_USER_ID, user.getId());
+            String realName = user.getRealName();
+            if(Objects.isNull(realName)){
+                realName = user.getUserName();
+            }
+            request.getSession().setAttribute("userName", realName);
             new Log(user.getUserName(), user.getId(), "成功登录系统").save();
             return WebResponse.build().setSuccess(true);
         }
@@ -94,9 +99,8 @@ public class UserAction extends BaseAction {
 
     @PermissionMapping(code = "000001", name = "用户列表")
     @Get("/~/list")
-    public
     @ResponseBody
-    WebResponse getUsersList(HttpServletRequest request) {
+    public WebResponse getUsersList(HttpServletRequest request) {
         Map params = ParamUtils.getParamsMapForPager(request);
         params.put("delete_flag", false);
         return WebResponse.build().setResult(userService.listForPage(UserRepository.class, "listWithRole", params));

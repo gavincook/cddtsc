@@ -167,12 +167,20 @@
         ON td.code = dg.level and td.parentId = #{levelDicId}
         JOIN tab_dictionary tdic
         ON tdic.code = dg.unit and tdic.parentId = #{unitDicId}
+        <if test="keyword!=null">
+          where dg.name like concat('%',#{keyword},'%')
+        </if>
         limit ${offset},${pageSize}
     </select>
 
     <select id="listGoodsOnSell_count" resultType="Integer">
         SELECT count(*)
         FROM dt_user_goods dug
+        JOIN dt_goods dg
+        ON dug.goodsId = dg.id
+        <if test="keyword!=null">
+            where dg.name like concat('%',#{keyword},'%')
+        </if>
     </select>
     
     <select id="listShopForGoods" resultType="HashMap">

@@ -349,6 +349,28 @@ body{
     font-weight:bold;
     color: #736F73;
 }
+
+.page-navigation .search-container{
+    display: block;
+    height: 50px;
+    padding-top: 38px;
+    width:auto;
+    text-align: center;
+}
+
+.page-navigation .search-container .search-box{
+    width: 300px;
+    height: 30px;
+    border-radius: 4px;
+}
+.page-navigation .search-container .search {
+    border-radius: 20px;
+    width: 100px;
+    background-color: #68AC39;
+    border: none;
+    outline: none;
+}
+
 .page-navigation .header{
     height: 88px;
     margin-bottom: 30px;
@@ -366,6 +388,7 @@ body{
     float: right;
     width: 300px;
     height: 62px;
+    margin-top:20px;
 }
 
 .content{

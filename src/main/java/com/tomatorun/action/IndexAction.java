@@ -112,4 +112,18 @@ public class IndexAction {
         Pager pager = goodsService.listForPage(GoodsRepository.class,"listGoods",params);
         return WebResponse.build().setResult(pager);
     }
+
+    /**
+     * 搜索
+     * @param keyword
+     * @return
+     */
+    @RequestMapping("/search.html")
+    public ModelAndView search(@RequestParam(value = "keyword",required = false)String keyword,HttpServletRequest request){
+        Map<String,Object> param = ParamUtils.getParamsMapForPager(request);
+        param.put("keyword",keyword);
+        return new ModelAndView("pages/cddtsc/search","goodsList",goodsService.listForPage(
+                GoodsRepository.class,"listGoodsOnSell",param
+        ));
+    }
 }
