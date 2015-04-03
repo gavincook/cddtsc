@@ -23,6 +23,8 @@ import scala.xml.PrettyPrinter;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +85,7 @@ public class GoodsAction {
     @Post("/update")
     @ResponseBody
     public WebResponse update(HttpServletRequest request, @RequestParam("id")Long id, @RequestParam("name")String name, @RequestParam("specification")String specification,
-                              @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds){
+                              @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         params.put("id", id);
         params.put("name", name);
@@ -92,6 +94,7 @@ public class GoodsAction {
         Long goodId = Long.parseLong(params.get("id").toString());
         if(attachments != null && attachments.length > 0){
             for(String attachment : attachments){
+                attachment = URLDecoder.decode(attachment,"UTF-8");
                 attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodId, "type", goodsImageType));
             }
         }
@@ -128,12 +131,13 @@ public class GoodsAction {
                            @RequestParam("level")Integer level,
                            @RequestParam("unit")Integer unit,
                            @RequestParam("categoryId")Long categoryId,
-                           @RequestParam(value="attachments", required=false)String[] attachments){
+                           @RequestParam(value="attachments", required=false)String[] attachments) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         goodsService.add(params);
         Long goodId = Long.parseLong(params.get("id").toString());
         if(attachments != null && attachments.length > 0){
             for(String attachment : attachments){
+                attachment = URLDecoder.decode(attachment,"UTF-8");
                 attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodId, "type", goodsImageType));
             }
         }

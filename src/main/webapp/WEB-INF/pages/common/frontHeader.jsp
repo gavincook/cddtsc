@@ -12,13 +12,10 @@
                     <a href="${pageContext.request.contextPath}/user/login.html"><span class="boldhead">登录</span></a>
                 </c:if>
                 <a href="${pageContext.request.contextPath}/shopcart">
-                  <span class="boldhead">
+                  <span class="shop-cart">
                     <i class="fa fa-shopping-cart"></i>购物车
                   </span>
                 </a>
-                <a href="javascript:void(0)" onclick="SetHome(this,window.location)" style="color:red;font-weight:bold;">
-                  设为首页</a>|<a href="javascript:void(0)" onclick="AddFavorite(window.location,document.title)" style="color:red;font-weight:bold;">
-              收藏本站</a>
                 <a href="${pageContext.request.contextPath}/index.html">帮助中心</a>
                 <a href="${pageContext.request.contextPath}/index.html">关于我们</a>
             </span>

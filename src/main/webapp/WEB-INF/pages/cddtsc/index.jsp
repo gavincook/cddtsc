@@ -43,35 +43,32 @@
 
 <div class="menu-bar container">
     <h2 class="tita1">
-        <ul class="arrondi-tit">
-            <li class="licur"><a href="product.html" target="_blank">所有新品</a></li>
-            <li><a href="product.html?cid=2" target="_blank">绿色专区</a></li>
-            <li><a href="product.html?cid=3" target="_blank">有机专区</a></li>
-            <li><a href="product.html?cid=4" target="_blank">无公害专区</a></li>
-        </ul>
-        <span>新品推荐</span>
+        <span>最新上架</span>
     </h2>
 </div>
 <%--商品列表--%>
 <div class="goods-list-container container">
-    <ul class="container-ul">
+    <div class="container-ul">
 
-    </ul>
+    </div>
 </div>
     <script type="text/html" id="goodsTemplate">
         {{#each this}}
-        <li class="container-li" data-goods-id="{{id}}">
+        <div class="container-li" data-goods-id="{{id}}">
             <div>
-                <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/{{cover}}"></div>
+                <div class="good-img">
+                    <img src="${pageContext.request.contextPath}/file/get/{{cover}}">
+                    <div class="helper"></div>
+                </div>
                 <div class="goods-content">
-                    <div class="good-price"><i>￥</i><span class="price">{{price}}</span></div>
+                    <div class="good-price"><i class="fa fa-rmb"></i><span class="price">{{price}}</span></div>
                     <div class="good-introduce">
-                        <div class="title-main">{{name}}</div>
-                        <div class="title-assistant">{{specification}}</div>
+                        <div class="title-main">{{name}}({{specification}})</div>
+                        <%--<div class="title-assistant">{{specification}}</div>--%>
                     </div>
                 </div>
             </div>
-        </li>
+        </div>
         {{/each}}
     </script>
 <%--页面底部信息栏--%>
