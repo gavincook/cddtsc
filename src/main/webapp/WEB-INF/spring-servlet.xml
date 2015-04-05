@@ -46,7 +46,6 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-	<mvc:resources mapping="*.html" location="/" />
 	<mvc:default-servlet-handler />
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"

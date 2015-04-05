@@ -357,4 +357,17 @@ public class DTUserAction {
         dTUserService.setDefaultAddress(ar);
         return WebResponse.success();
     }
+
+
+
+    /**
+     * 登出操作
+     *
+     * @return
+     */
+    @Get("/signout")
+    public ModelAndView loginOut(HttpServletRequest request) {
+        request.getSession().setAttribute(User.CURRENT_USER_ID, null);
+        return new ModelAndView("pages/cddtsc/login");
+    }
 }

@@ -58,7 +58,7 @@
 
     <update id="update">
         update dt_goods set name = #{name},specification=#{specification},
-         level = #{level},price=#{price},unit=#{unit} where id = #{id};
+         level = #{level},price=#{price},unit=#{unit},description = #{description} where id = #{id};
     </update>
 
     <delete id="delete">
@@ -73,8 +73,8 @@
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert  into dt_goods(name,categoryId,specification,price,level,unit)
-        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit});
+        insert  into dt_goods(name,categoryId,specification,price,level,unit,description)
+        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit},#{description});
     </insert>
 
     <insert id="select">
@@ -199,7 +199,7 @@
     </select>
 
     <select id="getGoodsForShop" resultType="HashMap">
-        SELECT dug.id as userGoodsId,dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit,
+        SELECT dug.id as userGoodsId,dg.id,dg.name,dg.price,dg.specification,dg.description,td.name AS level,tdic.name AS unit,
         dug.inventory
         from dt_goods dg
         JOIN dt_user_goods dug

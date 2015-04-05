@@ -89,8 +89,10 @@
             });
         }
     }
-
+    var editor;
     $(function(){
+        editor = UM.getEditor("content");
+
         categoryTable = $("#categoryTable").table({
             url:contextPath+"/category/list",
             columns:[{name:"name",display:"类别名字",width:"300px"}
@@ -305,12 +307,16 @@
             $('#goodsForm').dialog({
                 title:"添加商品",
                 afterShown:function(){
+                    editor.setContent("");
                     $("#goodsForm").validate({align:'right',theme:"darkblue"});
                     initUploaderIfNecessary();
+                    $(".consultation-reply-content",this.$e).html($("#contentContainer").removeClass("hide"));
                 },
                 beforeClose:function(){
                     $("#goodsForm").validate("hide");
+                    $(document.body).append($("#contentContainer").addClass("hide"));
                 },
+                size:"lg",
                 buttons:[
                     {
                         text : "保存",
@@ -328,6 +334,7 @@
                                     var param = {};
                                     param.categoryId = currentCategoryId;
                                     param.attachments = attachments;
+                                    param.description =  editor.getContent();
                                     $("#goodsForm").ajaxSubmitForm(contextPath+"/goods/add", param).done(function(data){
                                         if(data.success){
                                             $("#goodsForm").dialog("close");
@@ -362,10 +369,11 @@
             removeFileIds = new Array();
             $('#goodsForm').dialog({
                 title:"编辑商品",
+                size:"lg",
                 afterShown:function(){
                     $("#goodsForm").validate({align:'right',theme:"darkblue",model:"update"});
                     $("#goodsForm").autoCompleteForm(contextPath+"/goods/get",{id:id},function(data){
-                        console.log(data);
+                        editor.setContent(data.description);
                         var $imgList = $(".uploader-list").empty();
                         $.each(data.images,function(index,image){
                             var filepath = contextPath+"/file/get/"+image.url;
@@ -373,10 +381,12 @@
                             fileIds.push(image.id);//添加到文件队列
                         });
                     });
+                    $(".consultation-reply-content",this.$e).html($("#contentContainer").removeClass("hide"));
                     initUploaderIfNecessary();
                 },
                 beforeClose:function(){
                     $("#goodsForm").validate("hide");
+                    $(document.body).append($("#contentContainer").addClass("hide"));
                 },
                 buttons:[
                     {
@@ -395,6 +405,7 @@
                                     param.id = id;
                                     param.attachments = attachments;
                                     param.attachmentIds = removeFileIds;
+                                    param.description =  editor.getContent();
                                     $("#goodsForm").ajaxSubmitForm(contextPath+"/goods/update", param).done(function(data){
                                         if(data.success){
                                             $("#goodsForm").dialog("close");

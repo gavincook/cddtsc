@@ -5,7 +5,7 @@
       <span class="floatl">品质食材，只要成都道通蔬菜！<span class="boldhead">免费配送</span>。</span>
             <span class="floatr">
                 <c:if test="${sessionScope.CURRENT_USER_ID != null }">
-                    ${sessionScope.userName}
+                    <a href="${pageContext.request.contextPath}/my_daotong.html"> ${sessionScope.userName}</a>
                 </c:if>
                 <c:if test="${sessionScope.CURRENT_USER_ID == null }">
                     <a href="${pageContext.request.contextPath}/user/regist.html"><span class="boldhead">注册</span></a>
@@ -16,8 +16,19 @@
                     <i class="fa fa-shopping-cart"></i>购物车
                   </span>
                 </a>
+
+                <a href="${pageContext.request.contextPath}/order/list_bought_items.html">
+                  <span class="">
+                    我的订单
+                  </span>
+                </a>
+
                 <a href="${pageContext.request.contextPath}/index.html">帮助中心</a>
                 <a href="${pageContext.request.contextPath}/index.html">关于我们</a>
+
+                <c:if test="${sessionScope.CURRENT_USER_ID != null }">
+                    <a href="${pageContext.request.contextPath}/user/signout"> <i class="fa fa-sign-out"></i> 退出</a>
+                </c:if>
             </span>
     </div>
   </div>

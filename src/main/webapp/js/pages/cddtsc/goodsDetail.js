@@ -47,17 +47,26 @@
 
         $('.jqzoom').jqzoom({
             zoomType: 'standard',
-            lens:true,
             preloadImages: false,
             alwaysOn:false,
-            zoomWidth: 0,
-            zoomHeight: 0,
-            xOffset:90,
-            yOffset:30,
+            zoomWidth: 400,
+            zoomHeight: 400,
+            xOffset:20,
+            yOffset:0,
             position:'left'
         });
 
+        $(".left-opt").click(function(){
+            $(".small-images").animate({
+                scrollLeft:$(".small-images").scrollLeft()-100
+            });
+        });
 
+        $(".right-opt").click(function(){
+            $(".small-images").animate({
+                scrollLeft:$(".small-images").scrollLeft()+100
+            });
+        });
     });
 
     function changeShopCartNumber(event,plus){

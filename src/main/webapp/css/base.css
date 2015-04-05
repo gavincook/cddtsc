@@ -405,6 +405,15 @@ body{
 
 .floatl{
     float: left;
+    font-size: 12px;
+}
+
+.floatr a{
+    color:#444;
+}
+
+.floatr{
+    font-size: 12px;
 }
 
 .shop-cart{
@@ -423,4 +432,9 @@ body{
     background-color: #59A111;
     margin-top:-50px;
     text-align: center;
+    min-width: 1170px;
+}
+
+.container{
+    width: 1170px !important;
 }

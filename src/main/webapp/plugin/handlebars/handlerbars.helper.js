@@ -1,4 +1,3 @@
-
 /**
  * 判断是否为空
  */
@@ -32,7 +31,10 @@ Handlebars.registerHelper('congruent', function(var1,var2,options) {
     }
 });
 
+
 /**
+ * 列出userType与角色对应列表
+ *//**
  * 判断和系统变量是否相等
  */
 Handlebars.registerHelper('eqConstant', function(var1,var2, options) {
@@ -42,10 +44,6 @@ Handlebars.registerHelper('eqConstant', function(var1,var2, options) {
         return options.inverse(this);
     }
 });
-
-/**
- * 列出userType与角色对应列表
- */
 Handlebars.registerHelper('listUserType', function(data,options) {
     var fn = options.fn, inverse = options.inverse;
     var ret = "";
@@ -53,13 +51,13 @@ Handlebars.registerHelper('listUserType', function(data,options) {
     for(var key in moon.constants){
         if(key.indexOf("userType") != -1){
             ret += "<div class='form-group'>"+
-            "<label class='control-label col-md-2'>" +
-            key.substr(9)+
-            "</label>"+
-            "<div class='col-md-8'>"+
-            "<select name='userType" +moon.constants[key]+"'"+
-            " class='form-control'>"+
-            "<option value='0'>请选择角色</option>";
+                "<label class='control-label col-md-2'>" +
+                key.substr(9)+
+                "</label>"+
+                "<div class='col-md-8'>"+
+                "<select name='userType" +moon.constants[key]+"'"+
+                " class='form-control'>"+
+                "<option value='0'>请选择角色</option>";
             for(var roleIndex in roles){
                 var role = roles[roleIndex];
                 ret += "<option value='"+role.id+"' ";
@@ -72,4 +70,11 @@ Handlebars.registerHelper('listUserType', function(data,options) {
         }
     }
     return ret;
+});
+
+/**
+ * 算出总价
+ */
+Handlebars.registerHelper('plus', function(var1,var2, options) {
+    return ((+var1)*(+var2)).toFixed(2);
 });

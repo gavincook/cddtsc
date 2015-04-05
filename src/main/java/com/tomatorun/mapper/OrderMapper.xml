@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tomatorun.repository.OrderRepository">
+<!--用于支付-->
+    <select id="list" resultType="HashMap">
+        SELECT id,number,DATE_FORMAT(TIME,'%Y-%m-%d %H:%i:%s') as time,status,
+        userId,addressId,totalPrice from dt_order
+        WHERE 1 = 1
+        <if test="userId!=null">
+            AND userId = #{userId}
+        </if>
+        <if test="ids!=null">
+            AND id in
+            <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+            AND status = #{unpaid}
+        </if>
+        order by time desc
+    </select>
+
+
     <update id="update">
         update dt_order set status = #{status}
         <if test="flag!=null">
@@ -37,6 +56,7 @@
         on da.id = doe.addressId
         WHERE dug.userId = #{userId} and doe.flag&amp;${deletedFlag} = 0
         GROUP BY orderId
+        order by time desc
     </select>
 
     <select id="listForShop_count" resultType="Integer">
@@ -54,6 +74,7 @@
         JOIN dt_user_address da
         on da.id = doe.addressId
         WHERE doe.userId = #{userId} and doe.flag&amp;${deletedFlag} = 0
+        order by time desc
     </select>
 
     <select id="listForUser_count" resultType="Integer">

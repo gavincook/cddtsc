@@ -3,6 +3,7 @@ package com.tomatorun.action;
 import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.service.AttachmentService;
 import com.tomatorun.service.GoodsService;
+import com.tomatorun.service.ShopService;
 import org.moon.core.domain.DomainLoader;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
@@ -10,6 +11,7 @@ import org.moon.pagination.Pager;
 import org.moon.rbac.domain.Menu;
 import org.moon.rbac.domain.Role;
 import org.moon.rbac.domain.User;
+import org.moon.rbac.domain.annotation.LoginRequired;
 import org.moon.rbac.domain.annotation.MenuMapping;
 import org.moon.rbac.domain.annotation.NoMenuIntercept;
 import org.moon.rbac.domain.annotation.WebUser;
@@ -49,6 +51,8 @@ public class IndexAction {
     @Resource
     private AttachmentService attachmentService;
 
+    @Resource
+    private ShopService shopService;
     /**
      * show the index.html page
      * @return
@@ -125,5 +129,11 @@ public class IndexAction {
         return new ModelAndView("pages/cddtsc/search","goodsList",goodsService.listForPage(
                 GoodsRepository.class,"listGoodsOnSell",param
         ));
+    }
+
+    @Get("/my_daotong.html")
+    @LoginRequired
+    public ModelAndView showMyPage(@WebUser User user){
+        return new ModelAndView("pages/cddtsc/my_daotong","user",user.toAllMap()).addObject("shop",shopService.getForUser(user.getId()));
     }
 }

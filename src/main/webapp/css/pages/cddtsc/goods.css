@@ -1,8 +1,92 @@
-.goods-show{
-    height: 60px;
-    line-height: 60px;
-    background: #70D25B;
-    font-size: 25px;
+.goods-show .goods-picture-container{
+    float: left;
+    width: 732px;
+}
+.goods-show .goods-picture-container .banner{
+    position: relative;
+    width: 731px;
+    height: 283px;
+    overflow: hidden;
+}
+.goods-show .goods-picture-container .banner img{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: 731px;
+    height: 283px;
+}
+.goods-show .goods-scare-buying-container{
+    float: right;
+    width: 262px;
+}
+.goods-show .goods-scare-buying-container .countdown{
+    background-color: #FFF;
+    height: 282px;
+}
+.goods-show .goods-scare-buying-container .countdown .bor{
+    height: 227px;
+    overflow: hidden;
+    text-align: center;
+}
+.goods-show .goods-scare-buying-container .countdown .bor .time{
+    color: #909090;
+    line-height: 24px;
+    margin-top: 4px;
+    width: 232px;
+    height: 29px;
+    overflow: hidden;
+}
+.goods-show .goods-scare-buying-container .countdown .bor .time span{
+    color: #FF6600;
+    font-family: "Arial";
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px 5px;
+}
+.goods-show .goods-scare-buying-container .tita , .tita1{
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 20px;
+    color: #F6F9F4;
+    background: #106610;
+}
+.goods-show .goods-scare-buying-container .tita a{
+    float: right;
+    font-family: "宋体";
+    font-size: 12px;
+    color: #FFF;
+    letter-spacing: 2px;
+}
+.goods-show .goods-scare-buying-container .tita1 a{
+    font-family: "宋体";
+    font-size: 12px;
+    color: #FFF;
+}
+.goods-show .goods-scare-buying-container .tita a:hover{
+    text-decoration: underline;
+}
+.goods-show .goods-scare-buying-container .snapgoods{
+    height:227px;
+    overflow:hidden;
+    width:232px;
+    display:inline-block;
+}
+.menu-bar .arrondi-tit{
+    float: right;
+    font-size: 12px;
+    margin-right: -15px;
+}
+.menu-bar .arrondi-tit li{
+    float: left;
+    cursor: pointer;
+    height: 35px;
+    width: 79px;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
 }
 .goods-list-container{
     margin-bottom: 20px;
@@ -12,33 +96,49 @@
     background: #FFFFFF;
 }
 .goods-list-container .container-ul .container-li{
-    width: 24.5%;
-    height: 270px;
+    width: 24%;
     display: inline-block;
+    margin-left: 0.35%;
+    margin-right: 0.35%;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 .goods-list-container .container-ul .container-li > div{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    border:solid 1px #CCC;
 }
-.goods-list-container .container-ul .container-li .good-img{
-    width: 100%;
-    height: 80%;
-    text-align: center;
-    padding: 10px 5px;
-}
-.goods-list-container .container-ul .container-li .good-img:hover{
-    cursor: pointer;
+
+.goods-list-container .container-ul .container-li > div:hover{
     border: 1px solid #8AEF2A;
 }
+
+.goods-list-container .container-ul .container-li .good-img{
+    width: 100%;
+    height: 250px;
+    text-align: center;
+    padding: 10px 5px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+
 .goods-list-container .container-ul .container-li .good-img img{
     max-width: 100%;
     max-height: 100%;
+    display: inline-block;
+    vertical-align: middle;
 }
- .goods-list-container .container-ul .container-li .goods-content{
-     width: 100%;
-     height: 20%;
- }
+
+.goods-list-container .container-ul .container-li .good-img .helper{
+    display: inline-block;
+    height: 100%;
+    width: 0px;
+    vertical-align: middle;
+}
+
+.goods-list-container .container-ul .container-li .goods-content{
+    width: 100%;
+    height: 20%;
+}
 .goods-list-container .goods-content{
     width: 100%;
     padding-left: 10px;
@@ -47,13 +147,14 @@
 .goods-list-container .goods-content > div{
     width: 100%;
     font-size: 20px;
-    line-height: 16px;
+    line-height: 30px;
     overflow: hidden;
 }
 .goods-list-container .goods-content .title-main{
     width: 100%;
     height: 20px;
-    font-size: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 .service-list{
     height: 150px;
@@ -77,4 +178,20 @@
     border-left: 1px solid #DEDEDE;
     margin-left: -24px;
     padding-left: 20px;
+}
+
+
+.price{
+    color: #ED4747;
+    font-size: 25px;
+}
+
+.title{
+    background: #59A111;
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    padding-left: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
 }

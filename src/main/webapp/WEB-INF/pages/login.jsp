@@ -8,14 +8,13 @@
     <script type="text/javascript">
         var from = "${from}";
     </script>
-    <title>携心医疗</title>
+    <title>成都通道蔬菜</title>
 </head>
 <body class="login container">
 
 
 <div class="logo">
-    <img src="${pageContext.request.contextPath}/css/images/logo.png">
-    <h3 class="title">携心医疗</h3>
+    <img src="${pageContext.request.contextPath}/css/images/cddtsc/logo.png">
 </div>
 
 <div class="content">
@@ -35,16 +34,12 @@
     </form>
 
     <div class="login-banner">
-        <img src="${pageContext.request.contextPath}/css/images/login-banner.jpg">
+        <img src="${pageContext.request.contextPath}/css/images/cddtsc/m4nxyu.jpg">
         <span class="helper"></span>
     </div>
 </div>
 
-<div class="mobile">
-    手机下载携心医疗App,享受更全面功能服务
-    <i class="fa fa-android" data-content="<img src='${pageContext.request.contextPath}/css/images/android.png'>"></i>
-    <i class="fa fa-apple apple" data-content="<img src='${pageContext.request.contextPath}/css/images/apple.png'>"></i>
-</div>
+
 
 <div class="system-info-container">
     <div class="system-info">用户名:system_user</div>
@@ -52,7 +47,7 @@
 </div>
 
 <div class="footer">
-    &copy;2015 携心医疗 版权所有
+    &copy;2015 成都通道蔬菜 版权所有
 </div>
 </body>
 </html>

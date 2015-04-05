@@ -2,7 +2,7 @@
 (function(){
     $(function(){
         //默认选择第一个收货地址
-        $(".address-item:eq(0)").addClass("selected");
+//        $(".address-item:eq(0)").addClass("selected");
 
         //选择收货地址
         $(document).on("click",".address-item",function(e){

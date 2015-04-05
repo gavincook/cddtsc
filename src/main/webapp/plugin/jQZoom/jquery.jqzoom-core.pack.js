@@ -99,6 +99,7 @@
                 obj.init();
             },
             init: function () {
+
                 //drag option
                 if (settings.zoomType == 'drag') {
                     $(".zoomPad", el).mousedown(function () {
@@ -177,6 +178,9 @@
                         i++;
                     }
                     $(this).click(function (e) {
+                        if($(this).hasClass("zoomThumbActive")){
+                            return false;
+                        }
                         thumblist.each(function () {
                             $(this).removeClass('zoomThumbActive');
                         });
@@ -185,6 +189,8 @@
                         return false;
                     });
                 });
+
+
             },
             load: function () {
                 if (el.largeimageloaded == false && el.largeimageloading == false) {
@@ -222,7 +228,8 @@
                 el.largeimageloading = false;
                 el.largeimageloaded = false;
                 var options = new Object();
-                options = $.extend({}, eval("(" + $.trim($(link).attr('rel')) + ")"));
+                var rel = $.trim($(link).attr('rel')).replace(/\\/g,"/");
+                options = $.extend({}, eval("(" +  rel + ")"));
                 if (options.smallimage && options.largeimage) {
                     var smallimage = options.smallimage;
                     var largeimage = options.largeimage;

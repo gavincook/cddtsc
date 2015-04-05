@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@ include file="../common/header.jsp" %>
-    <m:require src="jquery,common,noty,font,ev,webuploader,dialog,bootstrap,table,{cddtsc/category}"></m:require>
+    <m:require src="jquery,common,noty,font,ev,webuploader,dialog,ueditor,bootstrap,table,{cddtsc/category}"></m:require>
     <title>商品类别</title>
 </head>
 
@@ -83,9 +83,21 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">计量单位:</label>
+
+                    <div class="col-sm-10">
+                        <div class="consultation-reply-content"></div>
+                    </div>
+                </div>
+
             </form>
         </div>
     </section>
+    <%--富文本框--%>
+    <div id="contentContainer" class="content-container hide">
+        <script id="content" type="text/plain" name="description" style="height:150px;"></script>
+    </div>
 </div>
 </body>
 </html>

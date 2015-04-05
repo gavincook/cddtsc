@@ -1,10 +1,4 @@
 
-.goods-show{
-    height: 60px;
-    line-height: 60px;
-    background: #70D25B;
-    font-size: 25px;
-}
 .goods-container{
     height: 500px;
     margin-bottom: 20px;
@@ -13,32 +7,63 @@
     display: inline-block;
 }
  .goods-container .goods-left{
-     width: 50%;
+     width: 400px;
  }
-.goods-container .goods-left .goods-img{
+
+.goods-container .goods-left .goods-img .middle-img{
     width: 400px;
     height: 400px;
-}
-.goods-container .goods-left .goods-img img{
-    width: 100%;
-    height: 100%;
+    border:none !important;
 }
 .goods-container .goods-left .goods-img-list{
     width:100%;
     height: 100px;
     margin-top: 10px;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.small-images{
+    width: auto;
+    margin:0 28px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.goods-img-list i{
+    line-height: 100px;
+}
+.left-opt{
+    float: left;
+    background: #F2EFEF;
+    width: 25px !important;
+    text-align: center;
+    line-height: 100px;
+    font-size: 40px;
+    color: #BBB;
+    cursor: pointer;
+}
+
+.right-opt{
+    float: right;
+    background: #F2EFEF;
+    width: 25px !important;
+    text-align: center;
+    line-height: 100px;
+    font-size: 40px;
+    color: #BBB;
+    cursor: pointer;
 }
 .goods-container .goods-left .goods-img-list span{
     width:100px;
     height: 100px;
     display: inline-block;
+    border: solid 2px transparent;
 }
 .goods-container .goods-left .goods-img-list span img{
     width:100%;
     height: 100%;
-    padding: 10px;
+    padding: 2px;
 }
 .goods-container .goods-right{
     width: 50%;
@@ -123,4 +148,29 @@
 
 .goods-add .btn{
     width: 120px;
+}
+
+
+.title{
+    background: #59A111;
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    padding-left: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.goods-container .goods-left .goods-img-list span:hover{
+    border: solid 2px #F06464;
+}
+
+.zoomPad{
+    margin-bottom: 20px;
+}
+
+.description-title{
+    border-bottom: solid 2px #59A111;
+    font-size: 20px;
+    margin-top: 40px;
 }

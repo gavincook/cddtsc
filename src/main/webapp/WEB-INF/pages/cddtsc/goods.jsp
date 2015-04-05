@@ -15,23 +15,23 @@
 <%@ include file="../common/frontHeader.jsp"%>
 
 <div class="goods-show container">
-    <div>今天一共有如下商铺销售<span>${goods.name}</span></div>
+    <div class="title">今天一共有如下商铺销售<span>${goods.name}</span></div>
 </div>
 
 <%--商品列表--%>
 <div class="goods-list-container container">
-    <ul class="container-ul">
+    <div class="container-ul">
         <c:forEach items="${shops.items}" var="shop">
-            <li class="container-li" data-goods-id="${shop.goodsId}">
+            <div class="container-li" data-goods-id="${shop.goodsId}">
                 <div>
                     <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/${goods.cover}"></div>
                     <div class="goods-content">
                         <div class="goods-seller">店铺: <span>${shop.shopName}</span></div>
                     </div>
                 </div>
-            </li>
+            </div>
         </c:forEach>
-    </ul>
+    </div>
 </div>
 </div>
 <%--页面底部信息栏--%>

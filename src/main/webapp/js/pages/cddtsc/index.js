@@ -15,7 +15,7 @@
             console.log(currentGoods.attr('data-goods-id'));
             goodsId = currentGoods.attr('data-goods-id');
 //            window.open(contextPath+"/goods.html",'_self');
-            window.location.href = contextPath+"/"+goodsId+"_goods.html/";
+            window.location.href = contextPath+"/"+goodsId+"_goods.html";
         });
 
         $(".container-ul").on("click",".search-goods",function(){

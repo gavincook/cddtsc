@@ -19,27 +19,33 @@
 <%@ include file="../common/frontHeader.jsp"%>
 
 <div class="goods-show container">
-    <div><span>${goods.name}</span></div>
+    <div class="title"><span>${goods.name}</span></div>
 </div>
 
 <%--商品详情--%>
 <div class="goods-container container" data-goods-id="${goods.userGoodsId}">
     <span class="goods-left">
         <div class="goods-img">
-            <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="triumph" >
-                <img src="${pageContext.request.contextPath}/file/get/${images[0].url}"  title="triumph"  style="border: 4px solid #666;">
+            <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="商品大图" >
+                <img src="${pageContext.request.contextPath}/file/get/${images[0].url}"  title="大图" class="middle-img"  style="border: 4px solid #666;">
             </a>
         </div>
         <div class="goods-img-list">
-            <c:forEach items="${images}" var="image">
-                <span class="image">
-                    <a class="zoomThumbActive" href='javascript:void(0);'
-                       rel="{gallery: 'gal1', smallimage: '${pageContext.request.contextPath}/file/get/${image.url}',largeimage: '${pageContext.request.contextPath}/file/get/${image.url}'}">
-                        <img src='${pageContext.request.contextPath}/file/get/${image.url}'>
-                    </a>
-                </span>
-            </c:forEach>
+            <span class="left-opt"><i class="fa fa-angle-left"></i> </span>
+
+            <span class="right-opt"><i class="fa fa-angle-right"></i> </span>
+            <div class="small-images">
+                <c:forEach items="${images}" var="image" varStatus="status">
+                    <span class="image">
+                        <a class='<c:if test="${status.index ==0}">zoomThumbActive</c:if>' href='javascript:void(0);'
+                           rel="{gallery: 'gal1', smallimage: '${pageContext.request.contextPath}/file/get/${image.url}',largeimage: '${pageContext.request.contextPath}/file/get/${image.url}'}">
+                            <img src='${pageContext.request.contextPath}/file/get/${image.url}'>
+                        </a>
+                    </span>
+                </c:forEach>
+            </div>
         </div>
+        <div class="clearfix"></div>
     </span>
     <span class="goods-right">
         <div class="goods-name">商品名称：&nbsp;${goods.name}</div>
@@ -61,9 +67,19 @@
             <%--<button class="btn btn-danger buy">立即购买</button>--%>
             <button class="btn btn-danger add-shopcar">添加到购物车</button>
         </div>
+
     </span>
+
 </div>
+
+    <div class="container">
+        <div class="description-title">商品详情</div>
+        <div class="description-content">
+            ${goods.description}
+        </div>
+    </div>
 </div>
+
 <%@ include file="../common/footer.jsp"%>
 
 </body>
