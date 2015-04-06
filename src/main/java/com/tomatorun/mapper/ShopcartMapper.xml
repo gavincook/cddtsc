@@ -11,7 +11,7 @@
         LEFT JOIN dt_attachment da
         ON da.referenceId = dg.id AND da.type = #{attachmentType}
         WHERE dsc.userId = #{userId}
-        GROUP BY dg.id
+        GROUP BY dug.id
     </select>
 
     <select id="list_count" resultType="Integer">
@@ -63,6 +63,5 @@
         JOIN dt_goods dg
         ON dg.id = dug.goodsId
         WHERE dsc.userId = #{userId}
-        GROUP BY dg.id
     </select>
 </mapper>

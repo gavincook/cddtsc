@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=utf-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../common/header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,6 +10,8 @@
 
 </head>
 <body class="pay">
+<div class="content">
+    <%@ include file="../common/frontHeader.jsp" %>
 
     <div class="container">
         <h3>付款</h3>
@@ -37,6 +39,7 @@
             </form>
         </div>
     </div>
-
+</div>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

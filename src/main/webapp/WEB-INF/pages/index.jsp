@@ -5,7 +5,7 @@
 <head>
     <%@ include file="common/header.jsp" %>
     <m:require src="jquery,noty,huanxin,font,bootstrap,common,kt,{{index}}"></m:require>
-    <m:require src="css/base.css" type="css"></m:require>
+
     <title>主页</title>
 
 

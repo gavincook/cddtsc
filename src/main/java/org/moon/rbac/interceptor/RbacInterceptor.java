@@ -135,16 +135,16 @@ public class RbacInterceptor implements MethodInterceptor {
                 List<Menu> menus = domainLoader.load(Role.class, currentRole.getId()).getTopMenus();
                 Map<String,Object> data = Maps.mapIt("menus",menus);
                 data.put("currentUser",currentUser);
-                List<Menu> subMenus;
+                List<Map> subMenus;
                 MenuMapping currentMenuMapping = method.getAnnotation(MenuMapping.class);
                 if(Objects.nonNull(currentMenuMapping)){//如果配置了menuMapping的菜单,则可以通过menuMapping获取父菜单
                    for(Menu m : menus) {
                        if (Objects.nonNull(currentMenuMapping) && m.getCode().equals(currentMenuMapping.parentCode())) {
-                           subMenus = modelContainer.enhanceModel(m).getSubMenus();
+                           subMenus = menuService.getSubMenusForRole(m.getId(), currentRole.getId());
                            data.put("subMenus", subMenus);
                            data.put("expandMenuCode", m.getCode());
-                           for (Menu menu : subMenus) {
-                               if (currentMenuMapping.code().equals(menu.getCode())) {
+                           for (Map menu : subMenus) {
+                               if (currentMenuMapping.code().equals(menu.get("code"))) {
                                    data.put("currentMenu", menu);//当前菜单
                                    break;
                                }
@@ -158,7 +158,7 @@ public class RbacInterceptor implements MethodInterceptor {
                         data.put("currentMenu", currentMenu);
                         for(Menu m : menus) {
                             if (m.getId().equals(currentMenu.getParentId())||m.getCode().equals(currentMenu.getParentCode())) {
-                                subMenus = modelContainer.enhanceModel(m).getSubMenus();
+                                subMenus = menuService.getSubMenusForRole(m.getId(), currentRole.getId());
                                 data.put("subMenus", subMenus);
                                 data.put("expandMenuCode", m.getCode());
                             }

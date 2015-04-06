@@ -170,17 +170,19 @@
         <if test="keyword!=null">
           where dg.name like concat('%',#{keyword},'%')
         </if>
+        group by dg.id
         limit ${offset},${pageSize}
     </select>
 
     <select id="listGoodsOnSell_count" resultType="Integer">
-        SELECT count(*)
+        SELECT count(DISTINCT dg.id)
         FROM dt_user_goods dug
         JOIN dt_goods dg
         ON dug.goodsId = dg.id
         <if test="keyword!=null">
             where dg.name like concat('%',#{keyword},'%')
         </if>
+
     </select>
     
     <select id="listShopForGoods" resultType="HashMap">

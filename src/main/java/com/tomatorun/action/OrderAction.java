@@ -8,6 +8,7 @@ import com.tomatorun.service.GoodsService;
 import com.tomatorun.service.OrderDetailService;
 import com.tomatorun.service.OrderService;
 import com.tomatorun.service.ShopcartService;
+import com.tomatorun.sms.SMSService;
 import org.apache.http.HttpResponse;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.exception.ApplicationRunTimeException;
@@ -76,6 +77,9 @@ public class OrderAction {
 
     @Config("orderFlag.user")
     private int deletedByUser;
+
+    @Resource
+    private SMSService smsService;
 
     @Get()
     @MenuMapping(url = "/order",name = "订单管理",code = "dt_order",parentCode = "dt")
@@ -259,6 +263,7 @@ public class OrderAction {
 
         if(MD5.getCryptographicPassword(password).equals(user.getPassword())) {
             orderService.pay(payOrderIds,user.getId());
+//            smsService.sendSms("13258232280","明天上午");
             return WebResponse.success(Maps.mapIt("currentStatus", "等待配送", "frontOpt", false));
         }else{
             return WebResponse.fail(Maps.mapIt("errMsg","支付密码不正确"));

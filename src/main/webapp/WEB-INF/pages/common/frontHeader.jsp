@@ -44,8 +44,8 @@
                   <img src="${pageContext.request.contextPath}/css/images/cddtsc/tel.png" width="280" height="55">
                 </span>
       </div>
-        <form class="search-container form-inline" action="search.html">
-            <input type="text" class="search-box form-control" name="keyword">
+        <form class="search-container form-inline" action="${pageContext.request.contextPath}/search.html">
+            <input type="text" class="search-box form-control" name="keyword" value="${keyword}">
             <button class="search btn btn-info" type="submit">搜&nbsp;索</button>
         </form>
     </div>

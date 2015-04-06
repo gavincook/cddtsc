@@ -2,8 +2,8 @@
 (function(){
     $(function(){
         //默认选择第一个收货地址
-//        $(".address-item:eq(0)").addClass("selected");
-
+        //$(".address-item:eq(0)").addClass("selected");
+        $("#addressId").val($(".address-item.selected").attr("data-id"));
         //选择收货地址
         $(document).on("click",".address-item",function(e){
             $(".address-item.selected").removeClass("selected");

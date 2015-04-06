@@ -14,10 +14,10 @@
     <div class="container">
 
         <div class="address-container">
-            <h4>请选择您的收货地址<a href="${pageContext.request.contextPath}/user/my" target="_blank" class="manage-address">(管理收货地址)</a></h4>
+            <h4>请选择您的收货地址<a href="${pageContext.request.contextPath}/my_daotong.html" target="_blank" class="manage-address">(管理收货地址)</a></h4>
             <div class="address-items">
                 <c:forEach items="${addresses}" var="address">
-                <div class="address-item <c:if test='${address.isDefault}'>selected</c:if> data-id="${address.id}">
+                <div class="address-item <c:if test='${address.isDefault}'>selected</c:if>" data-id="${address.id}">
                     <div class="consignee">${address.consignee}</div>
                     <div class="address">${address.address}${address.phoneNumber} </div>
                     <i class="fa fa-check check-icon"></i>

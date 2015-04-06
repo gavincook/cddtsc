@@ -15,7 +15,7 @@
 <%@ include file="../common/frontHeader.jsp"%>
 
 <div class="goods-show container">
-    <div class="title">今天一共有如下商铺销售<span>${goods.name}</span></div>
+    <div class="title">今天一共有<span class="h">${shops.totalItemsCount}</span>家商铺销售<span>${goods.name}</span></div>
 </div>
 
 <%--商品列表--%>

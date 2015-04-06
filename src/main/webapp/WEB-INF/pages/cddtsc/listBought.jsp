@@ -57,7 +57,7 @@
                 <td class="border-left" rowspan="{{../../orderDetail.length}}">
                       <div>
                         {{#if ../../frontOpt}}
-                             <button type="button" class="btn btn-danger opt" data-action="{{action}}">{{../../../orderBtnText}}
+                             <button type="button" class="btn btn-danger opt" data-action="{{../../../action}}">{{../../../orderBtnText}}
                              </button>
                         {{else}}
                             {{../../../currentStatus}}

@@ -9,6 +9,7 @@ import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
 import org.moon.pagination.Pager;
 import org.moon.rbac.domain.User;
+import org.moon.rbac.domain.annotation.LoginRequired;
 import org.moon.rbac.domain.annotation.MenuMapping;
 import org.moon.rbac.domain.annotation.WebUser;
 import org.moon.rest.annotation.Get;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/shopcart")
+@LoginRequired
 public class ShopcartAction {
 
     @Resource

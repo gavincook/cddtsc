@@ -4,6 +4,7 @@ import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.service.AttachmentService;
 import com.tomatorun.service.GoodsService;
 import com.tomatorun.service.ShopService;
+import com.tomatorun.sms.SMSService;
 import org.moon.core.domain.DomainLoader;
 import org.moon.core.spring.config.annotation.Config;
 import org.moon.message.WebResponse;
@@ -117,6 +118,7 @@ public class IndexAction {
         return WebResponse.build().setResult(pager);
     }
 
+
     /**
      * 搜索
      * @param keyword
@@ -124,11 +126,12 @@ public class IndexAction {
      */
     @RequestMapping("/search.html")
     public ModelAndView search(@RequestParam(value = "keyword",required = false)String keyword,HttpServletRequest request){
+
         Map<String,Object> param = ParamUtils.getParamsMapForPager(request);
         param.put("keyword",keyword);
         return new ModelAndView("pages/cddtsc/search","goodsList",goodsService.listForPage(
                 GoodsRepository.class,"listGoodsOnSell",param
-        ));
+        )).addObject("keyword",keyword);
     }
 
     @Get("/my_daotong.html")

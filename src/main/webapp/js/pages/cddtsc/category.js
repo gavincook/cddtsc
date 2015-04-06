@@ -373,7 +373,7 @@
                 afterShown:function(){
                     $("#goodsForm").validate({align:'right',theme:"darkblue",model:"update"});
                     $("#goodsForm").autoCompleteForm(contextPath+"/goods/get",{id:id},function(data){
-                        editor.setContent(data.description);
+                        editor.setContent(data.description||"");
                         var $imgList = $(".uploader-list").empty();
                         $.each(data.images,function(index,image){
                             var filepath = contextPath+"/file/get/"+image.url;
