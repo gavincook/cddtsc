@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tomatorun.repository.ShopcartRepository">
     <select id="list" resultType="HashMap">
-        SELECT dg.name,dg.specification,dg.price,dsc.id AS cartId,dug.inventory,dsc.number,da.url
+        SELECT dg.name,dg.specification,dg.price,dsc.id AS cartId,dug.inventory,dsc.number,da.url,td.name as level
         FROM dt_shopcart dsc
         JOIN dt_user_goods dug
         ON dug.id = dsc.userGoodsId
         JOIN dt_goods dg
         ON dg.id = dug.goodsId
+        join tab_dictionary td
+        on td.code = dg.level and td.parentId = #{levelDicId}
         LEFT JOIN dt_attachment da
         ON da.referenceId = dg.id AND da.type = #{attachmentType}
         WHERE dsc.userId = #{userId}

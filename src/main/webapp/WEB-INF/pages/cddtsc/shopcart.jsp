@@ -17,6 +17,7 @@
         <table id="shopcartTable" class="table table-responsive">
             <thead>
                 <th colspan="2">物品</th>
+                <th>等级</th>
                 <th>规格</th>
                 <th>单价</th>
                 <th>数量</th>
@@ -47,6 +48,7 @@
                 <img src="${pageContext.request.contextPath}file/get/{{url}}">
             </td>
             <td>{{name}}</td>
+            <td>{{level}}</td>
             <td>{{specification}}</td>
             <td>{{price}}</td>
             <td>

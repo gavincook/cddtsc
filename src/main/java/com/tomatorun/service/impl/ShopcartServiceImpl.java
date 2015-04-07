@@ -5,6 +5,7 @@ import com.tomatorun.repository.ShopcartRepository;
 import com.tomatorun.service.ShopcartService;
 import org.moon.base.service.AbstractService;
 import org.moon.core.spring.config.annotation.Config;
+import org.moon.dictionary.service.DictionaryService;
 import org.moon.pagination.Pager;
 import org.moon.utils.Maps;
 import org.moon.utils.Objects;
@@ -22,6 +23,15 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
     @Resource
     private ShopcartRepository shopcartRepository;
 
+    @Resource
+    private DictionaryService dictionaryService;
+
+    @Config("dic.goodsLevel")
+    private String goodsLevelKey ;
+
+    @Config("dic.goodsUnit")
+    private String goodsUnit ;
+
     @Override
     public Map<String, Object> get(Map<String,Object> params) {
         return shopcartRepository.get(params);
@@ -29,6 +39,8 @@ public class ShopcartServiceImpl extends AbstractService implements ShopcartServ
 
     @Override
     public Pager list(Map<String,Object> params) {
+        params.put("levelDicId",dictionaryService.getDictionaryByCode(goodsLevelKey).get("id"));
+        params.put("unitDicId",dictionaryService.getDictionaryByCode(goodsUnit).get("id"));
         params.put("attachmentType",goodsAttachment);
         return super.listForPage(ShopcartRepository.class, "list", params);
     }
