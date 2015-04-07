@@ -93,6 +93,31 @@
     $(function(){
         editor = UM.getEditor("content");
 
+        //修改后变红色
+        $(document).on("change",".price-box",function(e){
+            var $input = $(e.target);
+            $input.css("color","#F00");
+        });
+
+        $("#savePrice").click(function(){
+            var ids = new Array(),prices = new Array();
+            $(".price-box").each(function(index,e){
+                ids.push($(e).attr("data-id"));
+                prices.push(e.value);
+            });
+            $.getJsonData(contextPath+"/goods/updatePrice",{
+                goodsId:ids,
+                prices:prices
+            },{type:"Post",traditional:true}).done(function(data){
+               if(data.success){
+                   moon.success("价格更新成功");
+               }else{
+                   moon.error("价格更新失败");
+               }
+            });
+        });
+
+
         categoryTable = $("#categoryTable").table({
             url:contextPath+"/category/list",
             columns:[{name:"name",display:"类别名字",width:"300px"}
@@ -147,7 +172,12 @@
                     columns:[{name:"name",display:"商品",width:"300px",render:function(columnData){
                         return columnData.name;
                     }},
-                        {name:"specification",display:"规格",width:"300px"}
+                        {name:"specification",display:"规格",width:"300px"},
+                        {name:"price",display:"价格",width:300,render:function(columnData){
+                            return "<div class='input-group'><div class='input-group-addon'><i class='fa fa-rmb'></i> </div>" +
+                            "<input type='text' class='form-control price-box' data-id='"+columnData.id+"' value='"+columnData.price+"'>"+
+                            "</div>";
+                        }}
                     ],
                     params:{categoryId: currentCategoryId},
                     formatData:function(data){return data.result;},
@@ -155,6 +185,7 @@
                     rowId:"id",
                     treeTable:false,
                     multiSelect:false,
+                    pageSize:100,
                     buttons:[
                         {
                             text:"增加商品",

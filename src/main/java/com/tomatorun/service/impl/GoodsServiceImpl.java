@@ -98,4 +98,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
             dictionaryService.getDictionaryByCode(goodsLevelKey).get("id"),
             dictionaryService.getDictionaryByCode(goodsUnit).get("id"));
     }
+
+    @Override
+    public void updatePrice(Double price,Long id) {
+        goodsRepository.updatePrice(price,id);
+    }
 }

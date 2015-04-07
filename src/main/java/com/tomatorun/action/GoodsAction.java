@@ -192,4 +192,19 @@ public class GoodsAction {
         goodsService.deleteSelectGoods(selectGoodsId);
         return WebResponse.success();
     }
+
+    /**
+     * 批量更新价格
+     * @param goodsId
+     * @param prices
+     * @return
+     */
+    @Post("/updatePrice")
+    @ResponseBody
+    public WebResponse updatePrice(@RequestParam("goodsId")Long[] goodsId,@RequestParam("prices")Double[] prices){
+        for(int i=0,l=goodsId.length;i<l;i++){
+            goodsService.updatePrice(prices[i],goodsId[i]);
+        }
+        return WebResponse.success();
+    }
 }

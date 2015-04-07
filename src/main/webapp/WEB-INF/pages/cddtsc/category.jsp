@@ -19,6 +19,10 @@
                 <div class="empty">
                     <span>选择类别后，这里就能显示该类别的商品了哦.</span>
                 </div>
+
+            </div>
+            <div class="save-price-con">
+                <button type="button" class="btn btn-danger btn-block" id="savePrice">保存</button>
             </div>
             <form id="categoryForm" class="hide form-horizontal">
                 <div class="form-group">

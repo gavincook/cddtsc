@@ -61,4 +61,11 @@ public interface GoodsRepository {
      */
     public Map<String,Object> getGoodsForShop(@Param("userGoodsId")Long userGoodsId,@Param("levelDicId")Object levelDicId,
         @Param("unitDicId")Object unitDicId);
+
+    /**
+     * 更新价格
+     * @param price
+     * @param id
+     */
+    public void updatePrice(@Param("price")Double price,@Param("id")Long id);
 }

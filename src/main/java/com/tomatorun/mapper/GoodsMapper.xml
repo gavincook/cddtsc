@@ -61,6 +61,10 @@
          level = #{level},price=#{price},unit=#{unit},description = #{description} where id = #{id};
     </update>
 
+    <update id="updatePrice">
+        update dt_goods set price=#{price} where id = #{id};
+    </update>
+
     <delete id="delete">
         delete from dt_goods where id in (${ids});
     </delete>

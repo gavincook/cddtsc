@@ -48,4 +48,6 @@ public interface GoodsService extends BaseService {
      * @return
      */
     public Map<String,Object> getGoodsForShop(Long userGoodsId);
+
+    public void updatePrice(Double price,Long id);
 }

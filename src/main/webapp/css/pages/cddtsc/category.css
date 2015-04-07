@@ -76,3 +76,11 @@ td{
 tbody tr{
     cursor: pointer;
 }
+
+.save-price-con{
+    position: absolute;
+    right: 20px;
+    left: 50%;
+    margin-left: 26px;
+    bottom: 52px;
+}
