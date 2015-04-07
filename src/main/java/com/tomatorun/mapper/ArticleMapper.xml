@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomatorun.repository.ArticleRepository">
+    <select id="list" resultType="HashMap">
+        SELECT da.id,da.title,da.content,da.type,d.name as articleType,da.status,
+        CONCAT(da.time,'') as time,u.realName
+        FROM dt_article da
+        JOIN tab_user u
+        ON da.userId = u.id
+        JOIN tab_dictionary d
+        ON d.code = da.type and d.parentId = #{articleTypeDicId}
+        where 1=1
+        <if test="keyword!=null">
+            AND da.title like  CONCAT('%',#{keyword},'%' )
+        </if>
+        <if test="type!=null">
+            AND da.type = #{type}
+        </if>
+        <if test="check!=null">
+            AND da.status = #{status}
+        </if>
+        <if test="userId!=null">
+            AND da.userId = #{userId}
+        </if>
+        GROUP BY da.id
+        ORDER BY
+        da.time desc
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="list_count" resultType="Integer">
+        SELECT count(id) from dt_article da
+        where 1=1
+        <if test="userId!=null">
+            AND da.userId = #{userId}
+        </if>
+        <if test="keyword!=null">
+            AND da.title like  CONCAT('%',#{keyword},'%' )
+        </if>
+        <if test="type!=null">
+            AND da.type = #{type}
+        </if>
+        <if test="check!=null">
+            AND da.status = #{status}
+        </if>
+    </select>
+
+    <update id="update">
+        update dt_article set
+        <if test="title!=null">
+            title = #{title},
+        </if>
+        <if test="content!=null">
+            content=#{content},
+        </if>
+        <if test="articleType!=null">
+            type=#{articleType}
+        </if>
+        where id = #{id};
+    </update>
+
+    <delete id="delete">
+        delete from dt_article where id in (#{id})
+        <if test="userId!=null">
+            and userId = #{userId};
+        </if>
+    </delete>
+
+    <select id="get" resultType="HashMap">
+        SELECT da.id,da.title,da.content,da.type as articleType,CONCAT(da.time,'') as time,u.realName,da.status,
+        d.name as articleTypeName
+        FROM dt_article da
+        JOIN tab_user u
+        ON da.userId = u.id
+        JOIN tab_dictionary d
+        ON d.code = da.type and d.parentId = #{articleTypeDicId}
+        where da.id = #{id}
+        GROUP BY da.id
+        limit 1
+    </select>
+
+    <insert id="add">
+        insert  into dt_article(title,content,type,userId,time,status)
+        values
+        (#{title},#{content},#{articleType},#{userId},CURRENT_TIMESTAMP(),#{status});
+    </insert>
+
+    <update id="check">
+        update dt_article set
+        status = #{status}
+        where id = #{id};
+    </update>
+
+</mapper>

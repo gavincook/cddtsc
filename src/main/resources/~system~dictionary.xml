@@ -35,4 +35,10 @@
         <item code="4" name="捆"></item>
     </dictionary>
 
+    <dictionary code="articleType" name="文章类型">
+        <item code="1" name="文章"></item>
+        <item code="2" name="新闻"></item>
+        <item code="3" name="招聘"></item>
+    </dictionary>
+
 </dictionaries>
