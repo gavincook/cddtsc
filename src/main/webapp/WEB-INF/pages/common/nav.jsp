@@ -35,7 +35,7 @@
     <div class="navbar-header">
         <a href="/" class="logo-con">
             <i class="fa fa-heartbeat font-logo"></i>
-            <span class="title">携心医疗</span>
+            <span class="title">成都道通蔬菜</span>
         </a>
     </div>
     <div class="navbar-right">

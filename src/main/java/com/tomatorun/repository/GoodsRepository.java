@@ -68,4 +68,11 @@ public interface GoodsRepository {
      * @param id
      */
     public void updatePrice(@Param("price")Double price,@Param("id")Long id);
+
+    /**
+     * 更改goodsId
+     * @param goodsId
+     * @param id
+     */
+    public void updateGoodsId(@Param("goodsId")Long goodsId,@Param("id")Long id);
 }

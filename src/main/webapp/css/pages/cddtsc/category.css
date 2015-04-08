@@ -84,3 +84,13 @@ tbody tr{
     margin-left: 26px;
     bottom: 52px;
 }
+
+.item {
+    height: 50px;
+    border-bottom: solid 1px #ccc;
+    line-height: 50px;
+}
+
+.item .input-group{
+    padding-top: 8px;
+}

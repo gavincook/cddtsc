@@ -39,41 +39,42 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">商品名字:</label>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-10">
                         <input type="text" placeholder="商品名字" class="form-control" name="name"
                                validate="validate[required]"/>
                     </div>
-                    <label class="col-sm-2 control-label">价格:</label>
-
-                    <div class="col-sm-4">
-                        <input type="text" placeholder="商品价格" class="form-control" name="price"
-                               validate="validate[required]"/>
-                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">商品规格:</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" placeholder="商品规格" class="form-control" name="specification"
-                               validate="validate[required]"/>
-                    </div>
-                </div>
-                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
                     <label class="col-sm-2 control-label">商品等级:</label>
-
-                    <div class="col-sm-10">
-                        <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-sm-2 control-label">计量单位:</label>
-
-                    <div class="col-sm-10">
-                        <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
+                    <label class="col-sm-2 control-label">商品规格:</label>
+                    <label class="col-sm-2 control-label">商品价格:</label>
+                </div>
+                <div class="rows-container">
+                    <div class="form-group goods-row">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-2">
+                            <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
+                        </div>
+                        <div class="col-sm-2">
+                            <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" placeholder="商品规格" class="form-control" name="specification"
+                                   validate="validate[required]"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" placeholder="商品价格" class="form-control" name="price"
+                                   validate="validate[required]"/>
+                        </div>
+                        <div class="col-sm-2"><i class="fa fa-times-circle remove-row"></i></div>
                     </div>
                 </div>
-
+                <div>
+                    <a href="#" class="floatr add-row">添加等级</a>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">商品图片:</label>
                     <input type="hidden" name="url" class="url"/>
@@ -101,6 +102,28 @@
     <%--富文本框--%>
     <div id="contentContainer" class="content-container hide">
         <script id="content" type="text/plain" name="description" style="height:150px;"></script>
+    </div>
+
+    <div id="goodsRow" class="hide">
+        <div class="form-group goods-row">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-2">
+                <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
+            </div>
+            <div class="col-sm-2">
+                <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" placeholder="商品规格" class="form-control" name="specification"
+                       validate="validate[required]"/>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" placeholder="商品价格" class="form-control" name="price"
+                       validate="validate[required]"/>
+            </div>
+            <input type="hidden" name="id">
+            <div class="col-sm-2"><i class="fa fa-times-circle remove-row"></i></div>
+        </div>
     </div>
 </div>
 </body>

@@ -12,6 +12,7 @@ import org.moon.rbac.domain.annotation.WebUser;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
 import org.moon.utils.Maps;
+import org.moon.utils.Objects;
 import org.moon.utils.ParamUtils;
 import org.moon.utils.Strings;
 import org.springframework.stereotype.Controller;
@@ -78,24 +79,30 @@ public class GoodsAction {
     @ResponseBody
     public WebResponse get(@RequestParam("id")Long id){
         Map<String,Object> good = goodsService.get(Maps.mapIt("id", id));
-        good.put("images", attachmentService.list(Maps.mapIt("referenceId", good.get("id"), "type", goodsImageType)));
+        good.put("images", attachmentService.list(Maps.mapIt("referenceId", id, "type", goodsImageType)));
         return WebResponse.build().setResult(good);
     }
 
     @Post("/update")
     @ResponseBody
-    public WebResponse update(HttpServletRequest request, @RequestParam("id")Long id, @RequestParam("name")String name, @RequestParam("specification")String specification,
+    public WebResponse update(HttpServletRequest request, @RequestParam("goodsId")Long goodsId,@RequestParam("id")Long[] ids, @RequestParam("name")String name, @RequestParam("specification")String[] specifications,
+                              @RequestParam("price")Double[] prices,
+                              @RequestParam("level")Integer[] levels,
+                              @RequestParam("unit")Integer[] units,
+                              @RequestParam("description") String description,
                               @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
-        params.put("id", id);
-        params.put("name", name);
-        params.put("specification", specification);
-        goodsService.update(params);
-        Long goodId = Long.parseLong(params.get("id").toString());
+
+        for(int i = 0,l=levels.length;i<l;i++){
+            Map<String,Object> goods = Maps.mapIt("id",ids[i],"name",name,"price",prices[i],
+                "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description);
+            goodsService.update(goods);
+        }
+
         if(attachments != null && attachments.length > 0){
             for(String attachment : attachments){
                 attachment = URLDecoder.decode(attachment,"UTF-8");
-                attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodId, "type", goodsImageType));
+                attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodsId, "type", goodsImageType));
             }
         }
         if(attachmentIds != null && attachmentIds.length > 0){
@@ -115,10 +122,10 @@ public class GoodsAction {
      * 添加商品
      * @param request
      * @param name 商品名字
-     * @param specification 规格
-     * @param price 价格
-     * @param level 等级
-     * @param unit 计量单位
+     * @param specifications 规格
+     * @param prices 价格
+     * @param levels 等级
+     * @param units 计量单位
      * @param categoryId 所属类别
      * @param attachments 商品图片
      * @return
@@ -126,19 +133,31 @@ public class GoodsAction {
     @Post("/add")
     @ResponseBody
     public WebResponse add(HttpServletRequest request, @RequestParam("name")String name,
-                           @RequestParam("specification")String specification,
-                           @RequestParam("price")Double price,
-                           @RequestParam("level")Integer level,
-                           @RequestParam("unit")Integer unit,
+                           @RequestParam("specification")String[] specifications,
+                           @RequestParam("price")Double[] prices,
+                           @RequestParam("level")Integer[] levels,
+                           @RequestParam("unit")Integer[] units,
                            @RequestParam("categoryId")Long categoryId,
+                           @RequestParam("description") String description,
                            @RequestParam(value="attachments", required=false)String[] attachments) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
-        goodsService.add(params);
-        Long goodId = Long.parseLong(params.get("id").toString());
+        Long goodsId = null;
+        for(int i = 0,l=levels.length;i<l;i++){
+            Map<String,Object> goods = Maps.mapIt("name",name,"categoryId",categoryId,"price",prices[i],
+                "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description);
+            if(Objects.nonNull(goodsId)){
+                goods.put("goodsId",goodsId);
+            }
+            goodsService.add(goods);
+            if(Objects.isNull(goodsId)){
+                goodsId = Long.parseLong(goods.get("id").toString());
+                goodsService.updateGoodsId(goodsId,goodsId);
+            }
+        }
         if(attachments != null && attachments.length > 0){
             for(String attachment : attachments){
                 attachment = URLDecoder.decode(attachment,"UTF-8");
-                attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodId, "type", goodsImageType));
+                attachmentService.add(Maps.mapIt("url", attachment, "referenceId", goodsId, "type", goodsImageType));
             }
         }
         return WebResponse.build().setResult(params.get("id"));

@@ -103,4 +103,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     public void updatePrice(Double price,Long id) {
         goodsRepository.updatePrice(price,id);
     }
+
+    @Override
+    public void updateGoodsId(Long goodsId, Long id) {
+        goodsRepository.updateGoodsId(goodsId,id);
+    }
 }

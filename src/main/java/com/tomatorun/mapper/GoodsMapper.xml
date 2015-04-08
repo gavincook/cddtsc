@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tomatorun.repository.GoodsRepository">
     <select id="list" resultType="HashMap">
-        SELECT dt.id,dt.name,dt.price,dt.specification,td.name as level,tdic.name as unit
+        SELECT GROUP_CONCAT(dt.id SEPARATOR '@#$') as id,dt.name,GROUP_CONCAT(dt.price SEPARATOR '@#$') as price,
+        GROUP_CONCAT(dt.specification SEPARATOR '@#$') as specification,
+        GROUP_CONCAT(td.name SEPARATOR '@#$') as level,
+        GROUP_CONCAT(tdic.name SEPARATOR '@#$') as unit,dt.goodsId
         <if test="withCover==true">
             ,(SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
         </if>
@@ -31,11 +34,12 @@
         <if test="keyword!=null">
             AND dt.name like CONCAT('%',#{keyword},'%' )
         </if>
+        group by dt.goodsId
         limit ${offset},${pageSize}
     </select>
 
     <select id="list_count" resultType="Integer">
-        SELECT count(dt.id) from dt_goods dt
+        SELECT count(DISTINCT dt.goodsId) from dt_goods dt
         <if test="withCover==true">
             LEFT JOIN (SELECT * FROM dt_user_goods WHERE userId = #{userId}) dug ON dt.id = dug.goodsId
         </if>
@@ -61,6 +65,10 @@
          level = #{level},price=#{price},unit=#{unit},description = #{description} where id = #{id};
     </update>
 
+    <update id="updateGoodsId">
+        update dt_goods set goodsId = #{goodsId} where id = #{id};
+    </update>
+
     <update id="updatePrice">
         update dt_goods set price=#{price} where id = #{id};
     </update>
@@ -70,15 +78,19 @@
     </delete>
 
     <select id="get" resultType="HashMap">
-        select * from dt_goods where id = #{id};
+        select GROUP_CONCAT(dt.id SEPARATOR '@#$') as id,dt.name,GROUP_CONCAT(dt.price SEPARATOR '@#$') as price,
+        GROUP_CONCAT(dt.specification SEPARATOR '@#$') as specification,
+        GROUP_CONCAT(dt.level SEPARATOR '@#$') as level,
+        GROUP_CONCAT(dt.unit SEPARATOR '@#$') as unit,dt.goodsId,dt.description from dt_goods dt where goodsId = #{id}
+        GROUP by goodsId;
     </select>
 
     <insert id="add">
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert  into dt_goods(name,categoryId,specification,price,level,unit,description)
-        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit},#{description});
+        insert  into dt_goods(name,categoryId,specification,price,level,unit,description,goodsId)
+        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit},#{description},#{goodsId});
     </insert>
 
     <insert id="select">

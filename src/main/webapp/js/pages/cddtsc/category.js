@@ -99,6 +99,15 @@
             $input.css("color","#F00");
         });
 
+        $(".add-row").click(function(){
+           $(".rows-container").append($("#goodsRow").html());
+        });
+
+        $(document).on("click",".remove-row",function(e){
+            var goodsRow  = $(e.target).closest(".goods-row");
+            goodsRow.remove();
+        });
+
         $("#savePrice").click(function(){
             var ids = new Array(),prices = new Array();
             $(".price-box").each(function(index,e){
@@ -172,15 +181,30 @@
                     columns:[{name:"name",display:"商品",width:"300px",render:function(columnData){
                         return columnData.name;
                     }},
-                        {name:"specification",display:"规格",width:"300px"},
+                        {name:"specification",display:"规格",width:"300px",render:function(columnData){
+                            var ret = "";
+                            var specifications = columnData.specification.split("@#$");
+                            for(var index in specifications){
+                                ret += "<div class='item'>" +specifications[index]+ "</div>";
+                            }
+                            return ret;
+                        }},
                         {name:"price",display:"价格",width:300,render:function(columnData){
-                            return "<div class='input-group'><div class='input-group-addon'><i class='fa fa-rmb'></i> </div>" +
-                            "<input type='text' class='form-control price-box' data-id='"+columnData.id+"' value='"+columnData.price+"'>"+
-                            "</div>";
+                            var ret = "";
+                            var prices = columnData.price.split("@#$");
+                            var ids = columnData.id.split("@#$");
+                            for(var index in prices){
+                                ret += "<div class='item'><div class='input-group'><div class='input-group-addon'><i class='fa fa-rmb'></i> </div>" +
+                                "<input type='text' class='form-control price-box' data-id='"+ids[index]+"' value='"+prices[index]+"'>"+
+                                "</div></div>";
+                            }
+                            return ret;
                         }}
                     ],
                     params:{categoryId: currentCategoryId},
-                    formatData:function(data){return data.result;},
+                    formatData:function(data){
+                        return data.result;
+                    },
                     title:"商品列表",
                     rowId:"id",
                     treeTable:false,
@@ -228,7 +252,7 @@
                 return false;
             }
             var id = selectRows[0].id;
-            
+
             $('#categoryForm').dialog({
                 title:"编辑商品类别",
                 afterShown:function(){
@@ -395,7 +419,7 @@
                 moon.warn("请选中一条数据进行编辑.");
                 return false;
             }
-            var id = selectRows[0].id;
+            var id = selectRows[0].goodsId;
             fileIds = new Array();
             removeFileIds = new Array();
             $('#goodsForm').dialog({
@@ -403,15 +427,43 @@
                 size:"lg",
                 afterShown:function(){
                     $("#goodsForm").validate({align:'right',theme:"darkblue",model:"update"});
-                    $("#goodsForm").autoCompleteForm(contextPath+"/goods/get",{id:id},function(data){
-                        editor.setContent(data.description||"");
+                    $.getJsonData(contextPath+"/goods/get",{id:id}).done(function(data){
+                        var result = data.result;
+                        editor.setContent(result.description||"");
                         var $imgList = $(".uploader-list").empty();
-                        $.each(data.images,function(index,image){
+                        $("#goodsForm").find("[name='name']").val(result.name);
+
+                        var prices = result.price.split("@#$");
+                        var levels = result.level.split("@#$");
+                        var units = result.unit.split("@#$");
+                        var ids = result.id.split("@#$");
+                        var specifications = result.specification.split("@#$");
+                        $(".rows-container").empty();
+                        for(var i in prices){
+                            var goodsItem = $("#goodsRow>div").clone(true);
+                            goodsItem.find("[name='level']").val(levels[i]);
+                            goodsItem.find("[name='specification']").val(specifications[i]);
+                            goodsItem.find("[name='price']").val(prices[i]);
+                            goodsItem.find("[name='unit']").val(units[i]);
+                            goodsItem.find("[name='id']").val(ids[i]);
+                            $(".rows-container").append(goodsItem);
+                        }
+
+                        $.each(result.images,function(index,image){
                             var filepath = contextPath+"/file/get/"+image.url;
                             $imgList.append(moon.format(updateTemplate,filepath,image.id));
                             fileIds.push(image.id);//添加到文件队列
                         });
                     });
+                    //$("#goodsForm").autoCompleteForm(contextPath+"/goods/get",{id:id},function(data){
+                    //    editor.setContent(data.description||"");
+                    //    var $imgList = $(".uploader-list").empty();
+                    //    $.each(data.images,function(index,image){
+                    //        var filepath = contextPath+"/file/get/"+image.url;
+                    //        $imgList.append(moon.format(updateTemplate,filepath,image.id));
+                    //        fileIds.push(image.id);//添加到文件队列
+                    //    });
+                    //});
                     $(".consultation-reply-content",this.$e).html($("#contentContainer").removeClass("hide"));
                     initUploaderIfNecessary();
                 },
@@ -433,7 +485,7 @@
                                     console.log(attachments);
                                     console.log(removeFileIds);
                                     var param = {};
-                                    param.id = id;
+                                    param.goodsId = id;
                                     param.attachments = attachments;
                                     param.attachmentIds = removeFileIds;
                                     param.description =  editor.getContent();
