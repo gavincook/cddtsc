@@ -58,6 +58,9 @@ public class ArticleAction {
     @Config("dic.articleType")
     private String articleTypeDicKey;
 
+    @Config("articleStatus.checked")
+    private String articleChecked;
+
     @Get()
     @MenuMapping(url = "/article",name = "文章管理",code = "dt_article",parentCode = "dt")
     public ModelAndView showOrderPage(){
@@ -146,19 +149,18 @@ public class ArticleAction {
     @Get("/{id:\\d+}.html")
     public  ModelAndView preview(@PathVariable("id")Long id,@WebUser User user){
         Map<String,Object> article = articleService.get(Maps.mapIt("id",id));
-        return new ModelAndView("/pages/xheart/articleDetail","article",article);
+        return new ModelAndView("/pages/cddtsc/articleDetail","article",article);
     }
 
     /**
      * 审核
      * @param id
-     * @param status
      * @return
      */
     @Post("/check")
     @ResponseBody
-    public WebResponse check(@RequestParam("id")Long id,@RequestParam("status")Long status){
-        articleService.check(Maps.mapIt("id", id, "status", status));
+    public WebResponse check(@RequestParam("id")Long id){
+        articleService.check(Maps.mapIt("id", id, "status", articleChecked));
         return WebResponse.build();
     }
 }

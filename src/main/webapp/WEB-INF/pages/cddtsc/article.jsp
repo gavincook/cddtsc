@@ -33,7 +33,7 @@
         <label class="col-sm-1 control-label">文章类型：</label>
 
         <div class="col-sm-2">
-          <m:dicSelect code="articleType" css="form-control domain-name" defaultVal="1"
+          <m:dicSelect code="articleType" css="form-control type" defaultVal="1"
                        name="articleType"></m:dicSelect>
         </div>
 

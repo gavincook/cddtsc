@@ -9,20 +9,25 @@
 
         //初始化UEditor
         var um = UM.getEditor('container');
-        console.log("=======");
         table = $("#articleTable").table({
             url:contextPath+"/article/list",
             columns:[{name:"title",display:"文章标题",width:130,align:"center"},
+                {name:"time",display:"发表时间"},
+                {name:"status",render:function(rowData){
+                        return rowData.status == 1 ? "未审核":"已审核";
+                    },
+                    display:"审核状态"},
                 {name:"content",
                     render:function(rowData){
                         return "<div class=\"articleContentList\">"+rowData.content+"</div>";
-                        console.log(rowData);
                     },
                     display:"文章内容",width:300},
-                {name:"time",display:"发表时间"},
-                {display:"操作",render:function(){
+                {display:"操作",render:function(rowData){
                     var operation = $("<div class=\"operation\"></div>");
-                    operation.append("<a href=\"javascript:void(0)\" target=\"main\" class=\"show-article\">文章预览</a>");
+                    operation.append("<a href=\"javascript:void(0)\" target=\"main\" class=\"show-article\">文章预览</a>&nbsp");
+                    if(rowData.status == 1){
+                        operation.append("|&nbsp<a href=\"javascript:void(0)\" class=\"to-check\">审核通过</a>");
+                    }
                     return operation;
                 }}
             ],
@@ -54,8 +59,8 @@
         //搜索事件
         $(".search").click(function(){
             var articleKeyword = $(".article-title").val();
-            var domainCode = $(".domain-name").val();
-            var params = {keyword:articleKeyword,domain:domainCode};
+            var articleType = $(".type").val();
+            var params = {keyword:articleKeyword,type:articleType};
             table.refresh(params);
         });
 
@@ -72,9 +77,17 @@
             var $table = $(e.target);
             moon.addTab("文章预览",contextPath+"/article/"+articleId+".html",{refresh:true});
             return false;
-
         });
 
+        //审核通过
+        $(document).on("click",".to-check",function(e){
+            var rowData = table.getRowData($(e.currentTarget).closest("tr"));
+            var id = rowData.id;
+            var $table = $(e.target);
+            $.getJsonData(contextPath+"/article/check",{id:id},{type:"POST"}).done(function(result){
+                table.refresh();
+            });
+        });
     });
 
     function btnHandler(btnTest){

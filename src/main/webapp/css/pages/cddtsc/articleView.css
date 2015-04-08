@@ -1,0 +1,39 @@
+.articleHeader{
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: dashed #a3bde3 1px;
+}
+.articleHeader span{
+    padding: 0px 15px;
+    color: #666;
+}
+
+.articleBody{
+    min-height: 300px;
+    border-bottom: dashed  #a3bde3 1px;
+}
+.articleBody .articleContent img{
+    max-width: 60%;
+}
+
+.articleFooter{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.articleShare {
+    display: inline-block;
+    float: left;
+    margin-top: 8px;
+    width: 191px;
+}
+
+.articleType {
+    display: inline-block;
+    float: right;
+    margin-top: 21px;
+    margin-right: 30px;
+    margin-left: -100px;
+    color: #666;
+}
