@@ -75,4 +75,11 @@ public interface GoodsRepository {
      * @param id
      */
     public void updateGoodsId(@Param("goodsId")Long goodsId,@Param("id")Long id);
+
+    /**
+     * 根据id获取商品
+     * @param id
+     * @return
+     */
+    public Map<String,Object> getGoodsById(@Param("id")Long id);
 }

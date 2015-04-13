@@ -85,6 +85,10 @@
         GROUP by goodsId;
     </select>
 
+    <select id="getGoodsById" resultType="HashMap">
+        select * from dt_goods dt where id = #{id}
+    </select>
+
     <insert id="add">
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id

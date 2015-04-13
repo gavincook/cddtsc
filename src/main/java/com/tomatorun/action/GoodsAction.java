@@ -85,7 +85,8 @@ public class GoodsAction {
 
     @Post("/update")
     @ResponseBody
-    public WebResponse update(HttpServletRequest request, @RequestParam("goodsId")Long goodsId,@RequestParam("id")Long[] ids, @RequestParam("name")String name, @RequestParam("specification")String[] specifications,
+    public WebResponse update(HttpServletRequest request,@RequestParam(value = "deletedIds",required = false)Long[] deleteIds,
+                              @RequestParam("goodsId")Long goodsId,@RequestParam("id")Long[] ids, @RequestParam("name")String name, @RequestParam("specification")String[] specifications,
                               @RequestParam("price")Double[] prices,
                               @RequestParam("level")Integer[] levels,
                               @RequestParam("unit")Integer[] units,
@@ -93,12 +94,29 @@ public class GoodsAction {
                               @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
 
+        Long oldId;
+        if(ids.length>0){
+            oldId = ids[0];
+        }else{
+            oldId = deleteIds[0];
+        }
+        Map<String,Object> oldGoods = goodsService.getGoodsById(oldId);
+
         for(int i = 0,l=levels.length;i<l;i++){
-            Map<String,Object> goods = Maps.mapIt("id",ids[i],"name",name,"price",prices[i],
-                "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description);
-            goodsService.update(goods);
+            if(Objects.nonNull(ids[i])) {
+                Map<String, Object> goods = Maps.mapIt("id", ids[i], "name", name, "price", prices[i],
+                    "level", levels[i], "unit", units[i], "specification", specifications[i], "description", description);
+                goodsService.update(goods);
+            }else{//有新增的商品规格
+                Map<String,Object> goods = Maps.mapIt("name",name,"categoryId",oldGoods.get("categoryId"),"price",prices[i],
+                    "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description,"goodsId",oldGoods.get("goodsId"));
+                goodsService.add(goods);
+            }
         }
 
+        if(Objects.nonNull(deleteIds) && deleteIds.length>0){
+            delete(deleteIds);
+        }
         if(attachments != null && attachments.length > 0){
             for(String attachment : attachments){
                 attachment = URLDecoder.decode(attachment,"UTF-8");

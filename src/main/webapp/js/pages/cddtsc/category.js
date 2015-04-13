@@ -17,7 +17,7 @@
         +'</div>' ;
 
     var fileIds;
-    var removeFileIds;
+    var removeFileIds,deletedGoodsIds;
 
     //图片预览删除事件
     $(document).on("click","#fileContainer i",function(e){
@@ -106,6 +106,10 @@
         $(document).on("click",".remove-row",function(e){
             var goodsRow  = $(e.target).closest(".goods-row");
             goodsRow.remove();
+            var goodsId = goodsRow.attr("data-id");
+            if(goodsId) {
+                deletedGoodsIds.push(goodsId);
+            }
         });
 
         $("#savePrice").click(function(){
@@ -422,6 +426,7 @@
             var id = selectRows[0].goodsId;
             fileIds = new Array();
             removeFileIds = new Array();
+            deletedGoodsIds = [];
             $('#goodsForm').dialog({
                 title:"编辑商品",
                 size:"lg",
@@ -441,6 +446,7 @@
                         $(".rows-container").empty();
                         for(var i in prices){
                             var goodsItem = $("#goodsRow>div").clone(true);
+                            goodsItem.attr("data-id",ids[i]);
                             goodsItem.find("[name='level']").val(levels[i]);
                             goodsItem.find("[name='specification']").val(specifications[i]);
                             goodsItem.find("[name='price']").val(prices[i]);
@@ -489,6 +495,7 @@
                                     param.attachments = attachments;
                                     param.attachmentIds = removeFileIds;
                                     param.description =  editor.getContent();
+                                    param.deletedIds = deletedGoodsIds;
                                     $("#goodsForm").ajaxSubmitForm(contextPath+"/goods/update", param).done(function(data){
                                         if(data.success){
                                             $("#goodsForm").dialog("close");

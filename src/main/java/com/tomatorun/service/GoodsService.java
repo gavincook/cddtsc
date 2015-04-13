@@ -58,4 +58,6 @@ public interface GoodsService extends BaseService {
      * @param id
      */
     public void updateGoodsId(Long goodsId,Long id);
+
+    public Map<String,Object> getGoodsById(Long id);
 }

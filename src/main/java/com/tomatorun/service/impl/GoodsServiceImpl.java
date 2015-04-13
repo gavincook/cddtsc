@@ -108,4 +108,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     public void updateGoodsId(Long goodsId, Long id) {
         goodsRepository.updateGoodsId(goodsId,id);
     }
+
+    @Override
+    public Map<String, Object> getGoodsById(Long id) {
+        return goodsRepository.getGoodsById(id);
+    }
 }
