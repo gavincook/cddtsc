@@ -51,6 +51,7 @@
         <div class="goods-name">商品名称：&nbsp;${goods.name}</div>
         <div class="goods-price">价格：&nbsp;<i class="fa fa-rmb"></i> ${goods.price}</div>
         <div class="goods-price">等级：&nbsp; ${goods.level}</div>
+        <div class="goods-price">等级描述：&nbsp; ${goods.levelDescription}</div>
         <div class="goods-price">计量单位：&nbsp; ${goods.unit}</div>
         <div class="goods-buy">
             <span>购买数量：&nbsp;</span>

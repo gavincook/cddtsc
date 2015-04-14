@@ -84,7 +84,7 @@ public class GoodsAction {
         params.put("attachmentType",goodsImageType);
         params.put("withCover",true);
         params.put("userId",user.getId());
-        Pager pager = goodsService.listForPage(GoodsRepository.class,"list",params);
+        Pager pager = goodsService.listForPage(GoodsRepository.class,"listWithCover",params);
         return WebResponse.build().setResult(pager);
     }
 
@@ -103,6 +103,7 @@ public class GoodsAction {
                               @RequestParam("price")Double[] prices,
                               @RequestParam("level")Integer[] levels,
                               @RequestParam("unit")Integer[] units,
+                              @RequestParam("levelDescription")String[] levelDescriptions,
                               @RequestParam("description") String description,
                               @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
@@ -117,11 +118,11 @@ public class GoodsAction {
 
         for(int i = 0,l=levels.length;i<l;i++){
             if(Objects.nonNull(ids[i])) {
-                Map<String, Object> goods = Maps.mapIt("id", ids[i], "name", name, "price", prices[i],
+                Map<String, Object> goods = Maps.mapIt("levelDescription",levelDescriptions[i],"id", ids[i], "name", name, "price", prices[i],
                     "level", levels[i], "unit", units[i], "specification", specifications[i], "description", description);
                 goodsService.update(goods);
             }else{//有新增的商品规格
-                Map<String,Object> goods = Maps.mapIt("name",name,"categoryId",oldGoods.get("categoryId"),"price",prices[i],
+                Map<String,Object> goods = Maps.mapIt("levelDescription",levelDescriptions[i],"name",name,"categoryId",oldGoods.get("categoryId"),"price",prices[i],
                     "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description,"goodsId",oldGoods.get("goodsId"));
                 goodsService.add(goods);
             }
@@ -167,6 +168,7 @@ public class GoodsAction {
                            @RequestParam("specification")String[] specifications,
                            @RequestParam("price")Double[] prices,
                            @RequestParam("level")Integer[] levels,
+                           @RequestParam("levelDescription")String[] levelDescriptions,
                            @RequestParam("unit")Integer[] units,
                            @RequestParam("categoryId")Long categoryId,
                            @RequestParam("description") String description,
@@ -174,7 +176,7 @@ public class GoodsAction {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         Long goodsId = null;
         for(int i = 0,l=levels.length;i<l;i++){
-            Map<String,Object> goods = Maps.mapIt("name",name,"categoryId",categoryId,"price",prices[i],
+            Map<String,Object> goods = Maps.mapIt("levelDescription",levelDescriptions[i],"name",name,"categoryId",categoryId,"price",prices[i],
                 "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description);
             if(Objects.nonNull(goodsId)){
                 goods.put("goodsId",goodsId);

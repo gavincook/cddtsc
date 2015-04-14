@@ -48,6 +48,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"></label>
                     <label class="col-sm-2 control-label">商品等级:</label>
+                    <label class="col-sm-2 control-label">等级描述:</label>
                     <label class="col-sm-2 control-label">计量单位:</label>
                     <label class="col-sm-2 control-label">商品规格:</label>
                     <label class="col-sm-2 control-label">商品价格:</label>
@@ -59,6 +60,10 @@
                             <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
                         </div>
                         <div class="col-sm-2">
+                            <input type="text" placeholder="等级描述" class="form-control" name="levelDescription"
+                                   validate="validate[required]"/>
+                        </div>
+                        <div class="col-sm-2">
                             <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
                         </div>
                         <div class="col-sm-2">
@@ -68,12 +73,12 @@
                         <div class="col-sm-2">
                             <input type="text" placeholder="商品价格" class="form-control" name="price"
                                    validate="validate[required]"/>
+                            <i class="fa fa-times-circle remove-row"></i>
                         </div>
-                        <div class="col-sm-2"><i class="fa fa-times-circle remove-row"></i></div>
                     </div>
                 </div>
-                <div>
-                    <a href="#" class="floatr add-row">添加等级</a>
+                <div class="add-level">
+                    <a href="#" class="add-row">添加等级</a>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">商品图片:</label>
@@ -111,6 +116,10 @@
                 <m:dicSelect code="goodsLevel" name="level" css="form-control"></m:dicSelect>
             </div>
             <div class="col-sm-2">
+                <input type="text" placeholder="等级描述" class="form-control" name="levelDescription"
+                       validate="validate[required]"/>
+            </div>
+            <div class="col-sm-2">
                 <m:dicSelect code="goodsUnit" name="unit" css="form-control"></m:dicSelect>
             </div>
             <div class="col-sm-2">
@@ -118,11 +127,12 @@
                        validate="validate[required]"/>
             </div>
             <div class="col-sm-2">
-                <input type="text" placeholder="商品价格" class="form-control" name="price"
+                <input type="text" placeholder="商品价格" class="form-control width94" name="price"
                        validate="validate[required]"/>
+                <i class="fa fa-times-circle remove-row"></i>
             </div>
+
             <input type="hidden" name="id">
-            <div class="col-sm-2"><i class="fa fa-times-circle remove-row"></i></div>
         </div>
     </div>
 </div>

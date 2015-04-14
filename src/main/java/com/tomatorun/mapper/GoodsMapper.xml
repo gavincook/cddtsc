@@ -4,6 +4,7 @@
     <select id="list" resultType="HashMap">
         SELECT GROUP_CONCAT(dt.id SEPARATOR '@#$') as id,dt.name,GROUP_CONCAT(dt.price SEPARATOR '@#$') as price,
         GROUP_CONCAT(dt.specification SEPARATOR '@#$') as specification,
+        GROUP_CONCAT(dt.levelDescription SEPARATOR '@#$') as levelDescription,
         GROUP_CONCAT(td.name SEPARATOR '@#$') as level,
         GROUP_CONCAT(tdic.name SEPARATOR '@#$') as unit,dt.goodsId
         <if test="withCover==true">
@@ -61,7 +62,7 @@
     </select>
 
     <update id="update">
-        update dt_goods set name = #{name},specification=#{specification},
+        update dt_goods set name = #{name},specification=#{specification},levelDescription=#{levelDescription},
          level = #{level},price=#{price},unit=#{unit},description = #{description} where id = #{id};
     </update>
 
@@ -80,6 +81,7 @@
     <select id="get" resultType="HashMap">
         select GROUP_CONCAT(dt.id SEPARATOR '@#$') as id,dt.name,GROUP_CONCAT(dt.price SEPARATOR '@#$') as price,
         GROUP_CONCAT(dt.specification SEPARATOR '@#$') as specification,
+        GROUP_CONCAT(dt.levelDescription SEPARATOR '@#$') as levelDescription,
         GROUP_CONCAT(dt.level SEPARATOR '@#$') as level,
         GROUP_CONCAT(dt.unit SEPARATOR '@#$') as unit,dt.goodsId,dt.description from dt_goods dt where goodsId = #{id}
         GROUP by goodsId;
@@ -93,8 +95,8 @@
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert  into dt_goods(name,categoryId,specification,price,level,unit,description,goodsId)
-        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit},#{description},#{goodsId});
+        insert  into dt_goods(name,categoryId,specification,price,level,unit,description,goodsId,levelDescription)
+        values(#{name},#{categoryId},#{specification},#{price},#{level},#{unit},#{description},#{goodsId},#{levelDescription});
     </insert>
 
     <insert id="select">
@@ -107,7 +109,7 @@
 
     <select id="listForSupplier" resultType="HashMap">
         SELECT dt.name,dt.price,dug.id ,td.name as level,tdic.name as unit,dug.inventory,
-        (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+        (SELECT url FROM dt_attachment WHERE referenceId = dt.goodsId AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         join dt_user_goods dug
         on dug.goodsId = dt.id
@@ -154,7 +156,7 @@
 
     <select id="listGoods" resultType="HashMap">
         SELECT dt.id,dt.name,dt.price,dt.specification,td.name as level,tdic.name as unit
-        ,(SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+        ,(SELECT url FROM dt_attachment WHERE referenceId = dt.goodsId AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         join tab_dictionary td
         on td.code = dt.level and td.parentId = #{levelDicId}
@@ -172,14 +174,14 @@
 
     <select id="getGoodsDetail" resultType="HashMap">
         SELECT dt.id,dt.name,dt.price,dt.specification,
-          (SELECT url FROM dt_attachment WHERE referenceId = dt.id AND type =#{attachmentType} LIMIT 1 ) as cover
+          (SELECT url FROM dt_attachment WHERE referenceId = dt.goodsId AND type =#{attachmentType} LIMIT 1 ) as cover
         from dt_goods dt
         where id = #{id};
     </select>
     
     <select id="listGoodsOnSell" resultType="HashMap">
         SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit
-        ,(SELECT url FROM dt_attachment WHERE referenceId = dg.id AND type =#{attachmentType} LIMIT 1 ) AS cover
+        ,(SELECT url FROM dt_attachment WHERE referenceId = dg.goodsId AND type =#{attachmentType} LIMIT 1 ) AS cover
         FROM dt_user_goods dug
         JOIN dt_goods dg
         ON dug.goodsId = dg.id
@@ -232,7 +234,7 @@
     </select>
 
     <select id="getGoodsForShop" resultType="HashMap">
-        SELECT dug.id as userGoodsId,dg.id,dg.name,dg.price,dg.specification,dg.description,td.name AS level,tdic.name AS unit,
+        SELECT dg.levelDescription,dug.id as userGoodsId,dg.id,dg.name,dg.goodsId,dg.price,dg.specification,dg.description,td.name AS level,tdic.name AS unit,
         dug.inventory
         from dt_goods dg
         JOIN dt_user_goods dug
@@ -242,5 +244,61 @@
         JOIN tab_dictionary tdic
         ON tdic.code = dg.unit and tdic.parentId = #{unitDicId}
         where dug.id = #{userGoodsId}
+    </select>
+
+
+    <select id="listWithCover" resultType="HashMap">
+        SELECT dt.id,dt.name,dt.price,dt.specification,td.name as level,tdic.name as unit
+        <if test="withCover==true">
+            ,(SELECT url FROM dt_attachment WHERE referenceId = dt.goodsId AND type =#{attachmentType} LIMIT 1 ) as cover
+        </if>
+        from dt_goods dt
+        join tab_dictionary td
+        on td.code = dt.level and td.parentId = #{levelDicId}
+        join tab_dictionary tdic
+        on tdic.code = dt.unit and tdic.parentId = #{unitDicId}
+        <if test="withCover==true">
+            LEFT JOIN (SELECT * FROM dt_user_goods WHERE userId = #{userId}) dug ON dt.id = dug.goodsId
+        </if>
+        WHERE 1 = 1
+        <if test="withCover==true">
+            AND dug.id IS NULL
+        </if>
+        <if test="keyword==null">
+            <if test="withCover!=true">
+                <if test="categoryId==null">
+                    AND dt.categoryId is null
+                </if>
+                <if test="categoryId!=null">
+                    AND dt.categoryId = #{categoryId}
+                </if>
+            </if>
+        </if>
+        <if test="keyword!=null">
+            AND dt.name like CONCAT('%',#{keyword},'%' )
+        </if>
+        limit ${offset},${pageSize}
+    </select>
+
+    <select id="listWithCover_count" resultType="Integer">
+        SELECT count(dt.id) from dt_goods dt
+        <if test="withCover==true">
+            LEFT JOIN (SELECT * FROM dt_user_goods WHERE userId = #{userId}) dug ON dt.id = dug.goodsId
+        </if>
+        WHERE 1 = 1
+        <if test="withCover==true">
+            AND dug.id IS NULL
+        </if>
+        <if test="keyword==null">
+            <if test="categoryId==null">
+                AND dt.categoryId is null
+            </if>
+            <if test="categoryId!=null">
+                AND dt.categoryId = #{categoryId}
+            </if>
+        </if>
+        <if test="keyword!=null">
+            AND dt.name like CONCAT('%',#{keyword},'%' )
+        </if>
     </select>
 </mapper>

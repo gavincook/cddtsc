@@ -96,7 +96,7 @@ public class IndexAction {
     @RequestMapping("/{userGoodsId}_item.html")
     public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request, @PathVariable("userGoodsId")Long userGoodsId){
         Map<String,Object> goodsDetail = goodsService.getGoodsForShop(userGoodsId);
-        Map<String,Object> params = Maps.mapIt("referenceId",goodsDetail.get("id"),"type",goodsImageType);
+        Map<String,Object> params = Maps.mapIt("referenceId",goodsDetail.get("goodsId"),"type",goodsImageType);
         List<Map<String,Object>> goodsImages = attachmentService.list(params);
         System.out.println(goodsImages.size());
         return new ModelAndView("pages/cddtsc/goodsDetail").addObject("user",user).addObject("goods",goodsDetail).addObject("images",goodsImages);
