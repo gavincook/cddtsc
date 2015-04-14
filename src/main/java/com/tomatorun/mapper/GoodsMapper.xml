@@ -187,24 +187,35 @@
         ON td.code = dg.level and td.parentId = #{levelDicId}
         JOIN tab_dictionary tdic
         ON tdic.code = dg.unit and tdic.parentId = #{unitDicId}
+        join dt_category dc
+        on dc.id = dg.categoryId
+        where 1=1
         <if test="keyword!=null">
-          where dg.name like concat('%',#{keyword},'%')
+          and dg.name like concat('%',#{keyword},'%')
         </if>
-        group by dg.id
+        <if test="categoryId!=null">
+            and ( dc.id = #{categoryId} OR dc.parentId = #{categoryId} )
+        </if>
+        group by dg.goodsId
         limit ${offset},${pageSize}
     </select>
 
     <select id="listGoodsOnSell_count" resultType="Integer">
-        SELECT count(DISTINCT dg.id)
+        SELECT count(DISTINCT dg.goodsId)
         FROM dt_user_goods dug
         JOIN dt_goods dg
         ON dug.goodsId = dg.id
+        join dt_category dc
+        on dc.id = dg.categoryId
+        where 1=1
         <if test="keyword!=null">
-            where dg.name like concat('%',#{keyword},'%')
+            and dg.name like concat('%',#{keyword},'%')
         </if>
-
+        <if test="categoryId!=null">
+            and ( dc.id = #{categoryId} OR dc.parentId = #{categoryId} )
+        </if>
     </select>
-    
+
     <select id="listShopForGoods" resultType="HashMap">
         SELECT dug.id as goodsId,ds.name as shopName
         FROM dt_user_goods dug

@@ -438,3 +438,33 @@ body{
 .container{
     width: 1170px !important;
 }
+
+.menu-nav{
+    color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.32,#8EC867), color-stop(0.83,#68AC39));
+    background-image: -webkit-linear-gradient(#8EC867, #68AC39);
+    background-image: -moz-linear-gradient(top,#8EC867, #68AC39);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8EC867', endColorstr='#68AC39');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#8EC867', endColorstr='#68AC39')";
+    background-image: -ms-linear-gradient(#8EC867, #68AC39);
+    background-image: -o-linear-gradient(#8EC867, #68AC39);
+    background-image: linear-gradient(#8EC867, #68AC39);
+    margin-bottom: 20px;
+    margin-top: -10px;
+}
+
+.menu-nav .menu-item{
+    height: 40px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 10px;
+    color: #FFFFFF;
+}
+
+.menu-nav .menu-item:hover{
+    background: #68AC39;
+    text-decoration: none;
+}

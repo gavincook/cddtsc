@@ -103,12 +103,13 @@ public class IndexAction {
     }
 
     /**
-     * 获取要在主页展示的商品列表(默认一页30个)
+     * 获取要在主页展示的商品列表(默认一页30个) 弃用，使用goodsAction.listGoodsOnSell
      * @param request
      * @return
      */
     @Get("/listGoods")
     @ResponseBody
+    @Deprecated
     public WebResponse listGoods(HttpServletRequest request){
         Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
         params.put("attachmentType",goodsImageType);
@@ -138,5 +139,10 @@ public class IndexAction {
     @LoginRequired
     public ModelAndView showMyPage(@WebUser User user){
         return new ModelAndView("pages/cddtsc/my_daotong","user",user.toAllMap()).addObject("shop",shopService.getForUser(user.getId()));
+    }
+
+    @Get("/category_{id}.html")
+    public ModelAndView showCategoryPage(@WebUser User user,@PathVariable("id")String categoryId){
+        return new ModelAndView("pages/cddtsc/categoryGoods","categoryId",categoryId);
     }
 }

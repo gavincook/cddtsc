@@ -12,7 +12,8 @@
         <if test="parentId!=null">
             WHERE c.`parentId` = #{parentId}
         </if>
-        GROUP BY c.id;
+        GROUP BY c.id
+        limit ${offset},${pageSize}
     </select>
 
     <select id="list_count" resultType="Integer">

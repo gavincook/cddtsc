@@ -2,6 +2,7 @@ package org.moon.rbac.interceptor;
 
 import com.codahale.metrics.Timer;
 import com.reeham.component.ddd.model.ModelContainer;
+import com.tomatorun.service.CategoryService;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.moon.core.domain.DomainLoader;
@@ -55,6 +56,9 @@ public class RbacInterceptor implements MethodInterceptor {
 
     @Resource
     private DomainLoader domainLoader;
+
+    @Resource
+    private CategoryService categoryService;
 
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
@@ -130,50 +134,52 @@ public class RbacInterceptor implements MethodInterceptor {
             } finally {
                 context.stop();
             }
-            if((o instanceof ModelAndView || (!method.isAnnotationPresent(ResponseBody.class) && o instanceof String))
-                    && Objects.nonNull(currentRole)){
-                List<Menu> menus = domainLoader.load(Role.class, currentRole.getId()).getTopMenus();
-                Map<String,Object> data = Maps.mapIt("menus",menus);
-                data.put("currentUser",currentUser);
-                List<Map> subMenus;
-                MenuMapping currentMenuMapping = method.getAnnotation(MenuMapping.class);
-                if(Objects.nonNull(currentMenuMapping)){//如果配置了menuMapping的菜单,则可以通过menuMapping获取父菜单
-                   for(Menu m : menus) {
-                       if (Objects.nonNull(currentMenuMapping) && m.getCode().equals(currentMenuMapping.parentCode())) {
-                           subMenus = menuService.getSubMenusForRole(m.getId(), currentRole.getId());
-                           data.put("subMenus", subMenus);
-                           data.put("expandMenuCode", m.getCode());
-                           for (Map menu : subMenus) {
-                               if (currentMenuMapping.code().equals(menu.get("code"))) {
-                                   data.put("currentMenu", menu);//当前菜单
-                                   break;
-                               }
-                           }
-                       }
-                   }
-                }else{//通过xml配置的页面（顶级菜单和静态页面）
-                    String url = currentServletRequest.getRequestURI()+"?"+currentServletRequest.getQueryString();
-                    Menu currentMenu = menuService.getSpecialMenuForRole(url,currentRole.getId());
-                    if(Objects.nonNull(currentMenu)){
-                        data.put("currentMenu", currentMenu);
-                        for(Menu m : menus) {
-                            if (m.getId().equals(currentMenu.getParentId())||m.getCode().equals(currentMenu.getParentCode())) {
+            if((o instanceof ModelAndView || (!method.isAnnotationPresent(ResponseBody.class) && o instanceof String))){
+                ModelAndView result;
+                if (o instanceof String) {
+                    result = new ModelAndView((String) o);
+                } else {
+                    result = (ModelAndView) o;
+                }
+
+                if(Objects.nonNull(currentRole)) {
+                    List<Menu> menus = domainLoader.load(Role.class, currentRole.getId()).getTopMenus();
+                    Map<String, Object> data = Maps.mapIt("menus", menus);
+                    data.put("currentUser", currentUser);
+                    List<Map> subMenus;
+                    MenuMapping currentMenuMapping = method.getAnnotation(MenuMapping.class);
+                    if (Objects.nonNull(currentMenuMapping)) {//如果配置了menuMapping的菜单,则可以通过menuMapping获取父菜单
+                        for (Menu m : menus) {
+                            if (Objects.nonNull(currentMenuMapping) && m.getCode().equals(currentMenuMapping.parentCode())) {
                                 subMenus = menuService.getSubMenusForRole(m.getId(), currentRole.getId());
                                 data.put("subMenus", subMenus);
                                 data.put("expandMenuCode", m.getCode());
+                                for (Map menu : subMenus) {
+                                    if (currentMenuMapping.code().equals(menu.get("code"))) {
+                                        data.put("currentMenu", menu);//当前菜单
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } else {//通过xml配置的页面（顶级菜单和静态页面）
+                        String url = currentServletRequest.getRequestURI() + "?" + currentServletRequest.getQueryString();
+                        Menu currentMenu = menuService.getSpecialMenuForRole(url, currentRole.getId());
+                        if (Objects.nonNull(currentMenu)) {
+                            data.put("currentMenu", currentMenu);
+                            for (Menu m : menus) {
+                                if (m.getId().equals(currentMenu.getParentId()) || m.getCode().equals(currentMenu.getParentCode())) {
+                                    subMenus = menuService.getSubMenusForRole(m.getId(), currentRole.getId());
+                                    data.put("subMenus", subMenus);
+                                    data.put("expandMenuCode", m.getCode());
+                                }
                             }
                         }
                     }
+                    result.addAllObjects(data);
                 }
 
-
-                ModelAndView result ;
-                if(o instanceof String){
-                    result = new ModelAndView((String) o);
-                }else{
-                    result = (ModelAndView) o;
-                }
-                result.addAllObjects(data);
+                result.addObject("categories", categoryService.list(Maps.mapIt("offset", 0, "pageSize", 15)));
                 o = result;
             }
             return o;

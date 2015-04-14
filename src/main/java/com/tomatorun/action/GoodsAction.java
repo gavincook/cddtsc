@@ -60,6 +60,19 @@ public class GoodsAction {
     }
 
     /**
+     * 获取类别下的所有商品
+     * @param request
+     * @return
+     */
+    @Get("/listGoodsForCategory")
+    @ResponseBody
+    public WebResponse listGoodsForCategory(HttpServletRequest request,@RequestParam("categoryId")Long categoryId){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        Pager pager = goodsService.listForPage(GoodsRepository.class,"listGoodsOnSell",params);
+        return WebResponse.success(pager);
+    }
+
+    /**
      * 商品选择页面，列出带封面的商品列表.只列出没有被该用户添加的商品
      * @param request
      * @return

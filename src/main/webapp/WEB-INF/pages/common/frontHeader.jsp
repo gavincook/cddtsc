@@ -50,6 +50,14 @@
         </form>
     </div>
   </div>
+
+    <div class="menu-nav">
+        <div class="container">
+            <c:forEach items="${categories}" var="category">
+                <a class="menu-item" href="${pageContext.request.contextPath}/category_${category.id}.html">${category.name}</a>
+            </c:forEach>
+        </div>
+    </div>
 </div>
 
     <script type="text/javascript">
