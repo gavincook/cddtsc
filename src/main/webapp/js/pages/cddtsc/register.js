@@ -8,7 +8,6 @@
         } else {
             var validate = RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/).test(field.val());
             if (!validate) {
-                alert("美国");
                 return "请输入有效的手机号!";
             }
             else
@@ -66,7 +65,7 @@
                 param.dataType = "Json";
                 if(result === true){
                     $.getJsonData("/user/register",userData,param).done(function(){
-
+                        window.location.href=contextPath+"/user/login.html";
                     });
                 }
             }
