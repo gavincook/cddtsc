@@ -50,7 +50,7 @@ public class IndexAction {
     @RequestMapping("/index")
     @LoginRequired
     public void index(HttpServletResponse response) throws Exception{
-        response.sendRedirect("admin");
+        response.sendRedirect("/user/my");
     }
 
 	@RequestMapping("/")

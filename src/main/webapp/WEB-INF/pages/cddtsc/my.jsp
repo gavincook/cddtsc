@@ -19,7 +19,7 @@
         <div class="my-info-container">
             <div class="my-avatar">
                 <div class="image-container">
-                    <img id="avatar" src="/file/get/${user.avatar}" alt="个人头像">
+                    <img id="avatar" src="/file/get/${user.avatar}" alt="个人头像" onerror="javascript:this.src='${pageContext.request.contextPath}/css/images/avatar.png'">
                 </div>
                 <i class="fa fa-camera update-avatar"></i>
             </div>

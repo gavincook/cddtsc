@@ -36,7 +36,8 @@
              showPagination : true,//是否显示分页栏
                   showTitle : true,//是否显示title
             showTableHeader : true,//是否显示表格标题
-          serialNumberScope : "all"//序列号作用范围可选值为"page"或"all". 如果为page则序列号会为每一页重新生成序列号,如果为all则序列号在翻页时会继续累加
+          serialNumberScope : "all",//序列号作用范围可选值为"page"或"all". 如果为page则序列号会为每一页重新生成序列号,如果为all则序列号在翻页时会继续累加
+		           callback : undefined//渲染成功回调
 	};
 
 	var methods  = {
@@ -282,6 +283,7 @@
 				
 				tableCache[$container.selector] = tableInstance;//加入缓存
 				methods.bindEvents.call(tableInstance);
+				!opts.callback || opts.callback.call(tableInstance);
 			});
 			return tableInstance;
 		},

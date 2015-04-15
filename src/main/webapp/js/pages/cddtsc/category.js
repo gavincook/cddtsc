@@ -130,6 +130,9 @@
                 });
                 return $dfd;
             },
+            callback:function(){
+                $("[data-number='0']",this.$container).trigger("click");
+            },
             buttons:[
                 {
                     text:"增加商品类别",
@@ -137,7 +140,7 @@
                     name:'addBtn'
                 },
                 {
-                    text:"增加字类别",
+                    text:"增加子类别",
                     click:categoryBtnHandler,
                     name:'addChildBtn'
                 },
@@ -516,7 +519,10 @@
             if(confirm("确认删除这"+selectRows.length+"条数据?")){
                 var ids="";
                 $.each(selectRows,function(index,e){
-                    ids+="&ids="+e.id;
+
+                    $.each(e.id.split("@#$"),function(i,id){
+                        ids+="&ids="+id;
+                    });
                 });
                 ids = ids.substring(1);
                 $.post(contextPath+"/goods/delete",ids,function(result){

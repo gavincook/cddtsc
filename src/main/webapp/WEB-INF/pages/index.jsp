@@ -13,7 +13,7 @@
 <body class="index">
 <%@ include file="common/nav.jsp" %>
 <section class="content-section">
-
+    
 </section>
 </body>
 </html>

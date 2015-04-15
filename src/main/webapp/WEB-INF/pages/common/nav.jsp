@@ -33,7 +33,7 @@
 </script>
 <div class="top-navbar">
     <div class="navbar-header">
-        <a href="/" class="logo-con">
+        <a href="/admin" class="logo-con">
             <i class="fa fa-heartbeat font-logo"></i>
             <span class="title">成都道通蔬菜</span>
         </a>
@@ -42,7 +42,7 @@
         <a href="${pageContext.request.contextPath}/user/my" data-content="个人信息">
             <div class="avatar-container">
                 <img src="${pageContext.request.contextPath}/file/get/${currentUser.avatar}"
-                        onerror="javascript:this.src='${pageContext.request.contextPath}/css/images/logo.png'">
+                        onerror="javascript:this.src='${pageContext.request.contextPath}/css/images/avatar.png'">
             </div>
             <c:if test="${currentUser.realName!=null}">${currentUser.realName}</c:if>
             <c:if test="${currentUser.realName==null}">${currentUser.userName}</c:if>

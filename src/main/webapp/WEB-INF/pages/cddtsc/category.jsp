@@ -68,7 +68,7 @@
                                    validate="validate[required]"/>
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" placeholder="商品价格" class="form-control" name="price"
+                            <input type="text" placeholder="商品价格" class="form-control width94" name="price"
                                    validate="validate[required]"/>
                             <i class="fa fa-times-circle remove-row"></i>
                         </div>
