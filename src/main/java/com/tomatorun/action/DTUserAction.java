@@ -370,4 +370,20 @@ public class DTUserAction {
         request.getSession().setAttribute(User.CURRENT_USER_ID, null);
         return new ModelAndView("pages/cddtsc/login");
     }
+
+    /**
+     * 批量更新余额
+     * @param ids
+     * @param balances
+     * @return
+     */
+    @Post("/updateBalance")
+    @ResponseBody
+    public WebResponse updatePrice(@RequestParam("ids")Long[] ids,@RequestParam("balances")Double[] balances){
+        for(int i=0,l=ids.length;i<l;i++){
+            dTUserService.updatePrice(ids[i],balances[i]);
+        }
+        return WebResponse.success();
+    }
+
 }

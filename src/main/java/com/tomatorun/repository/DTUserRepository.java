@@ -134,4 +134,11 @@ public interface DTUserRepository {
      * @param userId
      */
     public void consume(@Param("balance")Double balance,@Param("userId")Long userId);
+
+    /**
+     * 更新余额
+     * @param userId
+     * @param balance
+     */
+    public void updateBalance(@Param("userId")Long userId,@Param("balance")Double balance);
 }

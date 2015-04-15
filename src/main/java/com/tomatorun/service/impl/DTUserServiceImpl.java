@@ -123,4 +123,9 @@ public class DTUserServiceImpl extends AbstractService implements DTUserService 
     public void consume(Double balance, Long userId) {
         dTUserRepository.consume(balance,userId);
     }
+
+    @Override
+    public void updatePrice(Long userId,Double balance) {
+        dTUserRepository.updateBalance(userId,balance);
+    }
 }

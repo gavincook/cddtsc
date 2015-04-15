@@ -19,12 +19,27 @@
                          opts += "<a href='#' class='reset-password'><i class='fa fa-key'></i>重置密码 </a>";
                          opts += "</div>";
                          return opts;
-                     }}
+                     }},
+                     userType==moon.constants["userType.member"] ?{name:"balance",display:"余额",width:300,render:function(columnData){
+                         var ret = "";
+                         console.log(columnData);
+                         var balance = columnData.balance||0;
+                         var id = columnData.id;
+                         ret = "<div class='item'><div class='input-group'><div class='input-group-addon'><i class='fa fa-rmb'></i> </div>" +
+                         "<input type='text' class='form-control balance-box' data-id='"+id+"' value='"+balance+"'>"+
+                         "</div></div>";
+                         return ret;
+                     }}:{}
             ],
             formatData:function(data){return data.result;},
             title:title,
             rowId:"id",
             buttons:[
+                userType==moon.constants["userType.member"]? {
+                    text:"保存修改",
+                    click:btnHandler,
+                    name:'updateBtn'
+                }:{},
                 {
                     text:userType==moon.constants["userType.manager"]? "添加管理员" : (userType==moon.constants["userType.member"]?"添加会员":"添加社员"),
                     click:btnHandler,
@@ -186,6 +201,23 @@
                     table.refresh();
                 });
             }
+        }else if(btnTest == 'updateBtn'){ //更新
+            var ids = new Array(),balances = new Array();
+            $(".balance-box").each(function(index,e){
+                ids.push($(e).attr("data-id"));
+                balances.push(e.value);
+            });
+            $.getJsonData(contextPath+"/user/updateBalance",{
+                ids:ids,
+                balances:balances
+            },{type:"Post",traditional:true}).done(function(data){
+                if(data.success){
+                    moon.success("余额更新成功");
+                }else{
+                    moon.error("余额更新失败");
+                }
+            });
+
         }
     };
 

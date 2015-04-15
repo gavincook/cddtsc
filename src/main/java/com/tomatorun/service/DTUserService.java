@@ -132,4 +132,11 @@ public interface DTUserService extends BaseService {
      * @param userId
      */
     public void consume(Double balance,Long userId);
+
+    /**
+     * 更新余额
+     * @param balance
+     * @param userId
+     */
+    public void updatePrice(Long userId,Double balance);
 }
