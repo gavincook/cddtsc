@@ -16,6 +16,7 @@ import org.moon.rbac.service.RoleService;
 import org.moon.rbac.service.UserService;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
+import org.moon.utils.MD5;
 import org.moon.utils.Objects;
 import org.moon.utils.ParamUtils;
 import org.springframework.stereotype.Controller;
@@ -172,7 +173,7 @@ public class UserAction extends BaseAction {
 
     @LoginRequired
     @Get("/~/changePassword")
-    @MenuMapping(code = "platform_5", name = "修改密码", url = "/user/~/changePassword", parentCode = "platform")
+    @MenuMapping(code = "platform_5", name = "修改密码", url = "/user/~/changePassword", parentCode = "dt")
     public ModelAndView showChangePasswordPage(@WebUser User user) {
         String info = null;
         if (user.isSysUser()) {
@@ -192,7 +193,7 @@ public class UserAction extends BaseAction {
     public
     @ResponseBody
     WebResponse matchOldPassword(@WebUser User user, @RequestParam("password") String newPassword) {
-        if (user.getPassword().equals(newPassword)) {
+        if (user.getPassword().equals(MD5.getCryptographicPassword(newPassword))) {
             return WebResponse.build().setSuccess(true);
         } else {
             return WebResponse.build().setSuccess(false);

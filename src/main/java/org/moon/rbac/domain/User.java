@@ -80,11 +80,11 @@ public class User extends BaseDomain{
 
     private String idNumber;
 
-    private String phoneNumber;
+//    private String phoneNumber;
 
     private String avatar;
 
-    private int age;
+//    private int age;
     /**
 	 * 密码是否加密
 	 */
@@ -129,10 +129,10 @@ public class User extends BaseDomain{
 		m.put("realName", realName);
         m.put("idNumber",idNumber);
         m.put("type",type);
-        m.put("phoneNumber",phoneNumber);
+//        m.put("phoneNumber",phoneNumber);
         m.put("avatar",avatar);
         m.put("sex",sex);
-        m.put("age",age);
+//        m.put("age",age);
 		return m;
 	}
 	
@@ -313,13 +313,13 @@ public class User extends BaseDomain{
         this.idNumber = idNumber;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+//    public String getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//
+//    public void setPhoneNumber(String phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
 
     public String getAvatar() {
         return avatar;
@@ -329,13 +329,13 @@ public class User extends BaseDomain{
         this.avatar = avatar;
     }
 
-    public int getAge() {
-        return age;
-    }
+//    public int getAge() {
+//        return age;
+//    }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+//    public void setAge(int age) {
+//        this.age = age;
+//    }
 
     /******************** /setter/getter  ********************/
 }

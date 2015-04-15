@@ -7,29 +7,35 @@ $(function() {
 	});
 	$("#confirm").click(function() {
 		$("form").validate("validate");
-		alert($("form").validate("getResult"));
-		$.postData(contextPath + "/user/doChangePassword", {
-			password : $("#newPassword").val()
-		}, function() {
-			alert("密码修改成功.");
-			$("form").reset();
-		}, function() {
-			alert("密码修改出错.");
-			$("form").reset();
+		$("form").validate("validate").done(function(result){
+			if(result){
+				$.getJsonData(contextPath + "/user/~/doChangePassword", {
+					password : $("#newPassword").val()
+				},{type:"Post"}).done(function(data) {
+					if(data.success) {
+						moon.success("密码修改成功.");
+						$("form").reset();
+					}else{
+						moon.error("密码修改失败.");
+						$("form").reset();
+					}
+				});
+			}
 		});
+
 	});
 });
 
 function checkOldPassword() {
-	var msg = "";
-	$.postData(contextPath + "/user/matchOldPassword", {
+	var dfd = $.Deferred();
+	$.getJsonData(contextPath + "/user/~/matchOldPassword", {
 		password : $("#oldPassword").val()
-	}, function() {
-
-	}, function() {
-		msg = "原密码不正确，请核对.<br/>";
-	}, function() {
-
-	}, false);
-	return msg;
+	},{type:"Get"}).done(function(data) {
+		if(!data.success){
+			dfd.resolve("原密码不正确，请核对.<br/>");
+		}else{
+			dfd.resolve("");
+		}
+	});
+	return dfd.promise();
 }
