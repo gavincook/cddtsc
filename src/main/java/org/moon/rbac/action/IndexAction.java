@@ -24,7 +24,6 @@ import java.util.List;
  * @date 2012-12-4
  */
 @Controller
-@LoginRequired
 public class IndexAction {
 	@Resource
 	private DomainLoader domainLoader;
@@ -35,7 +34,8 @@ public class IndexAction {
 	 * @return
 	 * @throws Exception 
 	 */
-	@RequestMapping("/index")
+	@RequestMapping("/admin")
+    @LoginRequired
 	public ModelAndView index(@WebUser User user) throws Exception{
 
         List<Menu> menus = new ArrayList<Menu>();
@@ -46,9 +46,15 @@ public class IndexAction {
 		.addObject("currentUser",user)
 		.addObject("menus",menus);
 	}
-	
+
+    @RequestMapping("/index")
+    @LoginRequired
+    public void index(HttpServletResponse response) throws Exception{
+        response.sendRedirect("admin");
+    }
+
 	@RequestMapping("/")
 	public void home(HttpServletResponse response) throws Exception{
-		response.sendRedirect("index");
+		response.sendRedirect("index.html");
 	}
 }

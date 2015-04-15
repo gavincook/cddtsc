@@ -157,7 +157,7 @@ public class OrderAction {
                 case 1 : currentStatus="等待配送";frontOpt=false;break;
                 case 2 : currentStatus="配送中";frontOpt=false;break;
                 case 3 : orderBtnText = "确认收货";action="confirmOrder";break;
-                case 4 : currentStatus="已完成";frontOpt = false;break;
+                case 4 : currentStatus="已完成";frontOpt = true;orderBtnText = "评论";break;
                 default: currentStatus="已取消";frontOpt = false;
             }
             ((HashMap<String, Object>) order).put("orderBtnText",orderBtnText);//按钮文字

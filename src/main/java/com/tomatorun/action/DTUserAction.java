@@ -168,11 +168,11 @@ public class DTUserAction {
             params.put("type",associatorUserType);
             params.put("groupLeaderId",user.getId());
         }else{
-            return WebResponse.build().setSuccess(false);
+            return WebResponse.fail();
         }
 
         dTUserService.add(params);
-        return WebResponse.build();
+        return WebResponse.success();
     }
 
     /**

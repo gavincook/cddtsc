@@ -7,8 +7,10 @@
             return "";
         } else {
             var validate = RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/).test(field.val());
-            if (!validate)
+            if (!validate) {
+                alert("美国");
                 return "请输入有效的手机号!";
+            }
             else
                 return "";
         }
@@ -37,7 +39,6 @@
                 if (result.result) {
                     dfd.resolve("用户名已经存在.<br/>");
                 } else {
-                    console.log(result.result);
                     dfd.resolve("");
                 }
             });
