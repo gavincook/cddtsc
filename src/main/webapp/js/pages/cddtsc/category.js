@@ -112,25 +112,6 @@
             }
         });
 
-        $("#savePrice").click(function(){
-            var ids = new Array(),prices = new Array();
-            $(".price-box").each(function(index,e){
-                ids.push($(e).attr("data-id"));
-                prices.push(e.value);
-            });
-            $.getJsonData(contextPath+"/goods/updatePrice",{
-                goodsId:ids,
-                prices:prices
-            },{type:"Post",traditional:true}).done(function(data){
-               if(data.success){
-                   moon.success("价格更新成功");
-               }else{
-                   moon.error("价格更新失败");
-               }
-            });
-        });
-
-
         categoryTable = $("#categoryTable").table({
             url:contextPath+"/category/list",
             columns:[{name:"name",display:"类别名字",width:"300px"}
@@ -215,6 +196,11 @@
                     multiSelect:false,
                     pageSize:100,
                     buttons:[
+                        {
+                            text: "保存更新",
+                            click: goodsBtnHandler,
+                            name: 'updateBtn'
+                        },
                         {
                             text:"增加商品",
                             click:goodsBtnHandler,
@@ -537,6 +523,22 @@
                     goodsTable.refresh();
                 });
             }
+        }else if(btnTest == 'updateBtn'){
+            var ids = new Array(),prices = new Array();
+            $(".price-box").each(function(index,e){
+                ids.push($(e).attr("data-id"));
+                prices.push(e.value);
+            });
+            $.getJsonData(contextPath+"/goods/updatePrice",{
+                goodsId:ids,
+                prices:prices
+            },{type:"Post",traditional:true}).done(function(data){
+                if(data.success){
+                    moon.success("价格更新成功");
+                }else{
+                    moon.error("价格更新失败");
+                }
+            });
         }
     };
 

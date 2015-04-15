@@ -21,9 +21,6 @@
                 </div>
 
             </div>
-            <div class="save-price-con">
-                <button type="button" class="btn btn-danger btn-block" id="savePrice">保存</button>
-            </div>
             <form id="categoryForm" class="hide form-horizontal">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">类别名字:</label>
