@@ -36,15 +36,16 @@ public class IndexAction {
 	 */
 	@RequestMapping("/admin")
     @LoginRequired
-	public ModelAndView index(@WebUser User user) throws Exception{
+	public void index(@WebUser User user,HttpServletResponse response) throws Exception{
 
-        List<Menu> menus = new ArrayList<Menu>();
-        if(Objects.nonNull(user.getRoleId())){
-            menus = domainLoader.load(Role.class, user.getRoleId()).getTopMenus();
-        }
-		return new ModelAndView("pages/index")
-		.addObject("currentUser",user)
-		.addObject("menus",menus);
+//        List<Menu> menus = new ArrayList<Menu>();
+//        if(Objects.nonNull(user.getRoleId())){
+//            menus = domainLoader.load(Role.class, user.getRoleId()).getTopMenus();
+//        }
+//		return new ModelAndView("pages/index")
+//		.addObject("currentUser",user)
+//		.addObject("menus",menus);
+		response.sendRedirect("/user/my");
 	}
 
     @RequestMapping("/index")

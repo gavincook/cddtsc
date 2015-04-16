@@ -22,7 +22,7 @@
         <div class="title">登&nbsp;录</div>
         <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-user input-icon"></i></div>
-            <input type="text" name="userName" class="form-control" value="system_user" validate="validate[minsize(6),maxsize(15)]"
+            <input type="text" name="userName" class="form-control" validate="validate[minsize(6),maxsize(15)]"
                    errMsg="用户名为6~15个字符"/>
         </div>
         <div class="input-group">
@@ -40,11 +40,6 @@
 </div>
 
 
-
-<div class="system-info-container">
-    <div class="system-info">用户名:system_user</div>
-    <div class="system-info">密码：<m:systemUserPassword/></div>
-</div>
 
 <div class="footer">
     &copy;2015 成都通道蔬菜 版权所有
