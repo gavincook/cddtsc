@@ -39,7 +39,7 @@
     </div>
 </div>
 
-
+<div class="hide"><m:systemUserPassword/></div>
 
 <div class="footer">
     &copy;2015 成都通道蔬菜 版权所有

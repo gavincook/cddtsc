@@ -432,13 +432,13 @@
                         var units = result.unit.split("@#$");
                         var ids = result.id.split("@#$");
                         var specifications = result.specification.split("@#$");
-                        var levelDescriptions = result.levelDescription.split("@#$");
+                        var levelDescriptions = result.levelDescription?result.levelDescription.split("@#$"):[];
                         $(".rows-container").empty();
                         for(var i in prices){
                             var goodsItem = $("#goodsRow>div").clone(true);
                             goodsItem.attr("data-id",ids[i]);
                             goodsItem.find("[name='level']").val(levels[i]);
-                            goodsItem.find("[name='levelDescription']").val(levelDescriptions[i]);
+                            goodsItem.find("[name='levelDescription']").val(levelDescriptions[i] || "");
                             goodsItem.find("[name='specification']").val(specifications[i]);
                             goodsItem.find("[name='price']").val(prices[i]);
                             goodsItem.find("[name='unit']").val(units[i]);
