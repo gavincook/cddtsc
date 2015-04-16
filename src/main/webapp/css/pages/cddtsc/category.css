@@ -4,7 +4,6 @@
     top:88px;
     width: 50%;
     margin-right: 5px;
-    border-right: solid 1px #78a2cc;
 }
 .content-section{
     position: absolute;
@@ -20,7 +19,22 @@
     top:88px;
     margin-left: 5px;
     right: 0;
-    border-left: solid 1px #78a2cc;
+}
+
+.splitor{
+    width: 5px;
+    position: absolute;
+    left:50%;
+    top:80px;
+    bottom: 0px;
+    font-size: 30px;
+    color: #F9A34F;
+}
+
+.splitor i{
+    position: absolute;
+    top:50%;
+    left:-4px;
 }
 
 .wrapper .datagrid{

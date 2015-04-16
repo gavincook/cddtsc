@@ -11,7 +11,7 @@
 <body>
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
 
         <div id="dictionaryTable"></div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </form>
-    </section>
+    </div>
 </div>
 </body>
 </html>

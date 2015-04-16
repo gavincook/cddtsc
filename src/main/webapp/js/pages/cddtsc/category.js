@@ -135,7 +135,7 @@
             },
             buttons:[
                 {
-                    text:"增加商品类别",
+                    text:"增加类别",
                     click:categoryBtnHandler,
                     name:'addBtn'
                 },
@@ -145,12 +145,12 @@
                     name:'addChildBtn'
                 },
                 {
-                    text:"编辑商品类别",
+                    text:"编辑",
                     click:categoryBtnHandler,
                     name:'editBtn'
                 },
                 {
-                    text:"删除商品类别",
+                    text:"删除",
                     click:categoryBtnHandler,
                     name:'deleteBtn'
                 }
@@ -200,7 +200,7 @@
                     pageSize:100,
                     buttons:[
                         {
-                            text: "保存更新",
+                            text: "保存价格",
                             click: goodsBtnHandler,
                             name: 'updateBtn'
                         },
@@ -210,12 +210,12 @@
                             name:'addBtn'
                         },
                         {
-                            text:"编辑商品",
+                            text:"编辑",
                             click:goodsBtnHandler,
                             name:'editBtn'
                         },
                         {
-                            text:"删除商品",
+                            text:"删除",
                             click:goodsBtnHandler,
                             name:'deleteBtn'
                         }

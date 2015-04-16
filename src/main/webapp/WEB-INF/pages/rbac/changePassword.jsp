@@ -11,7 +11,7 @@
 <body>
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
         <c:if test="${info!=null}">
             ${info }
@@ -49,7 +49,7 @@
                 <input type="button" value="确认" id="confirm" class="btn btn-primary"/>
             </form>
         </c:if>
-    </section>
+    </div>
 </div>
 </body>
 </html>

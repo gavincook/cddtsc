@@ -58,7 +58,7 @@
 <body style="">
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
         <%--<i class="fa fa-spinner fa-spin"></i>正在加载--%>
         <div class="monitor-item">
@@ -135,7 +135,7 @@
                 <div class="clearfix"></div>
             </div>
         </script>
-    </section>
+    </div>
 </div>
 </body>
 </html>

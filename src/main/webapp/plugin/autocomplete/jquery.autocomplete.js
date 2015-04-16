@@ -175,7 +175,7 @@
         //创建数据列表的条目
         createListItem : function(opts,index,data){//默认选择第一条
             var content = typeof(opts.itemRenderer) == "undefined" ? data.text : opts.itemRenderer.call(this,data);
-            var $li = _autoComplete.ce("li",index==0?({class:"selected"}):{}).html(content);
+            var $li = _autoComplete.ce("li",index==0?({"class":"selected"}):{}).html(content);
             $li.data("data",data);//设置数据
             return $li;
         },
@@ -201,7 +201,7 @@
             if(typeof(target._autoCompleteConatiner) == 'undefined'){
                 var $ul = _autoComplete.ce("ul",
                     {
-                        class:opts.css,
+                        "class":opts.css,
                         style:"left:"+opts.left+"px;" +
                             "top:"+opts.top+"px;" +
                             "width:"+opts.width+";" +

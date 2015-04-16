@@ -32,7 +32,7 @@
     });
 </script>
 <div class="top-navbar">
-    <div class="navbar-header">
+    <div class="navbar-header" style="display: inline-block;">
         <a href="/admin" class="logo-con">
             <i class="fa fa-heartbeat font-logo"></i>
             <span class="title">成都道通蔬菜</span>
@@ -53,7 +53,7 @@
     </div>
     <div class="clearfix"></div>
 </div>
-<aside class="aside">
+<div class="aside">
     <ul id="elements" class="nav">
         <c:forEach items="${menus}" var="s">
             <li id="menu_${s.id}">
@@ -78,4 +78,4 @@
             </li>
         </c:forEach>
     </ul>
-</aside>
+</div>

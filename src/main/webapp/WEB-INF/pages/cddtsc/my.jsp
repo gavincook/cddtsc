@@ -13,7 +13,7 @@
 <body class="my">
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
         <%--个人信息--%>
         <div class="my-info-container">
@@ -129,7 +129,7 @@
                 </div>
             </form>
         </script>
-    </section>
+    </div>
 </div>
 </body>
 </html>

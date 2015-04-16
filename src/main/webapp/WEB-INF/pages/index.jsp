@@ -12,8 +12,8 @@
 </head>
 <body class="index">
 <%@ include file="common/nav.jsp" %>
-<section class="content-section">
+<div class="content-section">
     
-</section>
+</div>
 </body>
 </html>

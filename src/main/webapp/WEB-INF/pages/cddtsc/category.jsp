@@ -10,11 +10,16 @@
 <body>
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
 
         <div>
             <div id="categoryTable" class="category-table"></div>
+
+            <div class="splitor">
+                <i class="fa fa-angle-double-right"></i>
+            </div>
+
             <div id="goodsTable" class="goods-table">
                 <div class="empty">
                     <span>选择类别后，这里就能显示该类别的商品了哦.</span>
@@ -100,7 +105,7 @@
 
             </form>
         </div>
-    </section>
+    </div>
     <%--富文本框--%>
     <div id="contentContainer" class="content-container hide">
         <script id="content" type="text/plain" name="description" style="height:150px;"></script>

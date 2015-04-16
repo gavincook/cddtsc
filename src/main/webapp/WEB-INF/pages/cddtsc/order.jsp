@@ -12,7 +12,7 @@
 <body class="order">
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
 <%--订单表格--%>
 <table id="orderTable" class="table table-responsive">
@@ -67,7 +67,7 @@
     </tbody>
     {{/each}}
 </script>
-        </section>
+        </div>
     </div>
 </body>
 </html>

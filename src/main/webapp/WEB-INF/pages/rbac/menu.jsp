@@ -13,7 +13,7 @@
 <body>
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
         <!-- 菜单树 -->
         <div id="menuTree" class="ztree"></div>
@@ -47,7 +47,7 @@
 
         <!-- 角色树 -->
         <div id="roleTree" class="ztree"></div>
-    </section>
+    </div>
 </div>
 </body>
 </html>

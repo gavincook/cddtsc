@@ -10,7 +10,7 @@
     <body>
     <div class="wrapper">
         <%@ include file="../common/nav.jsp" %>
-        <section class="content-section">
+        <div class="content-section">
             <h3 class="header-title">${currentMenu.menuName}</h3>
         <div class="select-goods-container col-md-6">
             <div class="search-form">
@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-</section>
+</div>
         </div>
     </body>
 </html>

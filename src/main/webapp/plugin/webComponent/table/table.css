@@ -126,7 +126,7 @@
 }
 
 .datagrid .table-hover tr.selected>td{
-	background: #dfeefc;
+	background: #31BBE6;
 }
 
 .datagrid .table tr>th.select-box{
@@ -158,10 +158,10 @@
 }
 
 .datagrid .tree-icon{
-	color: #3B7DE4;
-	font-size: 12px;
-	margin:0 3px;
-    cursor: pointer;
+	color: #F7650B;
+	font-size: 17px;
+	margin: 0 3px;
+	cursor: pointer;
 }
 /**
  *   固定布局

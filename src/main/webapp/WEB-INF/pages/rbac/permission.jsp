@@ -12,14 +12,14 @@
 <body style="margin:0">
 <div class="wrapper">
     <%@ include file="../common/nav.jsp" %>
-    <section class="content-section">
+    <div class="content-section">
         <h3 class="header-title">${currentMenu.menuName}</h3>
         <!-- 权限列表 -->
         <div id="permissionTable"></div>
 
         <!-- 角色分配 -->
         <div id="roleTree" class="ztree"></div>
-    </section>
+    </div>
 </div>
 </body>
 </html>
