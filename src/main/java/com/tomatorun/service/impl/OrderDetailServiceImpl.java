@@ -43,4 +43,10 @@ public class OrderDetailServiceImpl extends AbstractService implements OrderDeta
     public void add(Map<String, Object> params) {
         orderDetailRepository.add(params);
     }
+
+    @Override
+    public List<Map<String, Object>> listWithDetail(Map<String, Object> params) {
+        params.put("attachmentType",goodsAttachment);
+        return orderDetailRepository.listWithDetail(params);
+    }
 }

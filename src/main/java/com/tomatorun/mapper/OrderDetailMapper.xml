@@ -20,6 +20,21 @@
         AND orderId = #{orderId}
     </select>
 
+    <select id="listWithDetail" resultType="HashMap">
+        SELECT od.id,dg.name,da.url,od.purchaseNumber,dg.price,dc.content,DATE_FORMAT(dc.time,'%Y-%m-%d %H:%i:%s') as time
+        from dt_order_detail od
+        JOIN dt_user_goods dug
+        ON dug.id = od.userGoodsId
+        JOIN dt_goods dg
+        ON dg.id = dug.goodsId
+        LEFT JOIN dt_attachment da
+        ON da.referenceId = dg.id AND da.type = #{attachmentType}
+        LEFT JOIN dt_comment dc on od.userGoodsId = dc.userGoodsId
+        WHERE orderId = #{orderId}
+        group by dg.id
+
+    </select>
+
     <update id="update">
         update dt_order_detail set purchaseNumber = #{purchaseNumber} where id = #{id};
     </update>

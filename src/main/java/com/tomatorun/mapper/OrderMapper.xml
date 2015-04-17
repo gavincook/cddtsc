@@ -26,7 +26,7 @@
             ,flag=#{flag}
         </if>
         where id = #{id};
-    </update>
+</update>
 
     <delete id="delete">
         delete from dt_order where id in (${ids});
@@ -87,9 +87,9 @@
         update dt_order set flag = #{order.flag} where id = #{order.id}
     </update>
 
-    <select id="get" resultMap="order">
-        SELECT doe.*
-        FROM  dt_order doe
+    <select id="get" resultType="HashMap">
+        SELECT doe.*,ds.name
+        FROM  dt_order doe join dt_shop ds on doe.shopId = ds.userId
         where doe.id = #{id}
     </select>
 

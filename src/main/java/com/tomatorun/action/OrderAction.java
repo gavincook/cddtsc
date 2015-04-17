@@ -4,10 +4,7 @@ import com.tomatorun.dto.Order;
 import com.tomatorun.dto.Shopcart;
 import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.repository.OrderRepository;
-import com.tomatorun.service.GoodsService;
-import com.tomatorun.service.OrderDetailService;
-import com.tomatorun.service.OrderService;
-import com.tomatorun.service.ShopcartService;
+import com.tomatorun.service.*;
 import com.tomatorun.sms.SMSService;
 import org.apache.http.HttpResponse;
 import org.moon.core.spring.config.annotation.Config;
@@ -50,6 +47,9 @@ public class OrderAction {
 
     @Resource
     private ShopcartService shopcartService;
+
+    @Resource
+    private CommentService commentService;
 
     @Resource
     private GoodsService goodsService;
@@ -96,7 +96,8 @@ public class OrderAction {
     @ResponseBody
     public WebResponse get(@RequestParam("id")Long id){
         Map<String,Object> order = orderService.get(Maps.mapIt("id", id));
-        order.put("orderdetail", orderDetailService.list(Maps.mapIt("orderId", order.get("id"))));
+        List<Map<String,Object>> orderDetail = orderDetailService.listWithDetail(Maps.mapIt("orderId", order.get("id")));
+        order.put("orderDetail", orderDetail);
         return WebResponse.build().setResult(order);
     }
 
@@ -157,7 +158,7 @@ public class OrderAction {
                 case 1 : currentStatus="等待配送";frontOpt=false;break;
                 case 2 : currentStatus="配送中";frontOpt=false;break;
                 case 3 : orderBtnText = "确认收货";action="confirmOrder";break;
-                case 4 : currentStatus="已完成";frontOpt = true;orderBtnText = "评论";break;
+                case 4 : currentStatus="已完成";frontOpt = true;orderBtnText = "评论";action="comment";break;
                 default: currentStatus="已取消";frontOpt = false;
             }
             ((HashMap<String, Object>) order).put("orderBtnText",orderBtnText);//按钮文字
@@ -316,6 +317,20 @@ public class OrderAction {
     public WebResponse cancelOrder(@RequestParam("id")Long id){
         orderService.cancelOrder(id);
         return WebResponse.success(Maps.mapIt("currentStatus", "已取消", "serverOpt", false));
+    }
+
+    /**
+     * 评论页面
+     * @param ids
+     * @param user
+     * @param request
+     * @return
+     */
+    @Get("/comment.html")
+    public ModelAndView showComment(@RequestParam("orderId")Long[] ids,@WebUser User user,HttpServletRequest request){
+        List<Map<String,Object>> orders = orderService.list(Maps.mapIt("ids", ids, "userId", user.getId()));
+
+        return new ModelAndView("pages/cddtsc/comment","orders",orders);
     }
 
     public static void main(String[] args) {

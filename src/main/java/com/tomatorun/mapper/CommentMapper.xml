@@ -14,21 +14,12 @@
         <if test="userId!=null">
             AND dt.userId = #{userId}
         </if>
+        <if test="ids!=null">
+            AND dt.userGoodsId in (${ids})
+        </if>
         GROUP BY dt.id
         ORDER BY
         dt.time desc
-        limit ${offset},${pageSize}
-    </select>
-
-    <select id="list_count" resultType="Integer">
-        SELECT count(id) from dt_comment dt
-        where 1=1
-        <if test="userId!=null">
-            AND dt.userId = #{userId}
-        </if>
-        <if test="check!=null">
-            AND dt.status = #{status}
-        </if>
     </select>
 
     <update id="update">
@@ -41,7 +32,7 @@
     </update>
 
     <delete id="delete">
-        delete from dt_comment where id in (#{id})
+        delete from dt_comment where id in (${id})
     </delete>
 
     <select id="get" resultType="HashMap">
@@ -50,15 +41,15 @@
         FROM dt_comment dt
         JOIN tab_user u
         ON dt.userId = u.id
-        where dt.id = #{id}
+        where dt.userGoodsId = #{id}
         GROUP BY dt.id
         limit 1
     </select>
 
     <insert id="add">
-        insert  into dt_comment(userId, userGoodsId, content, time, status)
-        values
-        (#{userId},#{userGoodsId},#{content},CURRENT_TIMESTAMP(),#{status});
+        insert  into dt_comment(userId, orderDetailId,userGoodsId, content, time, status)
+        select #{userId},#{orderDetailId},dod.userGoodsId,#{content},CURRENT_TIMESTAMP(),#{status}
+        from dt_order_detail dod where dod.id = #{orderDetailId}
     </insert>
 
     <update id="check">

@@ -1,0 +1,42 @@
+
+.shop{
+    height: 50px;
+    margin: 20px 0;
+    padding: 0 20px;
+}
+.comment-content{
+    float: right;
+    margin-right: 5%;
+    width: 40%;
+    padding: 5px;
+}
+.submit{
+    float: right;
+    clear: both;
+    margin: 15px 0;
+    margin-right: 10%;
+}
+.comment-li {
+    border-top: solid 2px rgba(122, 185, 78, 1);
+    padding-top: 15px;
+    min-height: 240px;
+}
+.goods-detail{
+    margin-left: 5%;
+    float: left;
+}
+.shop-title{
+    font-size: 20px;
+}
+.comment{
+    float: right;
+    margin-right: 5%;
+    width: 40%;
+}
+.goods-img{
+    height: 200px;
+}
+.time{
+    float: right;
+    margin-right: 30px;
+}

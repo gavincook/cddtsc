@@ -20,4 +20,6 @@ public interface OrderDetailRepository {
 
     public void add(Map<String, Object> params);
 
+    public List<Map<String,Object>> listWithDetail(Map<String, Object> params);
+
 }

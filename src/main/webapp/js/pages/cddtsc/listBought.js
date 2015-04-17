@@ -42,6 +42,7 @@
                         });
                     }
                     break;
+                case "comment"  : window.location.href = contextPath+ "/order/comment.html?orderId="+orderId; break;
                 default :
             }
         });

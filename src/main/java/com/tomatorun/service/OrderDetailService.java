@@ -16,4 +16,6 @@ public interface OrderDetailService extends BaseService {
     public void delete(Map<String, Object> params);
 
     public void add(Map<String, Object> params);
+
+    public List<Map<String,Object>> listWithDetail(Map<String, Object> params);
 }
