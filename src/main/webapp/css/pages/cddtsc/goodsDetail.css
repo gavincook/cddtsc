@@ -174,3 +174,28 @@
     font-size: 20px;
     margin-top: 40px;
 }
+.comment-title{
+    border-bottom: solid 2px #59A111;
+    font-size: 20px;
+    margin-top: 40px;
+}
+.comment-content{
+    padding: 1%;
+    margin: 0 1%;
+    width: 98%;
+}
+.comment-content.has-border{
+    border-bottom: 1px solid #7CA98B;
+}
+.comment-content div{
+    display: inline-block;
+}
+.comment-content .comment{
+    width: 60%;
+}
+.comment-content .realname,
+.comment-content .time{
+    float: right;
+    text-align: center;
+    width: 20%;
+}

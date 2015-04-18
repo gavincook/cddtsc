@@ -24,7 +24,7 @@ public class CommentServiceImpl  extends AbstractService implements CommentServi
     }
 
     @Override
-    public Map<String, Object> get(Map<String, Object> params) {
+    public List<Map<String, Object>> get(Map<String, Object> params) {
         return commentRepository.get(params);
     }
 

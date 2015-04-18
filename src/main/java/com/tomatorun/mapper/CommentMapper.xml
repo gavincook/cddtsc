@@ -42,8 +42,6 @@
         JOIN tab_user u
         ON dt.userId = u.id
         where dt.userGoodsId = #{id}
-        GROUP BY dt.id
-        limit 1
     </select>
 
     <insert id="add">

@@ -79,6 +79,17 @@
             ${goods.description}
         </div>
     </div>
+
+    <div class="container">
+        <div class="comment-title">评论详情(${comments.size()})</div>
+        <c:forEach items="${comments}" var="comment" varStatus="status">
+            <div class="comment-content <c:if test="${status.index < comments.size()-1}">has-border</c:if>">
+                <div class="comment"><span>${comment.content}</span></div>
+                <div class="realname"><span>${comment.realName}</span></div>
+                <div class="time"><span>${comment.time}</span></div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 
 <%@ include file="../common/footer.jsp"%>
