@@ -41,16 +41,16 @@
     </select>
 
     <insert id="add">
-        insert  into tab_user(userName,groupLeaderId,password,active,type,realName)
-        values(#{userName},#{groupLeaderId},#{password},true,#{type},#{realName});
+        insert  into tab_user(userName,groupLeaderId,password,active,type,realName,roleId)
+        values(#{userName},#{groupLeaderId},#{password},true,#{type},#{realName},#{roleId});
     </insert>
 
     <insert id="register">
         <selectKey resultType="Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into tab_user(userName,password,realName,active,sex,IDNumber,avatar,type,contact)
-        values(#{userName},#{password},#{realName},#{active},#{sex},#{IDNumber},#{avatar},#{type},#{contact});
+        insert into tab_user(userName,password,realName,active,sex,IDNumber,avatar,type,contact,roleId)
+        values(#{userName},#{password},#{realName},#{active},#{sex},#{IDNumber},#{avatar},#{type},#{contact},#{roleId});
     </insert>
 
     <select id="isUserRegistered" resultType="Boolean">

@@ -7,6 +7,7 @@ import com.tomatorun.service.AttachmentService;
 import com.tomatorun.service.DTUserService;
 import com.tomatorun.service.ShopService;
 import org.moon.core.spring.config.annotation.Config;
+import org.moon.maintenance.service.SystemSettingService;
 import org.moon.message.WebResponse;
 import org.moon.rbac.domain.User;
 import org.moon.rbac.domain.annotation.MenuMapping;
@@ -53,6 +54,9 @@ public class DTUserAction {
 
     @Config("attachment.user")
     private int attachmentType;
+
+    @Resource
+    private SystemSettingService systemSettingService;
 
     @Resource
     private AttachmentService attachmentService;
@@ -172,7 +176,7 @@ public class DTUserAction {
         }else{
             return WebResponse.fail();
         }
-
+        params.put("roleId",systemSettingService.getSetting("role.userType"+type).get("value"));
         dTUserService.add(params);
         return WebResponse.success();
     }
@@ -213,8 +217,9 @@ public class DTUserAction {
         }else if(type == memberUserType){//会员默认激活
             params.put("active",true);
         }else{//其他类型默认不激活，即需要审核
-            params.put("active",false);
+            params.put("active", false);
         }
+        params.put("roleId",systemSettingService.getSetting("role.userType"+type).get("value"));
 
         dTUserService.register(params);
 
