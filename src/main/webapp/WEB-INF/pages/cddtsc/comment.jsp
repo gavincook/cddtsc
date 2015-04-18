@@ -33,7 +33,7 @@
               <span class="goods-name">{{name}}</span>
             </div>
             {{#if content}}
-              <span class="comment">{{content}}</span>
+              <span class="comment">评论:{{content}}</span>
               <span class="time">{{time}}</span>
             {{else}}
               <textarea class="comment-content" rows="7"></textarea>

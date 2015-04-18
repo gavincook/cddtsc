@@ -2,6 +2,7 @@ package com.tomatorun.action;
 
 import com.tomatorun.repository.GoodsRepository;
 import com.tomatorun.service.AttachmentService;
+import com.tomatorun.service.CommentService;
 import com.tomatorun.service.GoodsService;
 import com.tomatorun.service.ShopService;
 import com.tomatorun.sms.SMSService;
@@ -53,6 +54,9 @@ public class IndexAction {
     private AttachmentService attachmentService;
 
     @Resource
+    private CommentService commentService;
+
+    @Resource
     private ShopService shopService;
     /**
      * show the index.html page
@@ -96,10 +100,13 @@ public class IndexAction {
     @RequestMapping("/{userGoodsId}_item.html")
     public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request, @PathVariable("userGoodsId")Long userGoodsId){
         Map<String,Object> goodsDetail = goodsService.getGoodsForShop(userGoodsId);
-        Map<String,Object> params = Maps.mapIt("referenceId",goodsDetail.get("goodsId"),"type",goodsImageType);
+        Map<String,Object> params = Maps.mapIt("referenceId", goodsDetail.get("goodsId"), "type", goodsImageType);
         List<Map<String,Object>> goodsImages = attachmentService.list(params);
+        List<Map<String,Object>> comment = commentService.get(Maps.mapIt("id",userGoodsId));
         System.out.println(goodsImages.size());
-        return new ModelAndView("pages/cddtsc/goodsDetail").addObject("user",user).addObject("goods",goodsDetail).addObject("images",goodsImages);
+        System.out.println(comment);
+        return new ModelAndView("pages/cddtsc/goodsDetail").addObject("user",user).addObject("goods",goodsDetail)
+                .addObject("images",goodsImages).addObject("comments",comment);
     }
 
     /**

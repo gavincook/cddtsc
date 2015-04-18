@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public interface CommentRepository {
 
-    public Map<String,Object> get(Map<String, Object> params);
+    public List<Map<String,Object>> get(Map<String, Object> params);
 
     /**
      * 获取列表
