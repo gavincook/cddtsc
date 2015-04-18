@@ -69,25 +69,25 @@ public class DTUserAction {
     @Get("/member")
     @MenuMapping(name = "会员管理", url = "/user/member",code = "dt_member",parentCode = "dt")
     public ModelAndView showMemberPage(){
-        return new ModelAndView("pages/cddtsc/user","userType",memberUserType).addObject("title","会员列表");
+        return new ModelAndView("pages/cddtsc/user","userType",memberUserType).addObject("typeDescription","会员");
     }
 
     @Get("/manager")
     @MenuMapping(name = "管理员管理", url = "/user/manager",code = "dt_manager",parentCode = "dt")
     public ModelAndView showManagerPage(){
-        return new ModelAndView("pages/cddtsc/user","userType",managerUserType).addObject("title","管理员列表");
+        return new ModelAndView("pages/cddtsc/user","userType",managerUserType).addObject("typeDescription","管理员");
     }
 
     @Get("/groupLeader")
     @MenuMapping(name = "小组长管理", url = "/user/groupLeader",code = "dt_groupLeader",parentCode = "dt")
     public ModelAndView showGroupLeaderPage(){
-        return new ModelAndView("pages/cddtsc/user","userType",groupLeaderUserType).addObject("title","小组长列表");
+        return new ModelAndView("pages/cddtsc/user","userType",groupLeaderUserType).addObject("typeDescription","小组长");
     }
 
     @Get("/associator")
     @MenuMapping(name = "社员管理", url = "/user/associator",code = "dt_associator",parentCode = "dt")
     public ModelAndView showAssociatorPage(){
-        return new ModelAndView("pages/cddtsc/user","userType",associatorUserType).addObject("title", "社员列表");
+        return new ModelAndView("pages/cddtsc/user","userType",associatorUserType).addObject("typeDescription", "社员");
     }
 
     @Get("/my")
@@ -153,16 +153,18 @@ public class DTUserAction {
      * 添加用户,可用于超级管理员添加管理员;和小组长添加社员。根据当前操作用户类型来判断.
      * @param request
      * @param password
+     * @param userType 添加的用户类型
      * @return
      */
     @Post("/add")
     @ResponseBody
-    public WebResponse add(HttpServletRequest request,@RequestParam("password")String password,@WebUser User user){
+    public WebResponse add(HttpServletRequest request,@RequestParam("password")String password,@WebUser User user,
+                           @RequestParam("userType")Integer userType){
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         params.put("password",MD5.getCryptographicPassword(password));
         int type = user.getType();
-        if(type == superManager){//超级管理员添加管理员
-            params.put("type",managerUserType);
+        if(type == superManager || type == managerUserType){//超级管理员添加管理员
+            params.put("type",userType);
             params.put("groupLeaderId",null);
         }else if(type == groupLeaderUserType){//小组长添加社员
             params.put("type",associatorUserType);

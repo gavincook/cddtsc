@@ -6,10 +6,10 @@
     <%@ include file="../common/header.jsp" %>
     <script type="text/javascript">
         var userType = "${userType}", /*当前显示的用户类型*/
-                title = "${title}";
+                typeDescription = "${typeDescription}";
     </script>
     <m:require
-            src="jquery,common,handlebars,bootstrap,table,dialog,noty,font,{cddtsc/user}"></m:require>
+            src="jquery,ev,common,handlebars,bootstrap,table,dialog,noty,font,{cddtsc/user}"></m:require>
     <title>会员管理</title>
 
 </head>

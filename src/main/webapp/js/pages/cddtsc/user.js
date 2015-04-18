@@ -32,7 +32,7 @@
                      }}:{}
             ],
             formatData:function(data){return data.result;},
-            title:title,
+            title:typeDescription+"列表",
             rowId:"id",
             buttons:[
                 userType==moon.constants["userType.member"]? {
@@ -41,14 +41,14 @@
                     name:'updateBtn'
                 }:{},
                 {
-                    text:userType==moon.constants["userType.manager"]? "添加管理员" : (userType==moon.constants["userType.member"]?"添加会员":"添加社员"),
+                    text:"增加"+typeDescription,
                     click:btnHandler,
                     name:'addBtn',
                     css:(userType==moon.constants["userType.manager"] ||
                         userType == moon.constants["userType.associator"])?"":"hide"
                 },
                 {
-                    text:"删除用户",
+                    text:"删除"+typeDescription,
                     click:btnHandler,
                     name:'deleteBtn'
                 }
@@ -123,7 +123,7 @@
                             var $form = $("form",dialog.$e);
                             $("#userForm").validate("validate").done(function(result){
                                 if(result){
-                                    $form.ajaxSubmitForm(contextPath+"/user/add").done(function(data){
+                                    $form.ajaxSubmitForm(contextPath+"/user/add",{userType:userType}).done(function(data){
                                         if(data.success){
                                             dialog.close();
                                             table.refresh();
