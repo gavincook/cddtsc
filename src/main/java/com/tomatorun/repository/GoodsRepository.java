@@ -82,4 +82,10 @@ public interface GoodsRepository {
      * @return
      */
     public Map<String,Object> getGoodsById(@Param("id")Long id);
+
+    /**
+     * 删除类别下的商品
+     * @param categoryIds
+     */
+    public void deleteByCategory(@Param("ids")String categoryIds);
 }

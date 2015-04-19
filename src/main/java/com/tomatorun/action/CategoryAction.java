@@ -2,6 +2,7 @@ package com.tomatorun.action;
 
 import com.tomatorun.repository.CategoryRepository;
 import com.tomatorun.service.CategoryService;
+import com.tomatorun.service.GoodsService;
 import org.moon.message.WebResponse;
 import org.moon.rbac.domain.annotation.MenuMapping;
 import org.moon.rest.annotation.Get;
@@ -25,6 +26,9 @@ public class CategoryAction {
 
     @Resource
     private CategoryService categoryService;
+
+    @Resource
+    private GoodsService goodsService;
 
     @Get("")
     @MenuMapping(name = "商品类别", url = "/category",code = "dt_category",parentCode = "dt")
@@ -57,6 +61,7 @@ public class CategoryAction {
     @ResponseBody
     public WebResponse delete(@RequestParam("ids")Long ids[]){
         categoryService.delete(Maps.mapIt("ids", Strings.join(ids, ",")));
+        goodsService.deleteByCategory(Strings.join(ids, ","));
         return WebResponse.build();
     }
 

@@ -78,6 +78,11 @@
         delete from dt_goods where id in (${ids});
     </delete>
 
+    <delete id="deleteByCategory">
+        DELETE dg,dug FROM dt_goods dg ,dt_category dc,dt_user_goods dug
+        WHERE dc.id = dg.categoryId AND dug.goodsId = dg.id AND dg.categoryId IN (${id}) OR dc.parentId IN (${id});
+    </delete>
+
     <select id="get" resultType="HashMap">
         select GROUP_CONCAT(dt.id SEPARATOR '@#$') as id,dt.name,GROUP_CONCAT(dt.price SEPARATOR '@#$') as price,
         GROUP_CONCAT(dt.specification SEPARATOR '@#$') as specification,

@@ -8,7 +8,6 @@
     <dictionary code="userType" name="前台注册用户类型">
         <item code="0" name="普通会员"></item>
         <item code="2" name="小组长"></item>
-        <item code="3" name="供应商"></item>
     </dictionary>
 
     <!--后台使用用户类型字典-->

@@ -60,4 +60,6 @@ public interface GoodsService extends BaseService {
     public void updateGoodsId(Long goodsId,Long id);
 
     public Map<String,Object> getGoodsById(Long id);
+
+    public void deleteByCategory(String categoryIds);
 }

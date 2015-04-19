@@ -176,7 +176,7 @@ public class DTUserAction {
         }else{
             return WebResponse.fail();
         }
-        params.put("roleId",systemSettingService.getSetting("role.userType"+type).get("value"));
+        params.put("roleId",systemSettingService.getSetting("role.userType"+userType).get("value"));
         dTUserService.add(params);
         return WebResponse.success();
     }
