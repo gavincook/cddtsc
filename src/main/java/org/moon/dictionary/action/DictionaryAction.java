@@ -9,6 +9,7 @@ import org.moon.rbac.domain.annotation.MenuMapping;
 import org.moon.rest.annotation.Get;
 import org.moon.rest.annotation.Post;
 import org.moon.core.spring.annotation.FormParam;
+import org.moon.utils.Objects;
 import org.moon.utils.ParamUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,11 @@ public class DictionaryAction extends BaseAction {
 
 	@Post("/update")
 	public @ResponseBody WebResponse updateDictionary(@FormParam("dictionary") Dictionary dictionary) {
+        Dictionary oldDic = dictionaryService.get(dictionary.getId());
+        if(Objects.isNull(oldDic)){
+            return WebResponse.fail("该字典不存在");
+        }
+        dictionary.setParentId(oldDic.getParentId());
 		dictionary.sync(dictionary.update());
 		return WebResponse.build();
 	}

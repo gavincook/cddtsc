@@ -33,6 +33,7 @@
 			title : "字典",
 			rowId : "id",
             treeColumn:"name",
+            multiSelect:false,
 			buttons : [ {
 				text : "增加字典项",
 				name : 'addBtn',
@@ -164,15 +165,20 @@
             moon.error("不能完成操作,删除记录中包含了系统字典");
             return;
         }
-		jQuery.ajaxSettings.traditional = true;
-		$.getJsonData(contextPath + "/dictionary/delete", {
-			ids : ids
-		}, {
-			type : 'Post'
-		}).done(function() {
-			$("#dictionaryTable").table("refresh");
-			moon.success("字典项成功删除");
-		});
+        moon.confirm("确认删除该字典，删除后不可恢复").done(function(result){
+            if(result){
+                $.getJsonData(contextPath + "/dictionary/delete", {
+                    ids : ids
+                }, {
+                    type : 'Post',
+                    traditional:true
+                }).done(function() {
+                    $("#dictionaryTable").table("refresh");
+                    moon.success("字典项成功删除");
+                });
+            }
+        });
+
 	};
 
 	var editDictionary = function() {
