@@ -93,20 +93,23 @@ public class IndexAction {
                 .addObject("goods",goodsService.getGoodsDetail(Maps.mapIt("id",goodsId)));
     }
     /**
-     * show the goods.html page
+     * show the goods.html page. shopId 是指shop的userId
      * @return
      * @throws Exception
      */
-    @RequestMapping("/{userGoodsId}_item.html")
-    public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request, @PathVariable("userGoodsId")Long userGoodsId){
+    @RequestMapping("/{userGoodsIdAndGoodsId}_item.html")
+    public ModelAndView goodsDetail(@WebUser User user, HttpServletRequest request,
+                                    @PathVariable("userGoodsIdAndGoodsId")String userGoodsIdAndGoodsId){
+        String[] ids = userGoodsIdAndGoodsId.split("_");
+        Long userGoodsId = Long.parseLong(ids[0]);
+        Long goodsId = Long.parseLong(ids[1]);
         Map<String,Object> goodsDetail = goodsService.getGoodsForShop(userGoodsId);
         Map<String,Object> params = Maps.mapIt("referenceId", goodsDetail.get("goodsId"), "type", goodsImageType);
         List<Map<String,Object>> goodsImages = attachmentService.list(params);
-        List<Map<String,Object>> comment = commentService.get(Maps.mapIt("id",userGoodsId));
-        System.out.println(goodsImages.size());
-        System.out.println(comment);
+        List<Map<String,Object>> comment = commentService.get(Maps.mapIt("id",goodsId));
+        List<Map<String,Object>> specs = goodsService.listSpecForShopGoods(goodsId,Long.parseLong(goodsDetail.get("userId")+""));
         return new ModelAndView("pages/cddtsc/goodsDetail").addObject("user",user).addObject("goods",goodsDetail)
-                .addObject("images",goodsImages).addObject("comments",comment);
+                .addObject("images",goodsImages).addObject("comments",comment).addObject("specs",specs);
     }
 
     /**

@@ -118,4 +118,9 @@ public class GoodsServiceImpl extends AbstractService implements GoodsService {
     public void deleteByCategory(String categoryIds) {
         goodsRepository.deleteByCategory(categoryIds);
     }
+
+    @Override
+    public List<Map<String, Object>> listSpecForShopGoods(Long goodsId, Long userId) {
+        return goodsRepository.listSpecForShopGoods(goodsId, userId);
+    }
 }

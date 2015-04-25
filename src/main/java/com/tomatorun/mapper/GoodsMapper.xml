@@ -185,7 +185,7 @@
     </select>
     
     <select id="listGoodsOnSell" resultType="HashMap">
-        SELECT dg.id,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit
+        SELECT dg.goodsId,dg.name,dg.price,dg.specification,td.name AS level,tdic.name AS unit
         ,(SELECT url FROM dt_attachment WHERE referenceId = dg.goodsId AND type =#{attachmentType} LIMIT 1 ) AS cover
         FROM dt_user_goods dug
         JOIN dt_goods dg
@@ -224,11 +224,13 @@
     </select>
 
     <select id="listShopForGoods" resultType="HashMap">
-        SELECT dug.id as goodsId,ds.name as shopName
+        SELECT dug.id , dg.goodsId,ds.name AS shopName
         FROM dt_user_goods dug
         JOIN dt_shop ds
         ON dug.userId = ds.userId
-        WHERE dug.goodsId = #{goodsId}
+        JOIN dt_goods dg ON dg.id = dug.goodsId
+        WHERE dg.goodsId = #{goodsId}
+        GROUP BY ds.id
         limit ${offset},${pageSize}
     </select>
 
@@ -238,17 +240,21 @@
         WHERE dug.goodsId = #{goodsId}
     </select>
 
+    <select id="listSpecForShopGoods" resultType="HashMap">
+        SELECT dg.goodsId,dug.id as userGoodsId,dg.specification FROM dt_goods dg JOIN dt_user_goods dug ON dg.id = dug.goodsId AND dg.goodsId = #{goodsId} and dug.userId = #{userId}
+    </select>
+
     <select id="getGoodsForShop" resultType="HashMap">
-        SELECT dg.levelDescription,dug.id as userGoodsId,dg.id,dg.name,dg.goodsId,dg.price,dg.specification,dg.description,td.name AS level,tdic.name AS unit,
+        SELECT dg.levelDescription,dug.id AS userGoodsId,dg.id,dg.name,dg.goodsId,dg.price,dg.specification,dg.description,td.name AS level,tdic.name AS unit,dug.userId,
         dug.inventory
-        from dt_goods dg
+        FROM dt_goods dg
         JOIN dt_user_goods dug
         ON dg.id = dug.goodsId
         JOIN tab_dictionary td
-        ON td.code = dg.level and td.parentId = #{levelDicId}
+        ON td.code = dg.level AND td.parentId = #{levelDicId}
         JOIN tab_dictionary tdic
-        ON tdic.code = dg.unit and tdic.parentId = #{unitDicId}
-        where dug.id = #{userGoodsId}
+        ON tdic.code = dg.unit AND tdic.parentId = #{unitDicId}
+        WHERE dug.id = #{userGoodsId}
     </select>
 
 

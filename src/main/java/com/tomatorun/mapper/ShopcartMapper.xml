@@ -11,7 +11,7 @@
         join tab_dictionary td
         on td.code = dg.level and td.parentId = #{levelDicId}
         LEFT JOIN dt_attachment da
-        ON da.referenceId = dg.id AND da.type = #{attachmentType}
+        ON da.referenceId = dg.goodsId AND da.type = #{attachmentType}
         WHERE dsc.userId = #{userId}
         GROUP BY dug.id
     </select>

@@ -4,6 +4,10 @@
     $(function(){
         var $storeForm = $("#storeForm");
 
+        $(document).on("click",".spec",function(e){
+            var $spec = $(e.target);
+            window.location.href = contextPath+"/"+$spec.attr("data-url")+"_item.html";
+        });
         $.getJsonData(contextPath+"/listGoods").done(function(data){
             $("#goodsTemplate").renderTemplate(data.result.items,{container:".container-ul"});
         });

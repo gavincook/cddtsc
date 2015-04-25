@@ -62,4 +62,6 @@ public interface GoodsService extends BaseService {
     public Map<String,Object> getGoodsById(Long id);
 
     public void deleteByCategory(String categoryIds);
+
+    public List<Map<String,Object>> listSpecForShopGoods(Long goodsId,Long userId);
 }

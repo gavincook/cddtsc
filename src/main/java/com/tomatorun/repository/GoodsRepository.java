@@ -59,9 +59,15 @@ public interface GoodsRepository {
      * @param userGoodsId
      * @return
      */
-    public Map<String,Object> getGoodsForShop(@Param("userGoodsId")Long userGoodsId,@Param("levelDicId")Object levelDicId,
-        @Param("unitDicId")Object unitDicId);
+    public Map<String,Object> getGoodsForShop(@Param("userGoodsId")Long userGoodsId,
+                                              @Param("levelDicId")Object levelDicId,@Param("unitDicId")Object unitDicId);
 
+    /**
+     * 获取商品产品的规格
+     * @param goodsId
+     * @return {userGoodsId,goodsId,specification}
+     */
+    public List<Map<String,Object>> listSpecForShopGoods(@Param("goodsId")Long goodsId,@Param("userId")Long userId);
     /**
      * 更新价格
      * @param price

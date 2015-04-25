@@ -54,7 +54,7 @@
 </div>
     <script type="text/html" id="goodsTemplate">
         {{#each this}}
-        <div class="container-li" data-goods-id="{{id}}">
+        <div class="container-li" data-goods-id="{{goodsId}}">
             <div>
                 <div class="good-img">
                     <img src="${pageContext.request.contextPath}/file/get/{{cover}}">

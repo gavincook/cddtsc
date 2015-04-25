@@ -22,7 +22,7 @@
 <div class="goods-list-container container">
     <div class="container-ul">
         <c:forEach items="${shops.items}" var="shop">
-            <div class="container-li" data-goods-id="${shop.goodsId}">
+            <div class="container-li" data-goods-id="${shop.id}_${shop.goodsId}">
                 <div>
                     <div class="good-img"><img src="${pageContext.request.contextPath}/file/get/${goods.cover}"></div>
                     <div class="goods-content">

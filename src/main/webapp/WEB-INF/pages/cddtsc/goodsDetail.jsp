@@ -53,6 +53,11 @@
         <div class="goods-price">等级：&nbsp; ${goods.level}</div>
         <div class="goods-price">等级描述：&nbsp; ${goods.levelDescription}</div>
         <div class="goods-price">计量单位：&nbsp; ${goods.unit}</div>
+        <div class="goods-price">规格：&nbsp;
+            <c:forEach items="${specs}" var="spec">
+                <span data-url="${spec.userGoodsId}_${spec.goodsId}" class="spec <c:if test='${spec.userGoodsId==goods.userGoodsId}'> selected</c:if>">${spec.specification}</span>
+            </c:forEach>
+        </div>
         <div class="goods-buy">
             <span>购买数量：&nbsp;</span>
             <div class="number">

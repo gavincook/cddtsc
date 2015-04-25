@@ -48,7 +48,7 @@
             </div>
             <ul class="container-ul">
                 <c:forEach items="${goodsList.items}" var="goods">
-                    <li class="container-li" data-goods-id="${goods.id}">
+                    <li class="container-li" data-goods-id="${goods.goodsId}">
                         <div>
                             <div class="good-img">
                                 <img src="${pageContext.request.contextPath}/file/get/${goods.cover}">

@@ -199,3 +199,14 @@
     text-align: center;
     width: 20%;
 }
+
+
+.spec{
+    border: solid 2px #CCC;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.spec.selected{
+    border: solid 2px #F29445;
+}
