@@ -382,7 +382,7 @@
                                     var param = {};
                                     param.categoryId = currentCategoryId;
                                     param.attachments = attachments;
-                                    param.description =  editor.getContent();
+                                    param.description =  encodeURIComponent(encodeURIComponent(editor.getContent(),"UTF-8"),"UTF-8");
                                     $("#goodsForm").ajaxSubmitForm(contextPath+"/goods/add", param).done(function(data){
                                         if(data.success){
                                             $("#goodsForm").dialog("close");
@@ -485,7 +485,7 @@
                                     param.goodsId = id;
                                     param.attachments = attachments;
                                     param.attachmentIds = removeFileIds;
-                                    param.description =  editor.getContent();
+                                    param.description =  encodeURIComponent(encodeURIComponent(editor.getContent(),"UTF-8"),"UTF-8");
                                     param.deletedIds = deletedGoodsIds;
                                     $("#goodsForm").ajaxSubmitForm(contextPath+"/goods/update", param).done(function(data){
                                         if(data.success){

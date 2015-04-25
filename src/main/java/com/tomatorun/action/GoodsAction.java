@@ -107,7 +107,7 @@ public class GoodsAction {
                               @RequestParam("description") String description,
                               @RequestParam(value="attachments", required=false)String[] attachments,@RequestParam(value="attachmentIds", required=false)Long[] attachmentIds) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
-
+        description = URLDecoder.decode(description,"UTF-8");
         Long oldId;
         if(ids.length>0){
             oldId = ids[0];
@@ -175,6 +175,7 @@ public class GoodsAction {
                            @RequestParam(value="attachments", required=false)String[] attachments) throws UnsupportedEncodingException {
         Map<String,Object> params = ParamUtils.getParamMapFromRequest(request);
         Long goodsId = null;
+        description = URLDecoder.decode(description,"UTF-8");
         for(int i = 0,l=levels.length;i<l;i++){
             Map<String,Object> goods = Maps.mapIt("levelDescription",levelDescriptions[i],"name",name,"categoryId",categoryId,"price",prices[i],
                 "level",levels[i],"unit",units[i],"specification",specifications[i],"description",description);
