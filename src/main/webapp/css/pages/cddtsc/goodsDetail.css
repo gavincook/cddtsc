@@ -71,6 +71,11 @@
     float: right;
     font-size: 14px;
 }
+
+.goods-container .goods-right{
+    *display:inline;
+}
+
 .goods-container .goods-right .goods-name{
     height: 50px;
     line-height: 50px;

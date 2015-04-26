@@ -24,29 +24,6 @@
 
 <%--商品详情--%>
 <div class="goods-container container" data-goods-id="${goods.userGoodsId}">
-    <span class="goods-left">
-        <div class="goods-img">
-            <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="商品大图" >
-                <img src="${pageContext.request.contextPath}/file/get/${images[0].url}"  title="大图" class="middle-img"  style="border: 4px solid #666;">
-            </a>
-        </div>
-        <div class="goods-img-list">
-            <span class="left-opt"><i class="fa fa-angle-left"></i> </span>
-
-            <span class="right-opt"><i class="fa fa-angle-right"></i> </span>
-            <div class="small-images">
-                <c:forEach items="${images}" var="image" varStatus="status">
-                    <span class="image">
-                        <a class='<c:if test="${status.index ==0}">zoomThumbActive</c:if>' href='javascript:void(0);'
-                           rel="{gallery: 'gal1', smallimage: '${pageContext.request.contextPath}/file/get/${image.url}',largeimage: '${pageContext.request.contextPath}/file/get/${image.url}'}">
-                            <img src='${pageContext.request.contextPath}/file/get/${image.url}'>
-                        </a>
-                    </span>
-                </c:forEach>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </span>
     <span class="goods-right">
         <div class="goods-name">商品名称：&nbsp;${goods.name}</div>
         <div class="goods-price">价格：&nbsp;<i class="fa fa-rmb"></i> ${goods.price}</div>
@@ -75,6 +52,31 @@
         </div>
 
     </span>
+    
+    <span class="goods-left">
+        <div class="goods-img">
+            <a href="${pageContext.request.contextPath}/file/get/${images[0].url}" class="jqzoom" rel='gal1'  title="商品大图" >
+                <img src="${pageContext.request.contextPath}/file/get/${images[0].url}"  title="大图" class="middle-img"  style="border: 4px solid #666;">
+            </a>
+        </div>
+        <div class="goods-img-list">
+            <span class="left-opt"><i class="fa fa-angle-left"></i> </span>
+
+            <span class="right-opt"><i class="fa fa-angle-right"></i> </span>
+            <div class="small-images">
+                <c:forEach items="${images}" var="image" varStatus="status">
+                    <span class="image">
+                        <a class='<c:if test="${status.index ==0}">zoomThumbActive</c:if>' href='javascript:void(0);'
+                           rel="{gallery: 'gal1', smallimage: '${pageContext.request.contextPath}/file/get/${image.url}',largeimage: '${pageContext.request.contextPath}/file/get/${image.url}'}">
+                            <img src='${pageContext.request.contextPath}/file/get/${image.url}'>
+                        </a>
+                    </span>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </span>
+
 
 </div>
 
