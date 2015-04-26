@@ -1,3 +1,7 @@
+.wrapper{
+    width: 1000px;
+    margin: 0 auto;
+}
 .articleHeader{
     padding: 15px;
     margin-bottom: 20px;
@@ -19,7 +23,8 @@
 
 .articleFooter{
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 65px;
+    height: 65px;
 }
 
 .articleShare {

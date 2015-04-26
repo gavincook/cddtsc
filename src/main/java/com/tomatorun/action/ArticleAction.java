@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,16 +43,17 @@ public class ArticleAction {
     private int article;
 
     //新闻
-    @Config("articleType.article")
+    @Config("articleType.news")
     private int news;
 
     //招聘信息
-    @Config("articleType.article")
+    @Config("articleType.joinUs")
     private int joinUs;
 
-    //招聘信息
+    //默认文章类型
     @Config("articleStatus.default")
     private int statusDefault;
+
 
     @Config("dic.articleType")
     private String articleTypeDicKey;
@@ -59,7 +61,7 @@ public class ArticleAction {
     @Config("articleStatus.checked")
     private String articleChecked;
 
-    @Get()
+    @Get("")
     @MenuMapping(url = "/article",name = "文章管理",code = "dt_article",parentCode = "dt")
     public ModelAndView showOrderPage(){
         return new ModelAndView("pages/cddtsc/article");
@@ -138,6 +140,50 @@ public class ArticleAction {
         articleService.add(params);
         return WebResponse.build();
     }
+
+    /**
+     * 查看其他文章列表
+     * @param request  typeId
+     * @return
+     */
+    @Get("/article/list.html")
+    public  ModelAndView showArticleList(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("articleTypeDicId", dictionaryService.getDictionaryIdByCode(articleTypeDicKey));
+        params.put("articleType",article);
+        List<Map<String,Object>> article = articleService.list(params);
+        return new ModelAndView("/pages/cddtsc/articleList","articleList",article);
+    }
+
+    /**
+     * 查看新闻列表
+     * @param request  typeId
+     * @return
+     */
+    @Get("/news/list.html")
+    public  ModelAndView showNewsList(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("articleTypeDicId", dictionaryService.getDictionaryIdByCode(articleTypeDicKey));
+        params.put("articleType",news);
+        List<Map<String,Object>> article = articleService.list(params);
+        return new ModelAndView("/pages/cddtsc/articleList","articleList",article);
+    }
+
+    /**
+     * 查看文章列表
+     * @param request  typeId
+     * @return
+     */
+    @Get("/joinUs/list.html")
+    public  ModelAndView showJoinUsList(HttpServletRequest request,@WebUser User user){
+        Map<String,Object> params = ParamUtils.getAllParamMapFromRequest(request);
+        params.put("articleTypeDicId", dictionaryService.getDictionaryIdByCode(articleTypeDicKey));
+        params.put("articleType",joinUs);
+        List<Map<String,Object>> article = articleService.list(params);
+        return new ModelAndView("/pages/cddtsc/articleList","articleList",article);
+    }
+
+
 
     /**
      * 查看文章详情

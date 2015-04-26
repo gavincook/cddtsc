@@ -22,6 +22,9 @@
         <if test="userId!=null">
             AND da.userId = #{userId}
         </if>
+        <if test="articleType!=null">
+            AND da.type = #{articleType}
+        </if>
         GROUP BY da.id
         ORDER BY
         da.time desc

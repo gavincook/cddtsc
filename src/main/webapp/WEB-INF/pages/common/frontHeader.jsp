@@ -23,7 +23,7 @@
                   </span>
                 </a>
 
-                <a href="${pageContext.request.contextPath}/index.html">帮助中心</a>
+                <a href="${pageContext.request.contextPath}/article/article/list.html">帮助中心</a>
                 <a href="${pageContext.request.contextPath}/index.html">关于我们</a>
 
                 <c:if test="${sessionScope.CURRENT_USER_ID != null }">

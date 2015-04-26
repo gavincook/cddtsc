@@ -410,7 +410,10 @@ var moon = moon || {};
 		"userType.groupLeader":2,
 		"userType.supplier":3,
 		"userType.manager":4,
-		"userType.superManager":5
+		"userType.superManager":5,
+		"articleType.default":1,
+		"articleType.news":2,
+		"articleType.joinUs":3
     }
 	/** ************* 私有方法 ********************** */
 
