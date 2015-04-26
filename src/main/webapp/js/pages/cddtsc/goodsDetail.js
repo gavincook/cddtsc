@@ -75,7 +75,7 @@
 
     function changeShopCartNumber(event,plus){
         var $numberDiv = $(event.target).closest(".number");
-        var $numberBox = $numberDiv.find(".number-box");
+        var $numberBox = $("#goodsNumber");
         var $tr = $numberDiv.closest("tr");
 
         var number = $numberBox.val();

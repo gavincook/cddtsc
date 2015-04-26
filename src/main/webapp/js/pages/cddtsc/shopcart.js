@@ -46,10 +46,10 @@
 
 
     function changeShopCartNumber(event,plus){
-        var $numberDiv = $(event.target).closest(".number");
-        var $numberBox = $numberDiv.find(".number-box");
+        var target = event.target || window.event.srcElement;
+        var $numberDiv = $(target).closest(".number");
+        var $numberBox = $(".number-box",$numberDiv);
         var $tr = $numberDiv.closest("tr");
-
         var number = $numberBox.val();
         if(plus) {
             number = (+number)+1;

@@ -103,6 +103,9 @@
     cursor: pointer;
     margin-bottom: 10px;
 }
+.goods-list-container .container-ul .container-li {
+    *display: inline;
+}
 .goods-list-container .container-ul .container-li > div{
     border:solid 1px #CCC;
 }

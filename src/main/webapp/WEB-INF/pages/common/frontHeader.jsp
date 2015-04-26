@@ -44,9 +44,10 @@
                   <img src="${pageContext.request.contextPath}/css/images/cddtsc/tel.png" width="280" height="55">
                 </span>
       </div>
-        <form class="search-container form-inline" action="${pageContext.request.contextPath}/search.html" style="padding-left: 300px ">
-                <input type="text" class="search-box form-control" name="keyword" value="${keyword}" style="display: table-cell;vertical-align: top;">
-                <button class="search btn btn-info" type="submit" style="display: table-cell;vertical-align: top;">搜&nbsp;索</button>
+        <form class="search-container form-inline" action="${pageContext.request.contextPath}/search.html" >
+                <input type="text" class="search-box form-control" name="keyword" value="${keyword}" style="display:inline-block;vertical-align: middle;">
+                <button class="search btn btn-info" type="submit" style="display:inline-block;vertical-align: middle;">搜&nbsp;索</button>
+                <span style="height: 100%;display: inline-block;width: 0px;vertical-align: middle;"></span>
         </form>
     </div>
   </div>

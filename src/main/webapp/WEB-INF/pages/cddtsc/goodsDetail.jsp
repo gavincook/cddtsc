@@ -36,15 +36,15 @@
             </c:forEach>
         </div>
         <div class="goods-buy">
-            <span>购买数量：&nbsp;</span>
-            <div class="number">
-                <div class="input-group">
-                    <span class="input-group-addon btn minus">-</span>
-                    <input type="text" class="form-control number-box" value="1" id="goodsNumber">
-                    <span class="input-group-addon  btn plus">+</span>
+            <span style="*display: inline">购买数量：&nbsp;</span>
+            <div class="number" style="*display: inline">
+                <div class="input-group"  style="*display: inline;white-space: nowrap;float: none;">
+                    <span class="input-group-addon btn minus" style="*display: inline;float: none;box-sizing: content-box;vertical-align: middle">-</span>
+                    <input type="text" class="form-control number-box" value="1" id="goodsNumber" style="zoom:1;*display: inline;float: none;width: 30px;box-sizing: content-box;vertical-align: middle;height: 20px;">
+                    <span class="input-group-addon  btn plus" style="*display: inline; float: none;box-sizing: content-box;vertical-align: middle">+</span>
                 </div>
             </div>
-            <span>(库存：${goods.inventory} ${goods.unit})</span>
+            <span style="*display: inline">(库存：${goods.inventory} ${goods.unit})</span>
         </div>
         <div class="goods-add">
             <%--<button class="btn btn-danger buy">立即购买</button>--%>

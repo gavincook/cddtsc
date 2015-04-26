@@ -52,10 +52,10 @@
             <td>{{specification}}</td>
             <td>{{price}}</td>
             <td>
-                <div class="input-group number">
-                    <span class="input-group-addon btn minus">-</span>
-                    <input type="text" class="form-control number-box" value="{{number}}">
-                    <span class="input-group-addon  btn plus">+</span>
+                <div class="input-group number" style="white-space: nowrap;text-align: center">
+                    <span class="input-group-addon btn minus" style="*display: inline;float: none;box-sizing: content-box;vertical-align: middle">-</span>
+                    <input type="text" class="form-control number-box" value="{{number}}" style="zoom:1;*display: inline;float: none;width: 30px;box-sizing: content-box;vertical-align: middle;height: 20px;">
+                    <span class="input-group-addon  btn plus" style="*display: inline; float: none;box-sizing: content-box;vertical-align: middle">+</span>
                 </div>
             </td>
             <td class="subtotal">{{plus number price }}</td>
