@@ -3,10 +3,14 @@
 (function(){
     $(function(){
         var $storeForm = $("#storeForm");
-
+        var pageIndex = 1;
+        var results = /pageIndex=(\d+)/.exec(window.location.href);
+        if(results!=null){
+            pageIndex = +results[1];
+        }
         //显示主页的产品列表
-        $.getJsonData(contextPath+"/goods/listGoodsOnSell").done(function(data){
-            $("#goodsTemplate").renderTemplate(data.result.items,{container:".container-ul"});
+        $.getJsonData(contextPath+"/goods/listGoodsOnSell",{pageSize:16,pageIndex:pageIndex}).done(function(data){
+            $("#goodsTemplate").renderTemplate(data.result,{container:".container-ul"});
         });
 
         //点击某个商品跳转到展示全部正在销售此商品的商品列表页面

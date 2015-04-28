@@ -78,3 +78,18 @@ Handlebars.registerHelper('listUserType', function(data,options) {
 Handlebars.registerHelper('plus', function(var1,var2, options) {
     return ((+var1)*(+var2)).toFixed(2);
 });
+
+Handlebars.registerHelper("renderPagination",function(data,opts){
+    var ret = "";
+    var prevAble = false,nextAble = false;
+    if(data.previousPageIndex < data.currentPageIndex){
+        prevAble = true;
+    }
+    ret += "<button class='btn btn-default page-prev pointer' "+(prevAble?"":"disabled")+" >上一页</button>";
+    pageIndex = data.currentPageIndex;
+    if(data.nextPageIndex > data.currentPageIndex){
+        nextAble = true;
+    }
+    ret += "<button class='btn btn-default page-next pointer' "+(nextAble?"":"disabled")+">下一页</button>";
+    return ret;
+});

@@ -53,7 +53,7 @@
     </div>
 </div>
     <script type="text/html" id="goodsTemplate">
-        {{#each this}}
+        {{#each items}}
         <div class="container-li" data-goods-id="{{goodsId}}">
             <div>
                 <div class="good-img">
@@ -70,6 +70,9 @@
             </div>
         </div>
         {{/each}}
+        <div class="center">
+            {{{renderPagination this}}}
+        </div>
     </script>
 <%--页面底部信息栏--%>
 <%--<div class="service-list wrapper">--%>
