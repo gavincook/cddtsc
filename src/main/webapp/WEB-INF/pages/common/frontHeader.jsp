@@ -86,7 +86,7 @@
                 if(window.location.href.indexOf("pageIndex=")!=-1){
                     window.location.href= window.location.href.replace(/pageIndex=(\d+)/,'pageIndex='+page);
                 }else{
-                    window.location.href= (window.location.href+"&pageIndex="+page.replace(/[&?]{1,2}/,"?"));
+                    window.location.href= (window.location.href+"&pageIndex="+page).replace(/[&?]{1,2}/,"?");
                 }
             }
         });
