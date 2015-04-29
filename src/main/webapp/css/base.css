@@ -393,6 +393,8 @@ body{
     float: left;
     height: 38px;
     padding-top: 10px;
+    position: relative;
+    z-index: 5;
 }
 .page-navigation .header .thead .telephone{
     display: inline-flex;

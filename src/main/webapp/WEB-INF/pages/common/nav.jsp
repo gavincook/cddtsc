@@ -33,7 +33,7 @@
 </script>
 <div class="top-navbar">
     <div class="navbar-header" style="display: inline-block;">
-        <a href="/admin" class="logo-con">
+        <a href="/" class="logo-con">
             <i class="fa fa-heartbeat font-logo"></i>
             <span class="title">成都道通蔬菜</span>
         </a>
