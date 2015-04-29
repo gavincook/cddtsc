@@ -139,4 +139,7 @@ public interface DTUserService extends BaseService {
      * @param userId
      */
     public void updatePrice(Long userId,Double balance);
+
+
+    public void earnPrice(Long userId,Double balance);
 }

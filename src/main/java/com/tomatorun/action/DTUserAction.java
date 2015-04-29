@@ -178,6 +178,7 @@ public class DTUserAction {
         }
         params.put("roleId",systemSettingService.getSetting("role.userType"+userType).get("value"));
         dTUserService.add(params);
+        dTUserService.updatePrice(Long.parseLong(params.get("id")+""),0d);
         return WebResponse.success();
     }
 
@@ -225,6 +226,7 @@ public class DTUserAction {
 
         //添加身份照
         Long id = (Long) params.get("id");
+        dTUserService.updatePrice(id,0d);
         if(Objects.nonNull(attachments) && attachments.length>0){
             for(String attachment:attachments){
                 attachment = URLDecoder.decode(attachment, "UTF-8");//前台进行了路径编码(因为文件名可能含有逗号,会影响数组传值)

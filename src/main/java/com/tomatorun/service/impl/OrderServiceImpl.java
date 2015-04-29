@@ -117,9 +117,14 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
         Double balance = userService.getBalance(userId);
         if(balance > totalPrice){//余额够
             userService.consume(balance-totalPrice,userId);
-            for(Long orderId : orderIds){
-                orderRepository.update(Maps.mapIt("status",undistributeOrderType,"id",orderId));
-            }
+            orders.stream().forEach(order->{
+                orderRepository.update(Maps.mapIt("status",undistributeOrderType,"id",order.get("id")));
+                Double price = Double.valueOf(order.get("totalPrice")+"");
+                Long shopUserId = Long.parseLong(order.get("shopId")+"");
+                Double userBalance = userService.getBalance(shopUserId);
+                userService.updatePrice(shopUserId,price+userBalance);
+            });
+
         }else{
             throw new ApplicationRunTimeException("余额不足，请充值.");
         }

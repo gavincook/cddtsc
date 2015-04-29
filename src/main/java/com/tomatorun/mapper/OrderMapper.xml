@@ -3,7 +3,7 @@
 <mapper namespace="com.tomatorun.repository.OrderRepository">
 <!--用于支付-->
     <select id="list" resultType="HashMap">
-        SELECT id,number,DATE_FORMAT(TIME,'%Y-%m-%d %H:%i:%s') as time,status,
+        SELECT id,number,DATE_FORMAT(TIME,'%Y-%m-%d %H:%i:%s') as time,status,shopId,
         userId,addressId,totalPrice from dt_order
         WHERE 1 = 1
         <if test="userId!=null">

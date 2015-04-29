@@ -41,6 +41,9 @@
     </select>
 
     <insert id="add">
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
         insert  into tab_user(userName,groupLeaderId,password,active,type,realName,roleId)
         values(#{userName},#{groupLeaderId},#{password},true,#{type},#{realName},#{roleId});
     </insert>
@@ -121,5 +124,9 @@
 
     <update id="updateBalance">
         REPLACE INTO dt_balance(userId,balance) VALUES(#{userId},#{balance})
+    </update>
+
+    <update id="earnBalance">
+        update dt_balance set balance = balance + #{balance} where userId = #{userId}
     </update>
 </mapper>
