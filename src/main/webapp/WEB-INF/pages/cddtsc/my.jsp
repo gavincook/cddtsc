@@ -29,7 +29,7 @@
                 </div>
                 <div class="balance">
                     <span class="balance-label">余额</span>
-                    <span class="balance-num"><i class="fa fa-rmb"></i> 999.5</span>
+                    <span class="balance-num"><i class="fa fa-rmb"></i> ${balance}</span>
                     <%--<button type="button" class="btn btn-mini btn-danger charge-btn">充值</button>--%>
                 </div>
             </div>

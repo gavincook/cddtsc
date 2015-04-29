@@ -1,10 +1,7 @@
 package com.tomatorun.action;
 
 import com.tomatorun.repository.GoodsRepository;
-import com.tomatorun.service.AttachmentService;
-import com.tomatorun.service.CommentService;
-import com.tomatorun.service.GoodsService;
-import com.tomatorun.service.ShopService;
+import com.tomatorun.service.*;
 import com.tomatorun.sms.SMSService;
 import org.moon.core.domain.DomainLoader;
 import org.moon.core.spring.config.annotation.Config;
@@ -58,6 +55,9 @@ public class IndexAction {
 
     @Resource
     private ShopService shopService;
+
+    @Resource
+    private DTUserService userService;
     /**
      * show the index.html page
      * @return
@@ -148,7 +148,8 @@ public class IndexAction {
     @Get("/my_daotong.html")
     @LoginRequired
     public ModelAndView showMyPage(@WebUser User user){
-        return new ModelAndView("pages/cddtsc/my_daotong","user",user.toAllMap()).addObject("shop",shopService.getForUser(user.getId()));
+        return new ModelAndView("pages/cddtsc/my_daotong","user",user.toAllMap())
+            .addObject("shop",shopService.getForUser(user.getId())).addObject("balance",userService.getBalance(user.getId()));
     }
 
     @Get("/category_{id}.html")

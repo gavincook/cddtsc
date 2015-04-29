@@ -97,7 +97,8 @@ public class DTUserAction {
     @Get("/my")
     @MenuMapping(name = "个人信息", url = "/user/my" , code = "dt_my" , parentCode = "dt")
     public ModelAndView showMyInfoPage(@WebUser User user){
-        return new ModelAndView("pages/cddtsc/my","user",user.toAllMap()).addObject("shop",shopService.getForUser(user.getId()));
+        return new ModelAndView("pages/cddtsc/my","user",user.toAllMap())
+            .addObject("balance", dTUserService.getBalance(user.getId())).addObject("shop",shopService.getForUser(user.getId()));
     }
     /**
      * 获取审核列表，管理员获取小组长列表，小组长获取该小组的组员
