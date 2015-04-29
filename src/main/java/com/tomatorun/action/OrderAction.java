@@ -229,7 +229,7 @@ public class OrderAction {
             shopcartList.stream().forEach(shopcart -> {
                 orderDetailService.add(Maps.mapIt("orderId", orderId,
                         "purchaseNumber", shopcart.getNumber(), "userGoodsId", shopcart.getUserGoodsId()));
-                //shopcartService.delete(shopcart.getId());
+                shopcartService.delete(shopcart.getId());
             });
         }
 

@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public interface OrderRepository {
 
-    public Map<String,Object> get(Map<String, Object> params);
+    public Map<String,Object> getWidthShop(Map<String, Object> params);
 
     public List<Map<String,Object>> list(Map<String, Object> params);
 

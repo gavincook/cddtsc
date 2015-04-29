@@ -15,7 +15,7 @@
                     window.location.href = contextPath+"/order/list_bought_items.html";
                 }else{
                     if(data.result) {
-                        moon.error(data.result.errMsg);
+                        moon.error(data.result.errMsg || data.result.replace("org.moon.exception.ApplicationRunTimeException:",""));
                     }else{
                         moon.error(data.throwable.localizedMessage);
                     }

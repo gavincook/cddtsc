@@ -40,6 +40,6 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver implements 
                 return new ModelAndView("pages/accessError", "errorMsg", ex.getLocalizedMessage());
             }
         }
-        return null;
+        return new ModelAndView();
     }
 }

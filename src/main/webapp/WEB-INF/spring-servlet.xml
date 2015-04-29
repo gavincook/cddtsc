@@ -37,7 +37,7 @@
     <!--开启扫描MenuMapping和PermissionMapping注解处理-->
 	<bean class="org.moon.core.init.DomainAnnotationScanner"/>
     <!--异常捕获处理-->
-	<bean class="org.moon.core.spring.ExceptionHandler"></bean>
+	<bean class="org.moon.core.spring.ExceptionHandler" p:order="-1"></bean>
 
 	 <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">

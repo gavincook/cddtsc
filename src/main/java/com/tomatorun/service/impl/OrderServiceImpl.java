@@ -52,7 +52,7 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Override
     public Map<String, Object> get(Map<String,Object> params) {
-        return orderRepository.get(params);
+        return orderRepository.getWidthShop(params);
     }
 
     @Override

@@ -87,9 +87,15 @@
         update dt_order set flag = #{order.flag} where id = #{order.id}
     </update>
 
-    <select id="get" resultType="HashMap">
+    <select id="getWidthShop" resultType="HashMap">
         SELECT doe.*,ds.name
         FROM  dt_order doe join dt_shop ds on doe.shopId = ds.userId
+        where doe.id = #{id}
+    </select>
+
+    <select id="get" resultMap="order">
+        SELECT doe.*
+        FROM  dt_order doe
         where doe.id = #{id}
     </select>
 
