@@ -114,7 +114,15 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
         if(orders.size()!=orderIds.length){
             throw new ApplicationRunTimeException("参数非法");
         }
+
+        List<Map<String,String>> goods = orderRepository.getInsufficientGoodsForOrder(orderIds);
+        if(goods.size()>0){
+            throw new ApplicationRunTimeException("对不起,您购买的"+goods.get(0).get("name")+"库存不足.");
+        }else{
+            orderRepository.consumeInventory(orderIds);
+        }
         Double balance = userService.getBalance(userId);
+
         if(balance > totalPrice){//余额够
             userService.consume(balance-totalPrice,userId);
             orders.stream().forEach(order->{

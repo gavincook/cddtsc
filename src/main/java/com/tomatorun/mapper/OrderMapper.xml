@@ -99,6 +99,31 @@
         where doe.id = #{id}
     </select>
 
+    <select id="getInsufficientGoodsForOrder" resultType="HashMap">
+        SELECT
+        dg.name
+        FROM `dt_order_detail` dod
+        JOIN `dt_user_goods`  dug
+        ON dod.userGoodsId = dug.id
+        JOIN dt_goods dg
+        ON dg.id = dug.goodsId
+        WHERE orderId in 
+         <foreach collection="orderIds" open="(" close=")" separator="," item="orderId">
+             #{orderId}
+         </foreach>
+         AND inventory &lt; purchaseNumber
+    </select>
+    
+    <update id="consumeInventory">
+        UPDATE dt_user_goods dug,dt_order_detail dod
+        SET dug.inventory = dug.inventory - dod.purchaseNumber
+        WHERE dod.userGoodsId = dug.id
+        AND dod.orderId in
+        <foreach collection="orderIds" open="(" close=")" separator="," item="orderId">
+            #{orderId}
+        </foreach>
+    </update>
+
     <resultMap id="order" type="com.tomatorun.dto.Order">
         <result column="id" javaType="Long" property="id"></result>
         <result column="userId" javaType="Long" property="userId"></result>

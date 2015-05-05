@@ -25,4 +25,17 @@ public interface OrderRepository {
 
     public void updateFlag(@Param("order")Order order);
 
+    /**
+     * 获取是否有库存不足的商品
+     * @param orderIds
+     * @return
+     */
+    public List<Map<String,String>> getInsufficientGoodsForOrder(@Param("orderIds")Long[] orderIds);
+
+    /**
+     * 消耗库存
+     * @param orderIds
+     */
+    public void consumeInventory(@Param("orderIds")Long[] orderIds);
+
 }
